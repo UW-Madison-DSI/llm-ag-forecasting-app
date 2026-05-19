@@ -10,6 +10,7 @@ from features.config import (
     CLASS_ORDER,
     MAP_DEFAULT_HEIGHT,
     MAP_DEFAULT_MARKER_SIZE,
+    MAP_STYLE,
     WI_CENTER,
 )
 
@@ -81,21 +82,33 @@ def build_map(
     fig.update_traces(
         mode="markers+text",
         textposition="middle center",
-        marker=dict(size=marker_size, opacity=0.9),
-        textfont=dict(size=int(marker_size * 0.55)),
+        marker=dict(size=marker_size, opacity=0.95, allowoverlap=True),
+        textfont=dict(size=int(marker_size * 0.55), color="white"),
     )
     fig.update_layout(
-        mapbox_style="open-street-map",
+        # Basemap style is configurable in features/config.py (MAP_STYLE).
+        mapbox_style=MAP_STYLE,
         mapbox_center=WI_CENTER,
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
         legend=dict(
-            title_text=f"{disease_label} risk",
+            title=dict(
+                text=f"<b>{disease_label}</b><br><span style='font-size:11px;color:#6b7280'>risk level</span>",
+                font=dict(size=14, color="#111827"),
+            ),
             orientation="v",
             yanchor="top",
             y=0.99,
             xanchor="left",
             x=0.01,
-            bgcolor="rgba(255,255,255,0.85)",
+            # Solid white panel so labels never compete with the basemap.
+            bgcolor="rgba(255,255,255,0.98)",
+            bordercolor="rgba(17,24,39,0.25)",
+            borderwidth=1,
+            font=dict(size=13, color="#111827", family="Inter, Arial, sans-serif"),
+            itemsizing="constant",  # uniform legend icons regardless of marker size
+            itemwidth=40,
+            tracegroupgap=4,
         ),
+        paper_bgcolor="rgba(0,0,0,0)",
     )
     return fig

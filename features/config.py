@@ -28,34 +28,44 @@ MODEL_INFO_TTL_SECONDS = 7 * 86_400
 # "About this model" panel will pick it up automatically.
 DISEASE_OPTIONS = {
     "Tar Spot (corn)": {
+        "type": "disease",
         "risk_field": "tarspot_risk",
         "class_field": "tarspot_risk_class",
         "model_name": "tarspot",
     },
     "Gray Leaf Spot (corn)": {
+        "type": "disease",
         "risk_field": "gls_risk",
         "class_field": "gls_risk_class",
         "model_name": "gls_risk",
     },
     "Frogeye Leaf Spot (soybean)": {
+        "type": "disease",
         "risk_field": "fe_risk",
         "class_field": "fe_risk_class",
         "model_name": "frogeye_leaf_spot",
     },
     "White Mold — Non-irrigated (soybean)": {
+        "type": "disease",
         "risk_field": "whitemold_nirr_risk",
         "class_field": "whitemold_nirr_risk_class",
         "model_name": "whitemold_non_irrigated",
     },
     "White Mold — Irrigated 30in (soybean)": {
+        "type": "disease",
         "risk_field": "whitemold_irr_30in_risk",
         "class_field": "whitemold_irr_30in_class",
         "model_name": "whitemold_irrigated",
     },
     "White Mold — Irrigated 15in (soybean)": {
+        "type": "disease",
         "risk_field": "whitemold_irr_15in_risk",
         "class_field": "whitemold_irr_15in_class",
         "model_name": "whitemold_irrigated",
+    },
+    "Cereal Rye Biomass": {
+        "type": "biomass",
+        "model_name": "cereal_rye_biomass",
     },
 }
 
@@ -75,6 +85,14 @@ CLASS_ORDER = ["High", "Moderate", "Low", "No Risk", "Inactive", "Unknown"]
 
 # Default map center: roughly the geographic middle of Wisconsin.
 WI_CENTER = {"lat": 44.6, "lon": -89.7}
+
+# Basemap tile style. No Mapbox token required for any of these.
+# Swap this single value to try a different look:
+#   "open-street-map"   -- classic, colorful, roads + towns + lakes (current)
+#   "carto-positron"    -- clean light gray, minimal labels
+#   "carto-darkmatter"  -- dark mode, makes risk colors pop
+#   "white-bg"          -- pure white, no basemap at all
+MAP_STYLE = "open-street-map"
 
 # Default station map height (pixels). Users can override in the
 # sidebar's "Map style" expander.
@@ -106,3 +124,24 @@ WEATHER_DEFAULT_DAYS = 30
 # How many days of forecast to show in the Risk Trends tab. The API
 # accepts 1–7 via the ``risk_days`` query param.
 RISK_TRENDS_DAYS = 7
+
+# Wiscopy fields pulled for the cereal rye biomass workflow.
+# Confirmed working names — swap here if your wiscopy install differs.
+BIOMASS_TEMP_FIELD = "daily_air_temp_f_avg"
+BIOMASS_PRECIP_FIELD = "daily_rain_in_tot"
+
+# Default fall planting date used by the biomass workflow (month, day).
+BIOMASS_DEFAULT_PLANT_MONTH = 9
+BIOMASS_DEFAULT_PLANT_DAY = 15
+
+# Fallback fall precipitation (mm) used only when daily precip from
+# wiscopy is unavailable.
+BIOMASS_DEFAULT_PRECIP_MM = 200.0
+
+# Biomass risk classification thresholds (lb/ac). Tune to taste — the
+# map and metric tiles use these to bucket each station's prediction.
+# Anything below LOW → "Low", LOW..HIGH → "Moderate", above HIGH → "High".
+BIOMASS_THRESHOLDS = {
+    "low_max": 500.0,     # lb/ac — upper bound of "Low" bucket
+    "high_min": 1500.0,   # lb/ac — lower bound of "High" bucket
+}

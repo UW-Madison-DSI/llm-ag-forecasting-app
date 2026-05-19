@@ -1,0 +1,24 @@
+# Streamlit's native theme — applied to all built-in widgets
+# (buttons, inputs, sidebar, tabs, metrics, expanders, etc.).
+#
+# For anything Streamlit doesn't expose here — custom metric tiles,
+# tab pill styling, section dividers, expander headers — see
+# features/theme.py, which injects scoped CSS to fill the gaps.
+#
+# Brand reference:  UW–Madison Badger Red  #C5050C
+#                   UW–Madison Anchor      #9B0000
+
+[theme]
+base = "light"
+primaryColor = "#C5050C"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F4F4F5"
+textColor = "#111827"
+font = "sans serif"
+
+[server]
+# Make file watcher friendlier for large projects.
+fileWatcherType = "auto"
+
+[browser]
+gatherUsageStats = false
