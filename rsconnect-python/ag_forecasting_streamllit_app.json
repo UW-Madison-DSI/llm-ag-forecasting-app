@@ -1,0 +1,12 @@
+{
+    "https://connect.doit.wisc.edu/": {
+        "server_url": "https://connect.doit.wisc.edu/",
+        "filename": "/Users/mariaoros/Documents/DataScienceInstitute/2026/ag_forecasting_streamllit_app",
+        "app_url": "https://connect.doit.wisc.edu/ag_forecasting_ap_v2/",
+        "app_id": "963d227e-6aeb-48c6-a354-307b77a38d83",
+        "app_guid": "963d227e-6aeb-48c6-a354-307b77a38d83",
+        "title": "ag_forecasting_streamllit_app",
+        "app_mode": "python-streamlit",
+        "app_store_version": 1
+    }
+}
