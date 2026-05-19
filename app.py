@@ -480,15 +480,13 @@ def _show_biomass_metrics(df: pd.DataFrame) -> None:
 
 
 def render_biomass_forecast_tab(selected_date: date, model_name: str) -> None:
-    """Render the Forecast tab when 'Cereal Rye Biomass' is selected.
+    """Forecast tab when 'Cereal Rye Biomass' is selected — single-station inference.
 
-    Pipeline per render:
-        1. Pull the station roster from a recent cached forecast.
-        2. Pull daily temp + daily precip from wiscopy for every station
-           in one batched call.
-        3. Run :func:`biomass_per_station` to get one prediction per station.
-        4. Bucket predictions with :data:`BIOMASS_THRESHOLDS` so the same
-           map / metric tiles built for disease risk apply unchanged.
+    Lets the user pick one station and inspect the full inference pipeline:
+    raw weather sample, daily Tavg, cumulative GDD, cumulative precip, and
+    the final biomass prediction at the forecasting date. Useful both as a
+    sanity check and as the per-field debug entry point before we scale
+    back up to a multi-station map.
     """
     if not wiscopy_available():
         st.warning(
@@ -497,54 +495,7 @@ def render_biomass_forecast_tab(selected_date: date, model_name: str) -> None:
         )
         return
 
-    # Inputs row.
-    col_l, col_m, col_r, col_b = st.columns([2, 2, 2, 1])
-    with col_l:
-        plant_default = date(
-            date.today().year, BIOMASS_DEFAULT_PLANT_MONTH, BIOMASS_DEFAULT_PLANT_DAY
-        )
-        if plant_default > selected_date:
-            plant_default = plant_default.replace(year=plant_default.year - 1)
-        plant_date = st.date_input(
-            "Planting date",
-            value=plant_default,
-            key="biomass_map_plant_date",
-            help="Day cereal rye was (or will be) seeded. Used as DOY in the model.",
-        )
-    with col_m:
-        fall_precip_mm = st.number_input(
-            "Fall precip fallback (mm)",
-            min_value=0.0,
-            max_value=2000.0,
-            value=float(BIOMASS_DEFAULT_PRECIP_MM),
-            step=10.0,
-            key="biomass_map_precip",
-            help="Used only when wiscopy doesn't return a precipitation series.",
-        )
-    with col_r:
-        use_real_precip = st.checkbox(
-            "Use actual precip from wiscopy",
-            value=True,
-            key="biomass_map_use_precip",
-            help=f"Pull '{BIOMASS_PRECIP_FIELD}' instead of using the fallback constant.",
-        )
-    with col_b:
-        batch_size = st.number_input(
-            "Batch size",
-            min_value=1,
-            max_value=80,
-            value=5,
-            step=1,
-            key="biomass_batch_size",
-            help="Stations fetched per wiscopy call. Smaller = faster first render, "
-                 "but more total round-trips.",
-        )
-
-    if plant_date >= selected_date:
-        st.warning("Planting date must be before the forecasting date.")
-        return
-
-    # 1. Station roster from the forecasting API (already disk-cached).
+    # 1. Station roster from the (already disk-cached) forecasting API.
     try:
         payload = fetch_forecast(selected_date.isoformat(), 1)
     except requests.RequestException as err:
@@ -562,257 +513,179 @@ def render_biomass_forecast_tab(selected_date: date, model_name: str) -> None:
         zip(stations_df["station_id"].astype(str), stations_df["station_name"].astype(str))
     )
 
-    wisc_names = sorted(set(stations_df["__wisc_name"].tolist()))
-    fields = (BIOMASS_TEMP_FIELD, BIOMASS_PRECIP_FIELD) if use_real_precip else (BIOMASS_TEMP_FIELD,)
-    low_max = BIOMASS_THRESHOLDS["low_max"]
-    high_min = BIOMASS_THRESHOLDS["high_min"]
+    # 2. Inputs.
+    label_to_row = {
+        f"{r['station_name']} ({r['station_id']})": r
+        for _, r in stations_df.iterrows()
+    }
+    default_idx = next(
+        (i for i, label in enumerate(label_to_row) if "arlington" in label.lower()), 0
+    )
 
-    # Placeholders for progressive updates. ``content_slot.container()``
-    # lets us replace the whole metrics+map+table block in one shot per
-    # batch — no DOM stacking, no flicker.
-    progress_bar = st.progress(0.0)
-    status_slot = st.empty()
-    content_slot = st.empty()
-
-    all_results: list[pd.DataFrame] = []
-    n_total = len(wisc_names)
-
-    for batch_start in range(0, n_total, batch_size):
-        batch = wisc_names[batch_start : batch_start + batch_size]
-        loaded_so_far = min(batch_start + len(batch), n_total)
-        status_slot.markdown(
-            f"Loading **{loaded_so_far}/{n_total}** stations — current batch: "
-            f"`{', '.join(batch)}`"
+    col_s, col_p, col_pr, col_use = st.columns([2, 2, 2, 2])
+    with col_s:
+        station_label = st.selectbox(
+            "Station", options=list(label_to_row.keys()), index=default_idx,
+            key="biomass_single_station",
+        )
+    with col_p:
+        plant_default = date(
+            date.today().year, BIOMASS_DEFAULT_PLANT_MONTH, BIOMASS_DEFAULT_PLANT_DAY
+        )
+        if plant_default > selected_date:
+            plant_default = plant_default.replace(year=plant_default.year - 1)
+        plant_date = st.date_input(
+            "Planting date", value=plant_default, key="biomass_single_plant",
+            help="Day cereal rye was (or will be) seeded. Used as DOY in the model.",
+        )
+    with col_pr:
+        fall_precip_mm = st.number_input(
+            "Fall precip fallback (mm)", min_value=0.0, max_value=2000.0,
+            value=float(BIOMASS_DEFAULT_PRECIP_MM), step=10.0,
+            key="biomass_single_precip",
+            help="Used only when wiscopy doesn't return a precip series.",
+        )
+    with col_use:
+        use_real_precip = st.checkbox(
+            "Use actual precip from wiscopy", value=True,
+            key="biomass_single_use_precip",
+            help=f"Pull '{BIOMASS_PRECIP_FIELD}' instead of using the fallback constant.",
         )
 
-        try:
-            weather = fetch_weather_data(
-                tuple(batch), plant_date.isoformat(), selected_date.isoformat(), fields,
-            )
-        except Exception as err:  # noqa: BLE001 — wiscopy raises various
-            status_slot.error(
-                f"Batch starting at `{batch[0]}` failed: {err}. "
-                "Continuing with remaining batches."
-            )
-            weather = None
-
-        if weather is not None and not weather.empty:
-            try:
-                bio = biomass_per_station(
-                    weather, plant_date,
-                    temp_field=BIOMASS_TEMP_FIELD,
-                    precip_field=BIOMASS_PRECIP_FIELD if use_real_precip else None,
-                    fall_precip_mm=None if use_real_precip else fall_precip_mm,
-                )
-            except Exception as err:  # noqa: BLE001
-                status_slot.error(f"Could not compute biomass for batch: {err}")
-                bio = pd.DataFrame()
-            if not bio.empty:
-                all_results.append(bio)
-
-        # Merge running results and re-render.
-        if all_results:
-            running = pd.concat(all_results, ignore_index=True)
-            merged = stations_df.merge(
-                running, left_on="__wisc_name", right_on="station_id",
-                how="left", suffixes=("", "_bio"),
-            )
-            merged["risk_class"] = merged["biomass_pred"].apply(
-                lambda v: classify_biomass(v, low_max, high_min)
-            )
-            merged["risk_value"] = merged["biomass_pred"]
-            merged["risk_display"] = merged["biomass_pred"].apply(
-                lambda v: "n/a" if pd.isna(v) else f"{v:,.0f} lb/ac"
-            )
-
-            with content_slot.container():
-                _show_biomass_metrics(merged)
-                st.plotly_chart(
-                    build_map(merged, "Cereal Rye Biomass"),
-                    use_container_width=True,
-                )
-
-        progress_bar.progress(loaded_so_far / n_total)
-
-    progress_bar.empty()
-    status_slot.empty()
-
-    if not all_results:
-        st.warning("Model produced no predictions for any station.")
+    if plant_date >= selected_date:
+        st.warning("Planting date must be before the forecasting date.")
         return
 
-    # Final render — the loop already painted the latest state into
-    # ``content_slot``; here we add the "About" expander + data table
-    # below it (these don't need progressive updates).
-    running = pd.concat(all_results, ignore_index=True)
-    merged = stations_df.merge(
-        running, left_on="__wisc_name", right_on="station_id",
-        how="left", suffixes=("", "_bio"),
-    )
-    merged["risk_class"] = merged["biomass_pred"].apply(
-        lambda v: classify_biomass(v, low_max, high_min)
-    )
+    # 3. Wiscopy probe — small, useful when things break.
+    with st.expander("🔧 Wiscopy probe (debug)", expanded=False):
+        if st.button("Run probe with current inputs", key="biomass_probe_btn"):
+            try:
+                probe = fetch_weather_data(
+                    ("maple", "arlington"),
+                    plant_date.isoformat(), selected_date.isoformat(),
+                    (BIOMASS_TEMP_FIELD, BIOMASS_PRECIP_FIELD),
+                )
+            except Exception as err:  # noqa: BLE001
+                st.error(f"**{type(err).__name__}**: {str(err).strip() or repr(err)}")
+            else:
+                if probe is None or probe.empty:
+                    st.warning("Probe returned an empty DataFrame.")
+                else:
+                    st.success(f"Probe OK — {len(probe):,} rows. Columns: {list(probe.columns)}")
+                    st.dataframe(probe.head(20), use_container_width=True)
 
-    with st.expander("📖 About this model — Cereal Rye Biomass", expanded=False):
-        st.markdown(
-            "**Cereal rye biomass** is predicted via the NLS model from Ben Bradford "
-            "(2026-05-15), with inputs:\n\n"
-            "- **Planting day of year** — derived from the planting date above.\n"
-            f"- **Fall precipitation (mm)** — cumulative `{BIOMASS_PRECIP_FIELD}` from "
-            f"wiscopy if available, else the fallback constant.\n"
-            f"- **Cumulative GDD (base 0 °C)** — derived from daily `{BIOMASS_TEMP_FIELD}`.\n\n"
-            "The map buckets predictions using `BIOMASS_THRESHOLDS` in "
-            "`features/config.py`: below "
-            f"**{low_max:.0f} lb/ac** is Low, between {low_max:.0f}–{high_min:.0f} "
-            f"is Moderate, above **{high_min:.0f}** is High."
-        )
+    # 4. Fetch weather for the chosen station.
+    chosen = label_to_row[station_label]
+    wisc_id = str(chosen["__wisc_name"])
+    fields = (BIOMASS_TEMP_FIELD, BIOMASS_PRECIP_FIELD) if use_real_precip else (BIOMASS_TEMP_FIELD,)
 
-    with st.expander("Station data table"):
-        cols = [
-            "station_id", "station_name", "city", "county", "region",
-            "latitude", "longitude", "biomass_pred", "gdd_total",
-            "precip_total_mm", "risk_class", "last_observed",
-        ]
-        cols = [c for c in cols if c in merged.columns]
-        st.dataframe(
-            merged[cols].sort_values("biomass_pred", ascending=False, na_position="last"),
-            use_container_width=True,
-        )
-
-    st.caption(
-        f"Loaded {len(merged.dropna(subset=['biomass_pred']))}/{n_total} stations  ·  "
-        f"{datetime.now().strftime('%Y-%m-%d %H:%M')}"
-    )
-
-
-def render_biomass_section() -> None:
-    """Cereal rye biomass forecast — rendered inline in the Forecast tab.
-
-    Pulls hourly temperature from wiscopy for one selected station
-    over planting_date → Dec 31 (clipped to today), accumulates
-    sine-GDD, and runs the NLS biomass model with a user-supplied
-    total fall precipitation (mm). The model wants a single precip
-    total, not a time series, so we keep it as a number input here.
-    """
-    with st.expander("🌾 Cereal rye biomass forecast", expanded=False):
-        if not wiscopy_available():
-            st.info(
-                "The `wiscopy` package is not installed — biomass forecasting unavailable. "
-                "Run `pip install wiscopy` and restart the app to enable it."
-            )
-            return
-
-        station_options: dict[str, str] = st.session_state.get("station_options", {})
-        if not station_options:
-            st.info("Station roster not loaded yet.")
-            return
-
-        label_to_wid = {
-            f"{name} ({sid})": name.lower() for sid, name in station_options.items()
-        }
-
-        col_l, col_m, col_r = st.columns([2, 2, 2])
-        with col_l:
-            station_label = st.selectbox(
-                "Station", options=list(label_to_wid.keys()), key="biomass_station"
-            )
-        with col_m:
-            plant_default = date(
-                date.today().year, BIOMASS_DEFAULT_PLANT_MONTH, BIOMASS_DEFAULT_PLANT_DAY
-            )
-            plant_date = st.date_input(
-                "Planting date",
-                value=plant_default,
-                key="biomass_plant_date",
-                help="Day cereal rye was (or will be) seeded. Used as DOY in the model.",
-            )
-        with col_r:
-            fall_precip_mm = st.number_input(
-                "Fall precip (mm)",
-                min_value=0.0,
-                max_value=2000.0,
-                value=float(BIOMASS_DEFAULT_PRECIP_MM),
-                step=10.0,
-                key="biomass_precip_mm",
-                help="Expected total precipitation between planting and Dec 31. "
-                     "The R model takes a single value, not a daily series.",
-            )
-
-        if not station_label or not plant_date:
-            return
-
-        end_date = date(plant_date.year, 12, 31)
-        if end_date > date.today():
-            end_date = date.today()
-        if end_date <= plant_date:
-            st.warning("Planting date is in the future — no weather to integrate yet.")
-            return
-
-        wid = label_to_wid[station_label]
+    with st.spinner(f"Pulling weather for {wisc_id}…"):
         try:
             weather = fetch_weather_data(
-                (wid,), plant_date.isoformat(), end_date.isoformat(), (BIOMASS_TEMP_FIELD,)
+                (wisc_id,), plant_date.isoformat(), selected_date.isoformat(), fields,
             )
-        except Exception as err:
+        except Exception as err:  # noqa: BLE001
             st.error(
-                f"Could not fetch weather data: {err}. "
-                f"Check `BIOMASS_TEMP_FIELD` in `features/config.py` "
-                f"(currently `{BIOMASS_TEMP_FIELD}`)."
+                f"Could not fetch weather — **{type(err).__name__}**: "
+                f"{str(err).strip() or repr(err)}"
             )
             return
 
-        if weather is None or weather.empty:
-            st.warning("No weather observations returned for these inputs.")
-            return
+    if weather is None or weather.empty:
+        st.warning("No weather observations returned for this station/date range.")
+        return
 
-        try:
-            biomass_df = biomass_timeseries(
-                weather, plant_date,
-                temp_field=BIOMASS_TEMP_FIELD,
-                fall_precip_mm=fall_precip_mm,
-            )
-        except Exception as err:
-            st.error(f"Could not compute biomass: {err}")
-            return
-
-        if biomass_df.empty:
-            st.warning(
-                "Not enough weather data after the planting date to run the model."
-            )
-            return
-
-        final = biomass_df.iloc[-1]
-        days_since = (biomass_df.index[-1] - pd.Timestamp(plant_date)).days
-
-        m1, m2, m3, m4 = st.columns(4)
-        m1.metric("Predicted biomass", f"{float(final['biomass_pred']):,.0f} lb/ac")
-        m2.metric("Cumulative GDD (°C)", f"{float(final['gdd_total']):,.0f}")
-        m3.metric("Fall precip used", f"{fall_precip_mm:,.0f} mm")
-        m4.metric("Days since planting", int(days_since))
-
-        plot_df = biomass_df.reset_index().rename(
-            columns={biomass_df.index.name or "index": "date"}
+    # 5. Run the full pipeline and surface every intermediate value.
+    try:
+        ts = biomass_timeseries(
+            weather, plant_date,
+            temp_field=BIOMASS_TEMP_FIELD,
+            precip_field=BIOMASS_PRECIP_FIELD if use_real_precip else None,
+            fall_precip_mm=None if use_real_precip else fall_precip_mm,
         )
-        fig = px.line(
-            plot_df,
-            x="date",
-            y="biomass_pred",
-            title=f"Cereal rye biomass accumulation — {station_label}",
-            labels={"biomass_pred": "Biomass (lb/ac)", "date": "Date"},
+    except Exception as err:  # noqa: BLE001
+        st.error(
+            f"Could not compute biomass — **{type(err).__name__}**: "
+            f"{str(err).strip() or repr(err)}"
         )
-        fig.update_layout(height=380, margin={"r": 0, "t": 50, "l": 0, "b": 0})
-        st.plotly_chart(fig, use_container_width=True)
+        with st.expander("Raw wiscopy DataFrame (for debugging)", expanded=True):
+            st.write("Columns:", list(weather.columns))
+            st.dataframe(weather.head(50), use_container_width=True)
+        return
 
-        fig_g = px.line(
-            plot_df, x="date", y="gdd_total",
-            title="Cumulative GDD (°C, base 0)",
-            labels={"gdd_total": "GDD (°C·day)", "date": "Date"},
+    if ts.empty:
+        st.warning(
+            "biomass_timeseries returned no rows. Check that the planting date "
+            "falls within the weather window."
         )
-        fig_g.update_layout(height=280, margin={"r": 0, "t": 50, "l": 0, "b": 0})
-        st.plotly_chart(fig_g, use_container_width=True)
+        with st.expander("Raw wiscopy DataFrame (for debugging)", expanded=True):
+            st.write("Columns:", list(weather.columns))
+            st.dataframe(weather.head(50), use_container_width=True)
+        return
 
-        with st.expander("Raw daily data"):
-            st.dataframe(biomass_df, use_container_width=True)
+    final = ts.iloc[-1]
+    plant_doy = plant_date.timetuple().tm_yday
+    last_obs = ts.index[-1]
+    days_since = (pd.Timestamp(last_obs) - pd.Timestamp(plant_date)).days
+    biomass_value = float(final["biomass_pred"])
+    gdd_total = float(final["gdd_total"])
+    precip_total = float(final.get("precip_total_mm", 0.0))
+    risk_class = classify_biomass(biomass_value,
+                                  BIOMASS_THRESHOLDS["low_max"],
+                                  BIOMASS_THRESHOLDS["high_min"])
+    bucket_color = CLASS_COLORS.get(risk_class, "#34495e")
+
+    # 6. Headline result + inputs panel.
+    st.markdown(
+        f"""
+        <div style="padding: 18px 22px; border-radius: 12px;
+                    background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.04));
+                    border-left: 6px solid {bucket_color};">
+            <div style="color:#6b7280; font-size:0.85rem; font-weight:600;
+                        text-transform:uppercase; letter-spacing:0.5px;">
+                Predicted biomass — {chosen['station_name']} ({chosen['station_id']})
+            </div>
+            <div style="font-size:2.6rem; font-weight:800; color:#111827; line-height:1.1;">
+                {biomass_value:,.0f} <span style="font-size:1rem; color:#6b7280; font-weight:600;">lb/ac</span>
+            </div>
+            <div style="margin-top:6px; color:{bucket_color}; font-weight:700;
+                        text-transform:uppercase; letter-spacing:0.4px;">
+                {risk_class} risk bucket
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.write("")  # spacing
+
+    m1, m2, m3, m4 = st.columns(4)
+    _color_tile(m1, "#34495e", "Plant DOY", plant_doy)
+    _color_tile(m2, "#34495e", "Days since planting", days_since)
+    _color_tile(m3, "#34495e", "Cumulative GDD (°C)", f"{gdd_total:,.0f}")
+    _color_tile(
+        m4, "#34495e",
+        "Fall precip (mm)" if use_real_precip else "Fall precip — fallback",
+        f"{precip_total:,.1f}",
+    )
+
+    # 7. Single-station map so it visually anchors the prediction.
+    map_row = stations_df[stations_df["station_id"] == chosen["station_id"]].copy()
+    map_row["risk_class"] = risk_class
+    map_row["risk_value"] = biomass_value
+    map_row["risk_display"] = f"{biomass_value:,.0f} lb/ac"
+    st.plotly_chart(build_map(map_row, "Cereal Rye Biomass"), use_container_width=True)
+
+    # 8. Daily detail (handy for spotting bad GDD / precip days).
+    with st.expander("Daily breakdown", expanded=False):
+        st.dataframe(ts, use_container_width=True)
+
+    with st.expander("Raw wiscopy weather (long-format)", expanded=False):
+        st.write("Columns:", list(weather.columns))
+        st.dataframe(weather.head(50), use_container_width=True)
+
+    st.caption(f"Last observed: {pd.Timestamp(last_obs).date()}  ·  "
+               f"loaded {datetime.now().strftime('%Y-%m-%d %H:%M')}")
 
 
 def main() -> None:
