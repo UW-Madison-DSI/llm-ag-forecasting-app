@@ -17,11 +17,19 @@ from __future__ import annotations
 
 import logging
 from datetime import date
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
-from features.api import fetch_forecast, fetch_model_info
+# Streamlit's @st.cache_data still works here — it just logs a warning
+# about no Streamlit runtime and falls back to in-memory caching, which
+# is exactly what we want for a long-running FastAPI process. Mute the
+# warning so the uvicorn console stays readable.
+logging.getLogger("streamlit.runtime.caching.cache_data_api").setLevel(logging.ERROR)
+
+from features.api import fetch_forecast, fetch_model_info  # noqa: E402
 from features.config import (
     BIOMASS_DEFAULT_PRECIP_MM,
     BIOMASS_PRECIP_FIELD,
@@ -74,6 +82,94 @@ def proxy_model_info(model_name: str = Query(..., min_length=1)):
     if not info:
         raise HTTPException(404, f"No metadata for model `{model_name}`.")
     return info
+
+
+@app.get("/proxy/weather")
+def proxy_weather(
+    station: str = Query(..., min_length=1, description="Wiscopy station id (lowercase name)."),
+    days: int = Query(60, ge=1, le=400),
+    end_date: str | None = Query(None, description="ISO end date; defaults to today."),
+):
+    """Daily Tavg (°F) + precip (in) for one Wisconet station.
+
+    Returns the same shape the bundled `weather` field in latest.json
+    uses, so the frontend can drop it straight into the chart.
+    """
+    if not wiscopy_available():
+        raise HTTPException(503, "wiscopy not installed — weather unavailable.")
+
+    from datetime import timedelta
+    try:
+        end = date.fromisoformat(end_date) if end_date else date.today()
+    except ValueError:
+        raise HTTPException(400, "end_date must be YYYY-MM-DD.")
+    start = end - timedelta(days=days)
+
+    try:
+        df = fetch_weather_data(
+            (station.lower(),),
+            start.isoformat(),
+            end.isoformat(),
+            ("daily_air_temp_f_avg", "daily_rain_in_tot"),
+        )
+    except Exception as err:  # noqa: BLE001
+        raise HTTPException(502, f"wiscopy: {err}")
+
+    empty = {
+        "station": station, "start": start.isoformat(),
+        "tavg_f": [], "precip_in": [],
+    }
+    if df is None or df.empty:
+        return empty
+
+    import pandas as pd  # local import — fastapi process always has pandas
+    if df.index.name:
+        df = df.reset_index()
+
+    field_col = (
+        "standard_name" if "standard_name" in df.columns
+        else "fieldname" if "fieldname" in df.columns
+        else None
+    )
+    if field_col is None or "value" not in df.columns:
+        return empty
+
+    time_col = (
+        "collection_time" if "collection_time" in df.columns
+        else next((c for c in df.columns if pd.api.types.is_datetime64_any_dtype(df[c])),
+                  df.columns[0])
+    )
+    df[time_col] = pd.to_datetime(df[time_col], errors="coerce")
+    if df[time_col].dt.tz is not None:
+        df[time_col] = df[time_col].dt.tz_localize(None)
+    df = df.dropna(subset=[time_col])
+
+    wide = df.pivot_table(index=time_col, columns=field_col, values="value", aggfunc="mean")
+    if wide.index.tz is not None:
+        wide.index = wide.index.tz_localize(None)
+
+    all_dates = pd.date_range(start, end, freq="D")
+    daily = pd.DataFrame(index=all_dates)
+
+    if "daily_air_temp_f_avg" in wide.columns:
+        tavg = wide["daily_air_temp_f_avg"].groupby(wide.index.normalize()).mean()
+        daily["tavg_f"] = tavg.reindex(all_dates)
+    if "daily_rain_in_tot" in wide.columns:
+        prc = wide["daily_rain_in_tot"].groupby(wide.index.normalize()).sum()
+        daily["precip_in"] = prc.reindex(all_dates).fillna(0.0)
+
+    return {
+        "station": station,
+        "start": start.isoformat(),
+        "tavg_f": [
+            round(float(v), 2) if pd.notna(v) else None
+            for v in daily.get("tavg_f", pd.Series([None] * len(all_dates))).tolist()
+        ],
+        "precip_in": [
+            round(float(v), 3) if pd.notna(v) else 0.0
+            for v in daily.get("precip_in", pd.Series([0.0] * len(all_dates))).tolist()
+        ],
+    }
 
 
 @app.get("/proxy/biomass")
@@ -152,3 +248,20 @@ def proxy_biomass(
         "fall_precip_mm": fall_precip_mm,
         "stations": out,
     }
+
+
+# ---------------------------------------------------------------------------
+# Static site mount — served from the same uvicorn process so local dev is a
+# single command (`uvicorn backend.main:app --reload --port 8000`).
+#
+# In production this mount is harmless: nginx (in front of uvicorn) intercepts
+# /, /assets/, /lib/, /data/ before they ever reach FastAPI, so it never
+# actually serves them there.
+#
+# `html=True` makes FastAPI fall back to index.html on directory requests,
+# which is what an SPA-ish single-page site expects.
+# ---------------------------------------------------------------------------
+
+SITE_DIR = Path(__file__).resolve().parent.parent / "site"
+if SITE_DIR.is_dir():
+    app.mount("/", StaticFiles(directory=str(SITE_DIR), html=True), name="site")

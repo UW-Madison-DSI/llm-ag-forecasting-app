@@ -85,10 +85,38 @@ st.caption(
 def sidebar_controls() -> tuple[date, int, str]:
     """Render the sidebar and return the user's current selections.
 
+    The white-mold variants are presented as a single "White Mold (soybean)"
+    entry in the disease dropdown; a sub-radio for irrigation status
+    decides which of the three underlying ``DISEASE_OPTIONS`` keys is used.
+
     Returns:
-        ``(selected_date, risk_days, disease_label)`` chosen by the user.
-        ``disease_label`` is a key into :data:`DISEASE_OPTIONS`.
+        ``(selected_date, risk_days, disease_label)`` — ``disease_label``
+        is a key into :data:`DISEASE_OPTIONS`.
     """
+    # White-mold variants we collapse into one dropdown entry plus a
+    # sub-radio. Order matters: first key is the default radio choice.
+    WHITE_MOLD_VARIANTS = {
+        "Non-irrigated":  "White Mold — Non-irrigated (soybean)",
+        "Irrigated 30in": "White Mold — Irrigated 30in (soybean)",
+        "Irrigated 15in": "White Mold — Irrigated 15in (soybean)",
+    }
+    WHITE_MOLD_LABEL = "White Mold (soybean)"
+
+    # Build the displayed dropdown options: every DISEASE_OPTIONS entry
+    # except the three white-mold rows, plus our consolidated entry.
+    visible_options = [
+        label for label in DISEASE_OPTIONS.keys()
+        if label not in WHITE_MOLD_VARIANTS.values()
+    ]
+    # Slot the consolidated White Mold entry where the first variant
+    # appeared in DISEASE_OPTIONS so the menu order matches config.
+    first_wm_idx = next(
+        (i for i, label in enumerate(DISEASE_OPTIONS.keys())
+         if label in WHITE_MOLD_VARIANTS.values()),
+        len(visible_options),
+    )
+    visible_options.insert(first_wm_idx, WHITE_MOLD_LABEL)
+
     with st.sidebar:
         st.header("Controls")
         selected_date = st.date_input(
@@ -97,7 +125,21 @@ def sidebar_controls() -> tuple[date, int, str]:
             max_value=date.today(),
         )
         risk_days = st.slider("Risk days", min_value=1, max_value=7, value=1)
-        disease_label = st.selectbox("Disease model", list(DISEASE_OPTIONS.keys()))
+        display_label = st.selectbox("Disease model", visible_options)
+
+        # Irrigation sub-radio only renders when White Mold is picked.
+        if display_label == WHITE_MOLD_LABEL:
+            irrigation = st.radio(
+                "Irrigation",
+                options=list(WHITE_MOLD_VARIANTS.keys()),
+                horizontal=False,
+                help="White-mold risk depends on row spacing and irrigation; "
+                     "choose the management scenario that matches the field.",
+            )
+            disease_label = WHITE_MOLD_VARIANTS[irrigation]
+        else:
+            disease_label = display_label
+
         if st.button("🔄 Refresh data"):
             fetch_forecast.clear()
             st.rerun()
@@ -688,8 +730,46 @@ def render_biomass_forecast_tab(selected_date: date, model_name: str) -> None:
                f"loaded {datetime.now().strftime('%Y-%m-%d %H:%M')}")
 
 
+SOURCE_CODE_URL = "https://github.com/UW-Madison-DSI/ag_forecasting_app_v3"
+
+
+def render_footer() -> None:
+    """Page footer: source-code link + acknowledgments.
+
+    Update ``SOURCE_CODE_URL`` to the real repository URL once the
+    repo is public.
+    """
+    st.markdown("---")
+    st.markdown(
+        f"""
+<div style="font-size: 0.85rem; color: #6B7280; line-height: 1.6;">
+  <strong>Source code:</strong>
+  <a href="{SOURCE_CODE_URL}" target="_blank" rel="noopener">
+    {SOURCE_CODE_URL}
+  </a>
+  <br>
+  <strong>Acknowledgments:</strong>
+  Disease risk models developed by
+  <a href="https://plantpath.wisc.edu/" target="_blank" rel="noopener">
+    Dr. Damon Smith</a> and the Plant Pathology group at UW–Madison.
+  Dashboard scaffolding and Ag Forecasting API support by the
+  <a href="https://datascience.wisc.edu/" target="_blank" rel="noopener">
+    Data Science Institute, University of Wisconsin–Madison</a>.
+  Application authored by María Oros (<code>moros2@wisc.edu</code>).
+  <br>
+  <em style="font-size: 0.78rem;">
+    Forecast data sourced from the
+    <a href="https://wisconet.wisc.edu/" target="_blank" rel="noopener">Wisconet</a>
+    weather-station network.
+  </em>
+</div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def main() -> None:
-    """Top-level page composition: sidebar → three content tabs."""
+    """Top-level page composition: sidebar → three content tabs → footer."""
     selected_date, risk_days, disease_label = sidebar_controls()
 
     forecast_tab, trends_tab, weather_tab = st.tabs([
@@ -713,6 +793,8 @@ def main() -> None:
             render_risk_trends_tab(selected_date, disease_label)
     with weather_tab:
         render_weather_tab()
+
+    render_footer()
 
 
 if __name__ == "__main__":

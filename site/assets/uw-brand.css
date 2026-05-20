@@ -343,13 +343,40 @@ main {
 
 .site-footer {
   margin-top: 24px;
-  padding: 16px 28px;
+  padding: 18px 28px;
   border-top: 1px solid var(--border);
   background: var(--surface);
   color: var(--ink-muted);
   font-size: 0.85rem;
+  line-height: 1.55;
 }
 .site-footer .sep { margin: 0 6px; }
+
+.site-footer .footer-row {
+  margin-bottom: 6px;
+}
+.site-footer .footer-row strong {
+  color: var(--ink);
+  font-weight: 600;
+  margin-right: 4px;
+}
+.site-footer .footer-meta {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-style: italic;
+  opacity: 0.85;
+}
+.site-footer a {
+  color: var(--uw-red);
+  text-decoration: none;
+}
+.site-footer a:hover { text-decoration: underline; }
+.site-footer code {
+  font-size: 0.85em;
+  background: var(--surface-alt);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
 
 /* -------------------- Responsive -------------------- */
 

@@ -24,15 +24,44 @@
     return labels;
   }
 
-  function renderWeatherChart(canvasId, series, stationLabel) {
+  // Module-level cache so re-selecting a station re-uses the prior fetch.
+  const proxyCache = new Map();   // station_id_lc → series
+
+  async function fetchWeatherViaProxy(stationKey, days = 240) {
+    if (proxyCache.has(stationKey)) return proxyCache.get(stationKey);
+    try {
+      const url = `/proxy/weather?station=${encodeURIComponent(stationKey)}&days=${days}`;
+      const resp = await fetch(url, { headers: { Accept: "application/json" } });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const series = await resp.json();
+      proxyCache.set(stationKey, series);
+      return series;
+    } catch (err) {
+      console.warn("Weather proxy failed:", err);
+      return null;
+    }
+  }
+
+  async function renderWeatherChart(canvasId, series, stationLabel, stationKey) {
     destroyChart();
     const el = document.getElementById(canvasId);
     if (!el) return;
+    const empty = el.parentElement.querySelector(".weather-empty");
+
+    // If no bundled series for this station, fall back to /proxy/weather.
+    if ((!series || !series.tavg_f || !series.tavg_f.length) && stationKey) {
+      empty.textContent = "Fetching weather…";
+      empty.style.display = "block";
+      const fetched = await fetchWeatherViaProxy(stationKey);
+      if (fetched) series = fetched;
+    }
+
     if (!series || !series.tavg_f || !series.tavg_f.length) {
-      el.parentElement.querySelector(".weather-empty").style.display = "block";
+      empty.textContent = "No weather data available for this station.";
+      empty.style.display = "block";
       return;
     }
-    el.parentElement.querySelector(".weather-empty").style.display = "none";
+    empty.style.display = "none";
 
     const labels = buildDateLabels(series.start, series.tavg_f.length);
 

@@ -94,13 +94,32 @@
   </main>
 
   <footer class="site-footer">
-    <p>
-      Source: UW–Madison Ag Forecasting API + Wisconet
+    <div class="footer-row">
+      <strong>Source code:</strong>
+      <a href="https://github.com/UW-Madison-DSI/ag_forecasting_app_v3"
+         target="_blank" rel="noopener">
+        github.com/UW-Madison-DSI/ag_forecasting_app_v3
+      </a>
+    </div>
+    <div class="footer-row">
+      <strong>Acknowledgments:</strong>
+      Disease risk models developed by
+      <a href="https://plantpath.wisc.edu/" target="_blank" rel="noopener">Dr. Damon Smith</a>
+      and the Plant Pathology group at UW–Madison.
+      Dashboard scaffolding and Ag Forecasting API support by the
+      <a href="https://datascience.wisc.edu/" target="_blank" rel="noopener">
+        Data Science Institute, University of Wisconsin–Madison</a>.
+      Application authored by María Oros (<code>moros2@wisc.edu</code>).
+    </div>
+    <div class="footer-row footer-meta">
+      Forecast data sourced from the
+      <a href="https://wisconet.wisc.edu/" target="_blank" rel="noopener">Wisconet</a>
+      weather-station network
       <span class="sep">·</span>
       Built daily via <code>build_site.py</code>
       <span class="sep">·</span>
       Disease forecasts re-fetched live on date change
-    </p>
+    </div>
   </footer>
 
   <!-- External libs (CDN). -->

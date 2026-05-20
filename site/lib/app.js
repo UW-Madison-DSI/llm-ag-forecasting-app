@@ -309,12 +309,15 @@
   function renderWeatherSection() {
     const sel = document.getElementById("weather-station");
     const key = sel.value;
+    if (!key) return;
     const station = state.snapshot.stations.find(
       (s) => s.name.toLowerCase() === key
     );
     const label = station ? `${station.name} (${station.id})` : key;
     const series = (state.snapshot.weather || {})[key];
-    WIWeather.renderWeatherChart("weather-chart", series, label);
+    // Pass `key` so weather.js can fall back to /proxy/weather when
+    // the bundle is empty or missing this station.
+    WIWeather.renderWeatherChart("weather-chart", series, label, key);
   }
 
   /* -------------------- UI scaffolding -------------------- */
@@ -346,21 +349,21 @@
     const plant = document.getElementById("planting-date-input");
     const status = document.getElementById("date-status");
 
-    // Allowed forecast range:
-    //   min = the start of the weather window (biomass can still compute)
-    //   max = the latest bundled forecast date (= state.forecastDate at boot)
-    // Anything between is fine — bundle hits draw locally, misses try
-    // the live API (and fall back gracefully if CORS blocks it).
-    const window = state.snapshot.weather_window || {};
-    const windowStart = window.start || state.plantDate;
+    // Forecast picker is open to the full upstream-API window. The
+    // proxy hands every request through to connect.doit.wisc.edu, so
+    // any date the API serves works here. Bundled dates (last N days)
+    // load instantly from latest.json; anything else needs ▶ Run.
+    const earliestSupported = "2023-01-01";
+    const today = new Date().toISOString().slice(0, 10);
     fcst.value = state.forecastDate;
-    fcst.min = windowStart;
-    fcst.max = state.forecastDate;
+    fcst.min = earliestSupported;
+    fcst.max = today;
 
-    // Planting must be on/after the weather window start (so we have
-    // temperature data to integrate) and strictly before the forecast.
+    // Planting must be at or after the earliest supported date (so we
+    // can integrate weather from then on) and strictly before the
+    // forecast date.
     plant.value = state.plantDate;
-    plant.min = windowStart;
+    plant.min = earliestSupported;
     plant.max = state.forecastDate;
 
     const dates = state.snapshot.available_dates || [];

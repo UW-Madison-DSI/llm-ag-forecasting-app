@@ -1,6 +1,6 @@
 /* Leaflet map setup + marker rendering for the static dashboard.
-   Mirrors the Streamlit map (carto-positron-ish basemap + emoji
-   station markers colored by risk class). */
+   OpenStreetMap basemap + plain colored circles sized by risk class
+   (Low/Moderate/High). No icon overlay — color is the only signal. */
 
 (function (root) {
   "use strict";
@@ -12,13 +12,14 @@
     const map = L.map(elementId, { zoomControl: true, scrollWheelZoom: true })
       .setView(WI_CENTER, WI_ZOOM);
 
+    // OpenStreetMap classic — vivid colors (roads, water, parks,
+    // towns) so the risk markers really pop against a real basemap.
     L.tileLayer(
-      "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
         attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · ' +
-          '&copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: "abcd",
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        subdomains: "abc",
         maxZoom: 19,
       }
     ).addTo(map);
@@ -30,23 +31,33 @@
   // from collecting orphan markers and avoids stacking.
   let markersLayer = null;
 
-  function makeIcon(color) {
+  // Plain colored circle markers, sized by risk severity so high-risk
+  // sites also read bigger. No emoji overlay — the color is the signal.
+  const SIZE_BY_CLASS = {
+    "High":     26,
+    "Moderate": 22,
+     // anything lower (Low / No Risk / Inactive / Unknown) → 18
+  };
+
+  function markerSize(riskClass) {
+    return SIZE_BY_CLASS[riskClass] || 18;
+  }
+
+  function makeIcon(color, riskClass) {
+    const size = markerSize(riskClass);
     return L.divIcon({
       className: "station-marker",
       html:
         `<div style="
            background:${color};
-           border:2px solid white;
+           border:2.5px solid white;
            border-radius:50%;
-           width:24px;height:24px;
-           display:flex;align-items:center;justify-content:center;
-           font-size:12px;
-           box-shadow:0 1px 3px rgba(0,0,0,0.35);">
-           📡
+           width:${size}px; height:${size}px;
+           box-shadow:0 2px 5px rgba(0,0,0,0.45);">
          </div>`,
-      iconSize: [24, 24],
-      iconAnchor: [12, 12],
-      popupAnchor: [0, -12],
+      iconSize: [size, size],
+      iconAnchor: [size / 2, size / 2],
+      popupAnchor: [0, -(size / 2)],
     });
   }
 
@@ -94,7 +105,7 @@
     stations.forEach((s) => {
       if (s.lat == null || s.lon == null) return;
       const color = colors[s._class] || colors.Unknown || "#bdc3c7";
-      const marker = L.marker([s.lat, s.lon], { icon: makeIcon(color) });
+      const marker = L.marker([s.lat, s.lon], { icon: makeIcon(color, s._class) });
       marker.bindPopup(popupHtml(s, model));
       markersLayer.addLayer(marker);
     });
