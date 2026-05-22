@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-21T15:31:13.622371+00:00",
-  "forecasting_date": "2026-05-20",
+  "generated_at": "2026-05-22T14:43:29.770416+00:00",
+  "forecasting_date": "2026-05-21",
   "plant_date": "2025-09-15",
   "fall_precip_default_mm": 200.0,
   "biomass_thresholds": {
@@ -1860,7 +1860,7 @@
     }
   ],
   "forecasts": {
-    "2026-05-20": [
+    "2026-05-21": [
       {
         "id": "ALTN",
         "name": "Arlington",
@@ -3654,6 +3654,1646 @@
         "whitemold_irr_15in_class": "Inactive",
         "biomass": null,
         "biomass_class": "Unknown"
+      }
+    ],
+    "2026-05-20": [
+      {
+        "id": "ALTN",
+        "name": "Arlington",
+        "lat": 43.2966,
+        "lon": -89.3843,
+        "city": "Arlington",
+        "county": "Columbia County",
+        "region": "South Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "ANGO",
+        "name": "Antigo",
+        "lat": 45.158901,
+        "lon": -89.117798,
+        "city": "Antigo",
+        "county": "Langlade",
+        "region": "Northeast",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "BBCK",
+        "name": "Babcock",
+        "lat": 44.253799,
+        "lon": -90.268997,
+        "city": "Babcock",
+        "county": "Wood",
+        "region": "Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "BCVL",
+        "name": "Blanchardville",
+        "lat": 42.85215,
+        "lon": -89.754089,
+        "city": "Blanchardville",
+        "county": "Green",
+        "region": "South Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "BGHM",
+        "name": "Brigham",
+        "lat": 43.002998,
+        "lon": -89.848503,
+        "city": "Brigham",
+        "county": "Iowa",
+        "region": "Southwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "BKLN",
+        "name": "Brooklyn",
+        "lat": 43.838001,
+        "lon": -89.030403,
+        "city": "Brooklyn",
+        "county": "Green Lake",
+        "region": "Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "BLCR",
+        "name": "Black Creek",
+        "lat": 44.481499,
+        "lon": -88.405899,
+        "city": "Black Creek",
+        "county": "Outagamie",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "BRLN",
+        "name": "Brillion",
+        "lat": 44.104,
+        "lon": -88.051003,
+        "city": "Brillion",
+        "county": "Calumet",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "BSTL",
+        "name": "Bristol",
+        "lat": 42.570999,
+        "lon": -88.044998,
+        "city": "Bristol",
+        "county": "Kenosha",
+        "region": "Southeast",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "BYFD",
+        "name": "Bayfield",
+        "lat": 46.8395,
+        "lon": -91.013603,
+        "city": "Bayfield",
+        "county": "Bayfield",
+        "region": "Northwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "CLLK",
+        "name": "Clear Lake",
+        "lat": 45.285801,
+        "lon": -92.321297,
+        "city": "Clear Lake",
+        "county": "Polk",
+        "region": "Northwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "CNDN",
+        "name": "Crandon",
+        "lat": 45.522598,
+        "lon": -88.923897,
+        "city": "Crandon",
+        "county": "Forest",
+        "region": "Northeast",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "COSP",
+        "name": "Cold Spring",
+        "lat": 42.898701,
+        "lon": -88.737198,
+        "city": "Cold Spring",
+        "county": "Jefferson",
+        "region": "South Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "CREX",
+        "name": "Grantsburg",
+        "lat": 45.884548,
+        "lon": -92.609062,
+        "city": "Grantsburg",
+        "county": "Burnett",
+        "region": "Northwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "CTLR",
+        "name": "Cutler",
+        "lat": 44.026001,
+        "lon": -90.255997,
+        "city": "Camp Douglas",
+        "county": "Juneau",
+        "region": "Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "CVTZ",
+        "name": "Crivitz",
+        "lat": 45.16864,
+        "lon": -87.997787,
+        "city": "Crivitz",
+        "county": "Marinette",
+        "region": "Northeast",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "DEPR",
+        "name": "De Pere",
+        "lat": 44.327999,
+        "lon": -87.966003,
+        "city": "De Pere",
+        "county": "Brown",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "DFRC",
+        "name": "Prairie du Sac",
+        "lat": 43.344799,
+        "lon": -89.7117,
+        "city": "Prairie du Sac",
+        "county": "Sauk",
+        "region": "Southwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "DLTN",
+        "name": "Darlington",
+        "lat": 42.649902,
+        "lon": -90.289154,
+        "city": "Darlington",
+        "county": "Lafayette",
+        "region": "Southwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "DRND",
+        "name": "Durand",
+        "lat": 44.627586,
+        "lon": -91.939346,
+        "city": "Durand",
+        "county": "Pepin",
+        "region": "West Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "DUDA",
+        "name": "Walworth",
+        "lat": 42.527,
+        "lon": -88.639999,
+        "city": "Walworth",
+        "county": "Walworth",
+        "region": "Southeast",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "EGHA",
+        "name": "Egg Harbor",
+        "lat": 45.0509,
+        "lon": -87.259804,
+        "city": "Egg Harbor",
+        "county": "Door",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "FFEC",
+        "name": "Plover",
+        "lat": 44.446098,
+        "lon": -89.520699,
+        "city": "Plover",
+        "county": "Portage",
+        "region": "Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "FLMB",
+        "name": "Flambeau",
+        "lat": 45.775398,
+        "lon": -90.643097,
+        "city": "Flambeau",
+        "county": "Price",
+        "region": "North Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "FRCD",
+        "name": "Fairchild",
+        "lat": 44.609001,
+        "lon": -91.0,
+        "city": "Fairchild",
+        "county": "Eau Claire",
+        "region": "Northwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "GFTN",
+        "name": "Grafton",
+        "lat": 43.2981,
+        "lon": -87.932098,
+        "city": "Grafton",
+        "county": "Ozaukee",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "GLCP",
+        "name": "Porter",
+        "lat": 42.789001,
+        "lon": -89.172997,
+        "city": "Porter",
+        "county": "Rock",
+        "region": "Southern",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "GLSN",
+        "name": "Gleason",
+        "lat": 45.302132,
+        "lon": -89.50415,
+        "city": "Gleason",
+        "county": "Lincoln",
+        "region": "North Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "GMSH",
+        "name": "Grand Marsh",
+        "lat": 43.854332,
+        "lon": -89.777641,
+        "city": "Grand Marsh",
+        "county": "Adams",
+        "region": "Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "GNWD",
+        "name": "Greenwood",
+        "lat": 44.717999,
+        "lon": -90.596603,
+        "city": "Greenwood",
+        "county": "Clark",
+        "region": "North Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "HDMK",
+        "name": "Fence",
+        "lat": 45.755638,
+        "lon": -88.563454,
+        "city": "Fence",
+        "county": "Florence",
+        "region": "Northeast",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "HNCK",
+        "name": "Hancock",
+        "lat": 44.118801,
+        "lon": -89.533302,
+        "city": "Hancock",
+        "county": "Waushara County",
+        "region": "Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "HNTR",
+        "name": "Hunter",
+        "lat": 45.946201,
+        "lon": -91.094704,
+        "city": "Hunter",
+        "county": "Sawyer",
+        "region": "Northwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "HRVR",
+        "name": "Hay River",
+        "lat": 45.084621,
+        "lon": -91.919167,
+        "city": "Hay River",
+        "county": "Dunn",
+        "region": "West Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "IOLA",
+        "name": "Iola",
+        "lat": 44.504025,
+        "lon": -89.024918,
+        "city": "Iola",
+        "county": "Waupaca",
+        "region": "Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "KEMP",
+        "name": "Woodruff",
+        "lat": 45.841,
+        "lon": -89.667801,
+        "city": "Woodruff",
+        "county": "Oneida County",
+        "region": "North Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "KNGT",
+        "name": "Knight",
+        "lat": 46.289001,
+        "lon": -90.435997,
+        "city": "Knight",
+        "county": "Iron",
+        "region": "North Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "KSKM",
+        "name": "Kewaskum",
+        "lat": 43.535099,
+        "lon": -88.252701,
+        "city": "Kewaskum",
+        "county": "Washington",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "KWNE",
+        "name": "Kewaunee",
+        "lat": 44.401798,
+        "lon": -87.664597,
+        "city": "Kewaunee",
+        "county": "Kewaunee",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "LAFG",
+        "name": "La Farge",
+        "lat": 43.597,
+        "lon": -90.625999,
+        "city": "La Farge",
+        "county": "Vernon",
+        "region": "Western",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "LNCT",
+        "name": "Lancaster",
+        "lat": 42.830002,
+        "lon": -90.7882,
+        "city": "Lancaster",
+        "county": "Grant County",
+        "region": "Southwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "LOLK",
+        "name": "Lost Lake",
+        "lat": 43.451145,
+        "lon": -88.977783,
+        "city": "Lost Lake",
+        "county": "Dodge",
+        "region": "South Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "LXBG",
+        "name": "Luxemburg",
+        "lat": 44.556,
+        "lon": -87.654297,
+        "city": "Casco",
+        "county": "Kewaunee",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "MAPL",
+        "name": "Maple",
+        "lat": 46.632702,
+        "lon": -91.681198,
+        "city": "Maple",
+        "county": "Douglas",
+        "region": "Northwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "MNDR",
+        "name": "Mindoro",
+        "lat": 44.030289,
+        "lon": -90.934776,
+        "city": "Mindoro",
+        "county": "La Crosse",
+        "region": "West Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "MNTN",
+        "name": "Montana",
+        "lat": 44.401226,
+        "lon": -91.559906,
+        "city": "Montana",
+        "county": "Buffalo",
+        "region": "West Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "MNWT",
+        "name": "Manitowish Waters",
+        "lat": 46.076,
+        "lon": -89.838303,
+        "city": "Manitowish Waters",
+        "county": "Vilas",
+        "region": "North Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "MRFD",
+        "name": "Marshfield",
+        "lat": 44.7603,
+        "lon": -90.097801,
+        "city": "Marshfield",
+        "county": "Marathon County",
+        "region": "North Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "MTLO",
+        "name": "Montello",
+        "lat": 43.853901,
+        "lon": -89.283798,
+        "city": "Montello",
+        "county": "Marquette",
+        "region": "Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "NASE",
+        "name": "Nasewaupee",
+        "lat": 44.789398,
+        "lon": -87.4561,
+        "city": "Nasewaupee",
+        "county": "Door",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "NBLN",
+        "name": "New Berlin",
+        "lat": 42.976002,
+        "lon": -88.120003,
+        "city": "New Berlin",
+        "county": "Waukesha",
+        "region": "Southeast",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "OJNR",
+        "name": "Verona",
+        "lat": 43.025002,
+        "lon": -89.536697,
+        "city": "Verona",
+        "county": "Dane",
+        "region": "South Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "OSEO",
+        "name": "Osseo",
+        "lat": 44.59,
+        "lon": -91.265999,
+        "city": "Osseo",
+        "county": "Trempealeau",
+        "region": "West Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "PARS",
+        "name": "Sturgeon Bay",
+        "lat": 44.880199,
+        "lon": -87.329597,
+        "city": "Sturgeon Bay",
+        "county": "Door",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "PLYM",
+        "name": "Plymouth",
+        "lat": 43.777199,
+        "lon": -87.9515,
+        "city": "Plymouth",
+        "county": "Sheboygan",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "RCHD",
+        "name": "Richland Center",
+        "lat": 43.369999,
+        "lon": -90.383003,
+        "city": "Richland Center",
+        "county": "Richland",
+        "region": "Southern",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "RIPN",
+        "name": "Ripon",
+        "lat": 43.905602,
+        "lon": -88.846703,
+        "city": "Ripon",
+        "county": "Winnebago",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "RLKE",
+        "name": "Rice Lake",
+        "lat": 45.523331,
+        "lon": -91.844292,
+        "city": "Rice Lake",
+        "county": "Barron",
+        "region": "Northwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "RNLD",
+        "name": "Rhinelander",
+        "lat": 45.654598,
+        "lon": -89.268204,
+        "city": "Rhinelander",
+        "county": "Oneida County",
+        "region": "North Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "RTHR",
+        "name": "Arthur",
+        "lat": 45.032001,
+        "lon": -91.199997,
+        "city": "Arthur",
+        "county": "Chippewa",
+        "region": "Northwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "SHGD",
+        "name": "Shanagolden",
+        "lat": 46.10701,
+        "lon": -90.80793,
+        "city": "Shanagolden",
+        "county": "Ashland",
+        "region": "North Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "SIBA",
+        "name": "Sister Bay",
+        "lat": 45.219101,
+        "lon": -87.0662,
+        "city": "Sister Bay",
+        "county": "Door",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "SMKE",
+        "name": "South Milwaukee",
+        "lat": 42.901299,
+        "lon": -87.851196,
+        "city": "South Milwaukee",
+        "county": "Milwaukee",
+        "region": "Southeast",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "SODO",
+        "name": "Southern Door",
+        "lat": 44.778999,
+        "lon": -87.355598,
+        "city": "Sturgeon Bay",
+        "county": "Door",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "SPNR",
+        "name": "Spooner",
+        "lat": 45.827,
+        "lon": -91.861397,
+        "city": "Spooner",
+        "county": "Washburn County",
+        "region": "Northwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "SRNG",
+        "name": "Suring",
+        "lat": 44.999001,
+        "lon": -88.342697,
+        "city": "Suring",
+        "county": "Oconto",
+        "region": "Northeast",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "STAR",
+        "name": "Soldiers Grove",
+        "lat": 43.378399,
+        "lon": -90.900002,
+        "city": "Soldiers Grove",
+        "county": "Crawford",
+        "region": "Southwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "TCDA",
+        "name": "Taycheedah",
+        "lat": 43.84317,
+        "lon": -88.370872,
+        "city": "Taycheedah",
+        "county": "Fond du Lac",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "UGRV",
+        "name": "Yorkville",
+        "lat": 42.7281,
+        "lon": -88.028,
+        "city": "Union Grove",
+        "county": "Racine",
+        "region": "Southeast",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "UWRF",
+        "name": "River Falls",
+        "lat": 44.842499,
+        "lon": -92.6129,
+        "city": "River Falls",
+        "county": "Pierce",
+        "region": "West Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "VLDR",
+        "name": "Valders",
+        "lat": 44.004398,
+        "lon": -87.8228,
+        "city": "Valders",
+        "county": "Manitowoc",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "WBRO",
+        "name": "Westboro",
+        "lat": 45.31929,
+        "lon": -90.355469,
+        "city": "westboro",
+        "county": "Taylor",
+        "region": "North Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "WCRS",
+        "name": "Black River Falls",
+        "lat": 44.1852,
+        "lon": -90.742798,
+        "city": "Black River Falls",
+        "county": "Jackson",
+        "region": "West Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "WDVL",
+        "name": "Woodville",
+        "lat": 44.943001,
+        "lon": -92.287003,
+        "city": "Woodville",
+        "county": "St. Croix",
+        "region": "West Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "WJPT",
+        "name": "West Jacksonport",
+        "lat": 45.009998,
+        "lon": -87.233498,
+        "city": "West Jacksonport",
+        "county": "Door",
+        "region": "East Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "WKSN",
+        "name": "Wilkinson",
+        "lat": 45.508121,
+        "lon": -91.459503,
+        "city": "Wilkinson",
+        "county": "Rusk",
+        "region": "Northwest",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "WRNS",
+        "name": "Warrens",
+        "lat": 44.116699,
+        "lon": -90.412102,
+        "city": "Warrens",
+        "county": "Monroe",
+        "region": "West Central",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
+      },
+      {
+        "id": "WTBG",
+        "name": "Wittenberg",
+        "lat": 44.866001,
+        "lon": -89.023552,
+        "city": "Wittenberg",
+        "county": "Shawano",
+        "region": "Northeast",
+        "tarspot_risk": -1.0,
+        "tarspot_risk_class": "Inactive",
+        "gls_risk": -1.0,
+        "gls_risk_class": "Inactive",
+        "fe_risk": -1.0,
+        "fe_risk_class": "Inactive",
+        "whitemold_nirr_risk": -1.0,
+        "whitemold_nirr_risk_class": "Inactive",
+        "whitemold_irr_30in_risk": -1.0,
+        "whitemold_irr_30in_class": "Inactive",
+        "whitemold_irr_15in_risk": -1.0,
+        "whitemold_irr_15in_class": "Inactive"
       }
     ],
     "2026-05-19": [
@@ -11855,1656 +13495,16 @@
         "whitemold_irr_15in_risk": -1.0,
         "whitemold_irr_15in_class": "Inactive"
       }
-    ],
-    "2026-05-14": [
-      {
-        "id": "ALTN",
-        "name": "Arlington",
-        "lat": 43.2966,
-        "lon": -89.3843,
-        "city": "Arlington",
-        "county": "Columbia County",
-        "region": "South Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "ANGO",
-        "name": "Antigo",
-        "lat": 45.158901,
-        "lon": -89.117798,
-        "city": "Antigo",
-        "county": "Langlade",
-        "region": "Northeast",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "BBCK",
-        "name": "Babcock",
-        "lat": 44.253799,
-        "lon": -90.268997,
-        "city": "Babcock",
-        "county": "Wood",
-        "region": "Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "BCVL",
-        "name": "Blanchardville",
-        "lat": 42.85215,
-        "lon": -89.754089,
-        "city": "Blanchardville",
-        "county": "Green",
-        "region": "South Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "BGHM",
-        "name": "Brigham",
-        "lat": 43.002998,
-        "lon": -89.848503,
-        "city": "Brigham",
-        "county": "Iowa",
-        "region": "Southwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "BKLN",
-        "name": "Brooklyn",
-        "lat": 43.838001,
-        "lon": -89.030403,
-        "city": "Brooklyn",
-        "county": "Green Lake",
-        "region": "Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "BLCR",
-        "name": "Black Creek",
-        "lat": 44.481499,
-        "lon": -88.405899,
-        "city": "Black Creek",
-        "county": "Outagamie",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "BRLN",
-        "name": "Brillion",
-        "lat": 44.104,
-        "lon": -88.051003,
-        "city": "Brillion",
-        "county": "Calumet",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "BSTL",
-        "name": "Bristol",
-        "lat": 42.570999,
-        "lon": -88.044998,
-        "city": "Bristol",
-        "county": "Kenosha",
-        "region": "Southeast",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "BYFD",
-        "name": "Bayfield",
-        "lat": 46.8395,
-        "lon": -91.013603,
-        "city": "Bayfield",
-        "county": "Bayfield",
-        "region": "Northwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "CLLK",
-        "name": "Clear Lake",
-        "lat": 45.285801,
-        "lon": -92.321297,
-        "city": "Clear Lake",
-        "county": "Polk",
-        "region": "Northwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "CNDN",
-        "name": "Crandon",
-        "lat": 45.522598,
-        "lon": -88.923897,
-        "city": "Crandon",
-        "county": "Forest",
-        "region": "Northeast",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "COSP",
-        "name": "Cold Spring",
-        "lat": 42.898701,
-        "lon": -88.737198,
-        "city": "Cold Spring",
-        "county": "Jefferson",
-        "region": "South Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "CREX",
-        "name": "Grantsburg",
-        "lat": 45.884548,
-        "lon": -92.609062,
-        "city": "Grantsburg",
-        "county": "Burnett",
-        "region": "Northwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "CTLR",
-        "name": "Cutler",
-        "lat": 44.026001,
-        "lon": -90.255997,
-        "city": "Camp Douglas",
-        "county": "Juneau",
-        "region": "Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "CVTZ",
-        "name": "Crivitz",
-        "lat": 45.16864,
-        "lon": -87.997787,
-        "city": "Crivitz",
-        "county": "Marinette",
-        "region": "Northeast",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "DEPR",
-        "name": "De Pere",
-        "lat": 44.327999,
-        "lon": -87.966003,
-        "city": "De Pere",
-        "county": "Brown",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "DFRC",
-        "name": "Prairie du Sac",
-        "lat": 43.344799,
-        "lon": -89.7117,
-        "city": "Prairie du Sac",
-        "county": "Sauk",
-        "region": "Southwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "DLTN",
-        "name": "Darlington",
-        "lat": 42.649902,
-        "lon": -90.289154,
-        "city": "Darlington",
-        "county": "Lafayette",
-        "region": "Southwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "DRND",
-        "name": "Durand",
-        "lat": 44.627586,
-        "lon": -91.939346,
-        "city": "Durand",
-        "county": "Pepin",
-        "region": "West Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "DUDA",
-        "name": "Walworth",
-        "lat": 42.527,
-        "lon": -88.639999,
-        "city": "Walworth",
-        "county": "Walworth",
-        "region": "Southeast",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "EGHA",
-        "name": "Egg Harbor",
-        "lat": 45.0509,
-        "lon": -87.259804,
-        "city": "Egg Harbor",
-        "county": "Door",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "FFEC",
-        "name": "Plover",
-        "lat": 44.446098,
-        "lon": -89.520699,
-        "city": "Plover",
-        "county": "Portage",
-        "region": "Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "FLMB",
-        "name": "Flambeau",
-        "lat": 45.775398,
-        "lon": -90.643097,
-        "city": "Flambeau",
-        "county": "Price",
-        "region": "North Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "FRCD",
-        "name": "Fairchild",
-        "lat": 44.609001,
-        "lon": -91.0,
-        "city": "Fairchild",
-        "county": "Eau Claire",
-        "region": "Northwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "GFTN",
-        "name": "Grafton",
-        "lat": 43.2981,
-        "lon": -87.932098,
-        "city": "Grafton",
-        "county": "Ozaukee",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "GLCP",
-        "name": "Porter",
-        "lat": 42.789001,
-        "lon": -89.172997,
-        "city": "Porter",
-        "county": "Rock",
-        "region": "Southern",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "GLSN",
-        "name": "Gleason",
-        "lat": 45.302132,
-        "lon": -89.50415,
-        "city": "Gleason",
-        "county": "Lincoln",
-        "region": "North Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "GMSH",
-        "name": "Grand Marsh",
-        "lat": 43.854332,
-        "lon": -89.777641,
-        "city": "Grand Marsh",
-        "county": "Adams",
-        "region": "Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "GNWD",
-        "name": "Greenwood",
-        "lat": 44.717999,
-        "lon": -90.596603,
-        "city": "Greenwood",
-        "county": "Clark",
-        "region": "North Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "HDMK",
-        "name": "Fence",
-        "lat": 45.755638,
-        "lon": -88.563454,
-        "city": "Fence",
-        "county": "Florence",
-        "region": "Northeast",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "HNCK",
-        "name": "Hancock",
-        "lat": 44.118801,
-        "lon": -89.533302,
-        "city": "Hancock",
-        "county": "Waushara County",
-        "region": "Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "HNTR",
-        "name": "Hunter",
-        "lat": 45.946201,
-        "lon": -91.094704,
-        "city": "Hunter",
-        "county": "Sawyer",
-        "region": "Northwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "HRVR",
-        "name": "Hay River",
-        "lat": 45.084621,
-        "lon": -91.919167,
-        "city": "Hay River",
-        "county": "Dunn",
-        "region": "West Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "IOLA",
-        "name": "Iola",
-        "lat": 44.504025,
-        "lon": -89.024918,
-        "city": "Iola",
-        "county": "Waupaca",
-        "region": "Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "KEMP",
-        "name": "Woodruff",
-        "lat": 45.841,
-        "lon": -89.667801,
-        "city": "Woodruff",
-        "county": "Oneida County",
-        "region": "North Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "KNGT",
-        "name": "Knight",
-        "lat": 46.289001,
-        "lon": -90.435997,
-        "city": "Knight",
-        "county": "Iron",
-        "region": "North Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "KSKM",
-        "name": "Kewaskum",
-        "lat": 43.535099,
-        "lon": -88.252701,
-        "city": "Kewaskum",
-        "county": "Washington",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "KWNE",
-        "name": "Kewaunee",
-        "lat": 44.401798,
-        "lon": -87.664597,
-        "city": "Kewaunee",
-        "county": "Kewaunee",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "LAFG",
-        "name": "La Farge",
-        "lat": 43.597,
-        "lon": -90.625999,
-        "city": "La Farge",
-        "county": "Vernon",
-        "region": "Western",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "LNCT",
-        "name": "Lancaster",
-        "lat": 42.830002,
-        "lon": -90.7882,
-        "city": "Lancaster",
-        "county": "Grant County",
-        "region": "Southwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "LOLK",
-        "name": "Lost Lake",
-        "lat": 43.451145,
-        "lon": -88.977783,
-        "city": "Lost Lake",
-        "county": "Dodge",
-        "region": "South Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "LXBG",
-        "name": "Luxemburg",
-        "lat": 44.556,
-        "lon": -87.654297,
-        "city": "Casco",
-        "county": "Kewaunee",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "MAPL",
-        "name": "Maple",
-        "lat": 46.632702,
-        "lon": -91.681198,
-        "city": "Maple",
-        "county": "Douglas",
-        "region": "Northwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "MNDR",
-        "name": "Mindoro",
-        "lat": 44.030289,
-        "lon": -90.934776,
-        "city": "Mindoro",
-        "county": "La Crosse",
-        "region": "West Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "MNTN",
-        "name": "Montana",
-        "lat": 44.401226,
-        "lon": -91.559906,
-        "city": "Montana",
-        "county": "Buffalo",
-        "region": "West Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "MNWT",
-        "name": "Manitowish Waters",
-        "lat": 46.076,
-        "lon": -89.838303,
-        "city": "Manitowish Waters",
-        "county": "Vilas",
-        "region": "North Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "MRFD",
-        "name": "Marshfield",
-        "lat": 44.7603,
-        "lon": -90.097801,
-        "city": "Marshfield",
-        "county": "Marathon County",
-        "region": "North Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "MTLO",
-        "name": "Montello",
-        "lat": 43.853901,
-        "lon": -89.283798,
-        "city": "Montello",
-        "county": "Marquette",
-        "region": "Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "NASE",
-        "name": "Nasewaupee",
-        "lat": 44.789398,
-        "lon": -87.4561,
-        "city": "Nasewaupee",
-        "county": "Door",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "NBLN",
-        "name": "New Berlin",
-        "lat": 42.976002,
-        "lon": -88.120003,
-        "city": "New Berlin",
-        "county": "Waukesha",
-        "region": "Southeast",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "OJNR",
-        "name": "Verona",
-        "lat": 43.025002,
-        "lon": -89.536697,
-        "city": "Verona",
-        "county": "Dane",
-        "region": "South Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "OSEO",
-        "name": "Osseo",
-        "lat": 44.59,
-        "lon": -91.265999,
-        "city": "Osseo",
-        "county": "Trempealeau",
-        "region": "West Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "PARS",
-        "name": "Sturgeon Bay",
-        "lat": 44.880199,
-        "lon": -87.329597,
-        "city": "Sturgeon Bay",
-        "county": "Door",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "PLYM",
-        "name": "Plymouth",
-        "lat": 43.777199,
-        "lon": -87.9515,
-        "city": "Plymouth",
-        "county": "Sheboygan",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "RCHD",
-        "name": "Richland Center",
-        "lat": 43.369999,
-        "lon": -90.383003,
-        "city": "Richland Center",
-        "county": "Richland",
-        "region": "Southern",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "RIPN",
-        "name": "Ripon",
-        "lat": 43.905602,
-        "lon": -88.846703,
-        "city": "Ripon",
-        "county": "Winnebago",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "RLKE",
-        "name": "Rice Lake",
-        "lat": 45.523331,
-        "lon": -91.844292,
-        "city": "Rice Lake",
-        "county": "Barron",
-        "region": "Northwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "RNLD",
-        "name": "Rhinelander",
-        "lat": 45.654598,
-        "lon": -89.268204,
-        "city": "Rhinelander",
-        "county": "Oneida County",
-        "region": "North Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "RTHR",
-        "name": "Arthur",
-        "lat": 45.032001,
-        "lon": -91.199997,
-        "city": "Arthur",
-        "county": "Chippewa",
-        "region": "Northwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "SHGD",
-        "name": "Shanagolden",
-        "lat": 46.10701,
-        "lon": -90.80793,
-        "city": "Shanagolden",
-        "county": "Ashland",
-        "region": "North Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "SIBA",
-        "name": "Sister Bay",
-        "lat": 45.219101,
-        "lon": -87.0662,
-        "city": "Sister Bay",
-        "county": "Door",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "SMKE",
-        "name": "South Milwaukee",
-        "lat": 42.901299,
-        "lon": -87.851196,
-        "city": "South Milwaukee",
-        "county": "Milwaukee",
-        "region": "Southeast",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "SODO",
-        "name": "Southern Door",
-        "lat": 44.778999,
-        "lon": -87.355598,
-        "city": "Sturgeon Bay",
-        "county": "Door",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "SPNR",
-        "name": "Spooner",
-        "lat": 45.827,
-        "lon": -91.861397,
-        "city": "Spooner",
-        "county": "Washburn County",
-        "region": "Northwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "SRNG",
-        "name": "Suring",
-        "lat": 44.999001,
-        "lon": -88.342697,
-        "city": "Suring",
-        "county": "Oconto",
-        "region": "Northeast",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "STAR",
-        "name": "Soldiers Grove",
-        "lat": 43.378399,
-        "lon": -90.900002,
-        "city": "Soldiers Grove",
-        "county": "Crawford",
-        "region": "Southwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "TCDA",
-        "name": "Taycheedah",
-        "lat": 43.84317,
-        "lon": -88.370872,
-        "city": "Taycheedah",
-        "county": "Fond du Lac",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "UGRV",
-        "name": "Yorkville",
-        "lat": 42.7281,
-        "lon": -88.028,
-        "city": "Union Grove",
-        "county": "Racine",
-        "region": "Southeast",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "UWRF",
-        "name": "River Falls",
-        "lat": 44.842499,
-        "lon": -92.6129,
-        "city": "River Falls",
-        "county": "Pierce",
-        "region": "West Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "VLDR",
-        "name": "Valders",
-        "lat": 44.004398,
-        "lon": -87.8228,
-        "city": "Valders",
-        "county": "Manitowoc",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "WBRO",
-        "name": "Westboro",
-        "lat": 45.31929,
-        "lon": -90.355469,
-        "city": "westboro",
-        "county": "Taylor",
-        "region": "North Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "WCRS",
-        "name": "Black River Falls",
-        "lat": 44.1852,
-        "lon": -90.742798,
-        "city": "Black River Falls",
-        "county": "Jackson",
-        "region": "West Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "WDVL",
-        "name": "Woodville",
-        "lat": 44.943001,
-        "lon": -92.287003,
-        "city": "Woodville",
-        "county": "St. Croix",
-        "region": "West Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "WJPT",
-        "name": "West Jacksonport",
-        "lat": 45.009998,
-        "lon": -87.233498,
-        "city": "West Jacksonport",
-        "county": "Door",
-        "region": "East Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "WKSN",
-        "name": "Wilkinson",
-        "lat": 45.508121,
-        "lon": -91.459503,
-        "city": "Wilkinson",
-        "county": "Rusk",
-        "region": "Northwest",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "WRNS",
-        "name": "Warrens",
-        "lat": 44.116699,
-        "lon": -90.412102,
-        "city": "Warrens",
-        "county": "Monroe",
-        "region": "West Central",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      },
-      {
-        "id": "WTBG",
-        "name": "Wittenberg",
-        "lat": 44.866001,
-        "lon": -89.023552,
-        "city": "Wittenberg",
-        "county": "Shawano",
-        "region": "Northeast",
-        "tarspot_risk": -1.0,
-        "tarspot_risk_class": "Inactive",
-        "gls_risk": -1.0,
-        "gls_risk_class": "Inactive",
-        "fe_risk": -1.0,
-        "fe_risk_class": "Inactive",
-        "whitemold_nirr_risk": -1.0,
-        "whitemold_nirr_risk_class": "Inactive",
-        "whitemold_irr_30in_risk": -1.0,
-        "whitemold_irr_30in_class": "Inactive",
-        "whitemold_irr_15in_risk": -1.0,
-        "whitemold_irr_15in_class": "Inactive"
-      }
     ]
   },
   "available_dates": [
+    "2026-05-21",
     "2026-05-20",
     "2026-05-19",
     "2026-05-18",
     "2026-05-17",
     "2026-05-16",
-    "2026-05-15",
-    "2026-05-14"
+    "2026-05-15"
   ],
   "model_info": {
     "tarspot": {
@@ -13831,7 +13831,8 @@
         69.1,
         57.9,
         68.4,
-        61.9
+        61.9,
+        52.2
       ],
       "precip_in": [
         0.0,
@@ -14081,7 +14082,8 @@
         1.38,
         0.37,
         0.08,
-        0.12
+        0.12,
+        0.0
       ]
     },
     "ANGO": {
@@ -14334,7 +14336,8 @@
         67.6,
         47.8,
         62.2,
-        57.2
+        57.2,
+        48.4
       ],
       "precip_in": [
         0.0,
@@ -14584,7 +14587,8 @@
         0.0,
         0.17,
         0.08,
-        0.3
+        0.3,
+        0.0
       ]
     },
     "BBCK": {
@@ -14837,7 +14841,8 @@
         70.2,
         52.3,
         66.6,
-        57.6
+        57.6,
+        52.3
       ],
       "precip_in": [
         0.0,
@@ -15087,7 +15092,8 @@
         0.0,
         0.4,
         0.34,
-        0.06
+        0.06,
+        0.0
       ]
     },
     "BCVL": {
@@ -15340,7 +15346,8 @@
         70.3,
         69.6,
         69.8,
-        61.7
+        61.7,
+        53.4
       ],
       "precip_in": [
         0.0,
@@ -15590,7 +15597,8 @@
         0.4,
         0.06,
         0.14,
-        0.32
+        0.32,
+        0.0
       ]
     },
     "BGHM": {
@@ -15843,7 +15851,8 @@
         69.4,
         63.9,
         68.9,
-        61.0
+        61.0,
+        53.6
       ],
       "precip_in": [
         0.0,
@@ -16093,7 +16102,8 @@
         0.65,
         0.46,
         0.17,
-        0.29
+        0.29,
+        0.0
       ]
     },
     "BKLN": {
@@ -16346,7 +16356,8 @@
         68.7,
         52.2,
         68.4,
-        61.9
+        61.9,
+        52.3
       ],
       "precip_in": [
         0.0,
@@ -16596,7 +16607,8 @@
         0.31,
         0.68,
         0.07,
-        0.08
+        0.08,
+        0.0
       ]
     },
     "BLCR": {
@@ -16849,7 +16861,8 @@
         71.6,
         49.6,
         65.3,
-        63.7
+        63.7,
+        51.1
       ],
       "precip_in": [
         0.0,
@@ -17099,7 +17112,8 @@
         0.0,
         0.93,
         0.01,
-        0.23
+        0.23,
+        0.0
       ]
     },
     "BRLN": {
@@ -17352,7 +17366,8 @@
         69.6,
         50.2,
         70.0,
-        null
+        64.2,
+        49.6
       ],
       "precip_in": [
         0.0,
@@ -17602,6 +17617,7 @@
         0.16,
         1.62,
         0.01,
+        0.07,
         0.0
       ]
     },
@@ -17855,7 +17871,8 @@
         70.9,
         63.0,
         74.3,
-        67.8
+        67.8,
+        51.1
       ],
       "precip_in": [
         0.0,
@@ -18105,6 +18122,7 @@
         0.33,
         0.0,
         0.08,
+        0.0,
         0.0
       ]
     },
@@ -18358,7 +18376,8 @@
         61.0,
         44.6,
         44.6,
-        44.8
+        44.8,
+        45.9
       ],
       "precip_in": [
         0.0,
@@ -18608,7 +18627,8 @@
         0.0,
         0.0,
         0.46,
-        0.39
+        0.39,
+        0.0
       ]
     },
     "CLLK": {
@@ -18861,7 +18881,8 @@
         65.3,
         53.8,
         58.6,
-        49.3
+        49.3,
+        48.2
       ],
       "precip_in": [
         0.0,
@@ -19111,7 +19132,8 @@
         0.0,
         1.21,
         0.94,
-        0.02
+        0.02,
+        0.0
       ]
     },
     "CNDN": {
@@ -19364,7 +19386,8 @@
         66.4,
         46.8,
         61.7,
-        56.1
+        56.1,
+        46.6
       ],
       "precip_in": [
         0.0,
@@ -19614,7 +19637,8 @@
         0.0,
         0.08,
         0.22,
-        0.04
+        0.04,
+        0.0
       ]
     },
     "COSP": {
@@ -19867,7 +19891,8 @@
         70.5,
         67.8,
         73.8,
-        65.1
+        65.1,
+        53.2
       ],
       "precip_in": [
         0.0,
@@ -20117,7 +20142,8 @@
         0.22,
         0.02,
         0.03,
-        0.04
+        0.04,
+        0.0
       ]
     },
     "CREX": {
@@ -20370,7 +20396,8 @@
         63.7,
         54.3,
         51.8,
-        47.7
+        47.7,
+        48.7
       ],
       "precip_in": [
         0.0,
@@ -20620,7 +20647,8 @@
         0.0,
         0.0,
         0.16,
-        0.57
+        0.57,
+        0.0
       ]
     },
     "CTLR": {
@@ -20873,7 +20901,8 @@
         69.4,
         52.9,
         67.5,
-        58.3
+        58.3,
+        53.8
       ],
       "precip_in": [
         0.0,
@@ -21123,7 +21152,8 @@
         0.0,
         0.57,
         0.23,
-        0.15
+        0.15,
+        0.0
       ]
     },
     "CVTZ": {
@@ -21376,7 +21406,8 @@
         72.0,
         48.7,
         63.0,
-        64.4
+        64.4,
+        50.5
       ],
       "precip_in": [
         0.0,
@@ -21626,7 +21657,8 @@
         0.0,
         0.65,
         0.0,
-        0.06
+        0.06,
+        0.01
       ]
     },
     "DEPR": {
@@ -21879,7 +21911,8 @@
         69.1,
         49.3,
         67.6,
-        63.7
+        63.7,
+        50.2
       ],
       "precip_in": [
         0.0,
@@ -22129,7 +22162,8 @@
         0.1,
         1.1,
         0.0,
-        0.04
+        0.04,
+        0.0
       ]
     },
     "DFRC": {
@@ -22382,7 +22416,8 @@
         69.4,
         56.5,
         68.2,
-        61.9
+        61.9,
+        54.1
       ],
       "precip_in": [
         0.0,
@@ -22632,7 +22667,8 @@
         0.9,
         0.92,
         0.07,
-        0.41
+        0.41,
+        0.0
       ]
     },
     "DLTN": {
@@ -22885,7 +22921,8 @@
         70.0,
         71.2,
         69.1,
-        60.8
+        60.8,
+        54.3
       ],
       "precip_in": [
         0.0,
@@ -23135,7 +23172,8 @@
         0.58,
         0.18,
         0.19,
-        0.25
+        0.25,
+        0.0
       ]
     },
     "DRND": {
@@ -23388,7 +23426,8 @@
         70.2,
         55.6,
         63.7,
-        53.6
+        53.6,
+        50.7
       ],
       "precip_in": [
         0.0,
@@ -23638,6 +23677,7 @@
         0.0,
         0.01,
         0.83,
+        0.0,
         0.0
       ]
     },
@@ -23891,7 +23931,8 @@
         70.3,
         71.4,
         73.6,
-        66.2
+        66.2,
+        53.6
       ],
       "precip_in": [
         0.0,
@@ -24141,7 +24182,8 @@
         0.18,
         0.0,
         0.06,
-        0.02
+        0.02,
+        0.0
       ]
     },
     "EGHA": {
@@ -24394,7 +24436,8 @@
         67.8,
         48.0,
         56.7,
-        57.7
+        57.7,
+        47.1
       ],
       "precip_in": [
         0.0,
@@ -24644,7 +24687,8 @@
         0.0,
         1.23,
         0.06,
-        0.05
+        0.05,
+        0.0
       ]
     },
     "FFEC": {
@@ -24897,7 +24941,8 @@
         71.1,
         51.1,
         66.6,
-        59.0
+        59.0,
+        52.9
       ],
       "precip_in": [
         0.0,
@@ -25147,7 +25192,8 @@
         0.0,
         0.97,
         0.27,
-        0.53
+        0.53,
+        0.0
       ]
     },
     "FLMB": {
@@ -25400,7 +25446,8 @@
         65.3,
         48.0,
         60.8,
-        51.1
+        51.1,
+        48.0
       ],
       "precip_in": [
         0.0,
@@ -25650,6 +25697,7 @@
         0.0,
         0.06,
         0.65,
+        0.0,
         0.0
       ]
     },
@@ -25903,7 +25951,8 @@
         69.8,
         52.9,
         64.0,
-        55.0
+        55.0,
+        51.6
       ],
       "precip_in": [
         0.0,
@@ -26153,6 +26202,7 @@
         0.0,
         0.53,
         0.28,
+        0.0,
         0.0
       ]
     },
@@ -26406,7 +26456,8 @@
         68.7,
         52.9,
         68.7,
-        66.7
+        66.7,
+        49.3
       ],
       "precip_in": [
         0.0,
@@ -26656,7 +26707,8 @@
         0.73,
         0.0,
         0.08,
-        0.01
+        0.01,
+        0.0
       ]
     },
     "GLCP": {
@@ -26909,7 +26961,8 @@
         70.5,
         71.1,
         72.5,
-        64.2
+        64.2,
+        54.1
       ],
       "precip_in": [
         0.0,
@@ -27159,7 +27212,8 @@
         0.37,
         0.0,
         0.1,
-        0.08
+        0.08,
+        0.0
       ]
     },
     "GLSN": {
@@ -27412,7 +27466,8 @@
         68.0,
         48.6,
         62.8,
-        56.1
+        56.1,
+        48.2
       ],
       "precip_in": [
         0.0,
@@ -27662,7 +27717,8 @@
         0.0,
         0.15,
         0.43,
-        0.06
+        0.06,
+        0.0
       ]
     },
     "GMSH": {
@@ -27915,7 +27971,8 @@
         69.1,
         52.5,
         68.0,
-        60.1
+        60.1,
+        53.2
       ],
       "precip_in": [
         0.0,
@@ -28165,7 +28222,8 @@
         0.28,
         0.39,
         0.04,
-        0.28
+        0.28,
+        0.0
       ]
     },
     "GNWD": {
@@ -28418,7 +28476,8 @@
         68.0,
         51.4,
         64.6,
-        55.4
+        55.4,
+        50.9
       ],
       "precip_in": [
         0.0,
@@ -28668,7 +28727,8 @@
         0.0,
         0.79,
         0.39,
-        0.01
+        0.01,
+        0.0
       ]
     },
     "HDMK": {
@@ -28921,7 +28981,8 @@
         64.9,
         46.6,
         62.4,
-        56.8
+        56.8,
+        46.8
       ],
       "precip_in": [
         0.0,
@@ -29171,7 +29232,8 @@
         0.03,
         0.04,
         0.32,
-        0.12
+        0.12,
+        0.0
       ]
     },
     "HNCK": {
@@ -29424,7 +29486,8 @@
         70.2,
         50.7,
         67.6,
-        59.7
+        59.7,
+        52.7
       ],
       "precip_in": [
         0.0,
@@ -29674,7 +29737,8 @@
         0.02,
         0.87,
         0.03,
-        0.45
+        0.45,
+        0.0
       ]
     },
     "HNTR": {
@@ -29927,6 +29991,7 @@
         63.9,
         49.6,
         57.4,
+        47.7,
         47.7
       ],
       "precip_in": [
@@ -30177,7 +30242,8 @@
         0.0,
         0.0,
         1.3,
-        0.02
+        0.02,
+        0.0
       ]
     },
     "HRVR": {
@@ -30430,7 +30496,8 @@
         67.5,
         53.6,
         61.0,
-        51.6
+        51.6,
+        49.8
       ],
       "precip_in": [
         0.0,
@@ -30680,6 +30747,7 @@
         0.0,
         0.03,
         0.8,
+        0.0,
         0.0
       ]
     },
@@ -30933,7 +31001,8 @@
         72.3,
         50.4,
         65.8,
-        61.3
+        61.3,
+        52.3
       ],
       "precip_in": [
         0.0,
@@ -31183,7 +31252,8 @@
         0.0,
         1.06,
         0.01,
-        0.4
+        0.4,
+        0.0
       ]
     },
     "KEMP": {
@@ -31436,7 +31506,8 @@
         62.1,
         47.1,
         61.7,
-        52.7
+        52.7,
+        46.4
       ],
       "precip_in": [
         0.0,
@@ -31686,7 +31757,8 @@
         0.02,
         0.09,
         0.81,
-        0.02
+        0.02,
+        0.0
       ]
     },
     "KNGT": {
@@ -31939,7 +32011,8 @@
         58.6,
         48.4,
         55.9,
-        44.2
+        44.2,
+        43.7
       ],
       "precip_in": [
         0.0,
@@ -32189,7 +32262,8 @@
         0.0,
         0.0,
         0.65,
-        0.14
+        0.14,
+        0.01
       ]
     },
     "KSKM": {
@@ -32442,7 +32516,8 @@
         68.9,
         54.1,
         69.4,
-        63.7
+        63.7,
+        49.8
       ],
       "precip_in": [
         0.0,
@@ -32692,7 +32767,8 @@
         0.55,
         0.19,
         0.0,
-        0.03
+        0.03,
+        0.0
       ]
     },
     "KWNE": {
@@ -32945,7 +33021,8 @@
         68.4,
         48.6,
         64.4,
-        63.9
+        63.9,
+        48.9
       ],
       "precip_in": [
         0.0,
@@ -33195,7 +33272,8 @@
         0.1,
         1.16,
         0.0,
-        0.01
+        0.01,
+        0.0
       ]
     },
     "LAFG": {
@@ -33448,7 +33526,8 @@
         67.8,
         54.5,
         68.0,
-        58.8
+        58.8,
+        52.7
       ],
       "precip_in": [
         0.0,
@@ -33698,7 +33777,8 @@
         0.09,
         0.76,
         0.5,
-        0.17
+        0.17,
+        0.0
       ]
     },
     "LNCT": {
@@ -33951,7 +34031,8 @@
         70.2,
         69.1,
         68.4,
-        59.4
+        59.4,
+        54.3
       ],
       "precip_in": [
         0.0,
@@ -34201,7 +34282,8 @@
         0.18,
         1.0,
         0.43,
-        0.17
+        0.17,
+        0.0
       ]
     },
     "LOLK": {
@@ -34454,7 +34536,8 @@
         69.6,
         57.0,
         69.6,
-        62.6
+        62.6,
+        52.9
       ],
       "precip_in": [
         0.0,
@@ -34704,7 +34787,8 @@
         0.95,
         1.41,
         0.03,
-        0.15
+        0.15,
+        0.0
       ]
     },
     "LXBG": {
@@ -34957,7 +35041,8 @@
         69.8,
         48.6,
         63.1,
-        64.6
+        64.6,
+        49.1
       ],
       "precip_in": [
         0.0,
@@ -35207,7 +35292,8 @@
         0.05,
         0.84,
         0.01,
-        0.01
+        0.01,
+        0.0
       ]
     },
     "MAPL": {
@@ -35460,7 +35546,8 @@
         62.1,
         43.0,
         43.9,
-        45.9
+        45.9,
+        48.9
       ],
       "precip_in": [
         0.0,
@@ -35710,7 +35797,8 @@
         0.0,
         0.0,
         0.26,
-        0.44
+        0.44,
+        0.0
       ]
     },
     "MNDR": {
@@ -35963,7 +36051,8 @@
         70.0,
         54.0,
         65.8,
-        55.9
+        55.9,
+        51.8
       ],
       "precip_in": [
         0.0,
@@ -36213,7 +36302,8 @@
         0.0,
         0.38,
         0.23,
-        0.13
+        0.13,
+        0.0
       ]
     },
     "MNTN": {
@@ -36466,7 +36556,8 @@
         69.1,
         52.9,
         63.7,
-        53.2
+        53.2,
+        49.5
       ],
       "precip_in": [
         0.0,
@@ -36716,7 +36807,8 @@
         0.0,
         0.3,
         0.77,
-        0.01
+        0.01,
+        0.0
       ]
     },
     "MNWT": {
@@ -36969,7 +37061,8 @@
         62.4,
         47.8,
         60.6,
-        50.4
+        50.4,
+        45.9
       ],
       "precip_in": [
         0.0,
@@ -37219,7 +37312,8 @@
         0.0,
         0.04,
         0.62,
-        0.09
+        0.09,
+        0.0
       ]
     },
     "MRFD": {
@@ -37471,8 +37565,9 @@
         65.8,
         68.0,
         50.5,
-        64.2,
-        null
+        64.4,
+        55.9,
+        50.2
       ],
       "precip_in": [
         0.0,
@@ -37721,7 +37816,8 @@
         0.04,
         0.02,
         0.33,
-        0.36,
+        0.41,
+        0.02,
         0.0
       ]
     },
@@ -37975,7 +38071,8 @@
         70.0,
         52.0,
         67.6,
-        61.5
+        61.5,
+        53.4
       ],
       "precip_in": [
         0.0,
@@ -38225,7 +38322,8 @@
         0.3,
         0.69,
         0.02,
-        0.07
+        0.07,
+        0.0
       ]
     },
     "NASE": {
@@ -38478,7 +38576,8 @@
         68.0,
         48.0,
         58.5,
-        60.6
+        60.6,
+        48.0
       ],
       "precip_in": [
         0.0,
@@ -38728,7 +38827,8 @@
         0.03,
         1.14,
         0.01,
-        0.01
+        0.01,
+        0.0
       ]
     },
     "NBLN": {
@@ -38981,7 +39081,8 @@
         71.1,
         58.5,
         72.0,
-        66.4
+        66.4,
+        50.9
       ],
       "precip_in": [
         0.0,
@@ -39231,6 +39332,7 @@
         0.17,
         0.0,
         0.03,
+        0.0,
         0.0
       ]
     },
@@ -39484,7 +39586,8 @@
         69.3,
         62.8,
         70.0,
-        62.2
+        62.2,
+        53.4
       ],
       "precip_in": [
         0.0,
@@ -39734,7 +39837,8 @@
         0.43,
         0.53,
         0.16,
-        0.22
+        0.22,
+        0.0
       ]
     },
     "OSEO": {
@@ -39987,7 +40091,8 @@
         68.4,
         53.4,
         64.4,
-        54.7
+        54.7,
+        51.4
       ],
       "precip_in": [
         0.0,
@@ -40237,7 +40342,8 @@
         0.0,
         0.75,
         0.35,
-        0.01
+        0.01,
+        0.0
       ]
     },
     "PARS": {
@@ -40490,7 +40596,8 @@
         67.5,
         47.8,
         55.4,
-        57.4
+        57.4,
+        46.9
       ],
       "precip_in": [
         0.0,
@@ -40740,7 +40847,8 @@
         0.0,
         1.24,
         0.0,
-        0.02
+        0.02,
+        0.0
       ]
     },
     "PLYM": {
@@ -40993,7 +41101,8 @@
         70.0,
         52.5,
         68.9,
-        64.9
+        64.9,
+        49.1
       ],
       "precip_in": [
         0.0,
@@ -41243,7 +41352,8 @@
         0.25,
         0.46,
         0.02,
-        0.03
+        0.03,
+        0.0
       ]
     },
     "RCHD": {
@@ -41496,7 +41606,8 @@
         69.6,
         56.8,
         68.9,
-        60.8
+        60.8,
+        54.5
       ],
       "precip_in": [
         0.0,
@@ -41746,7 +41857,8 @@
         0.29,
         0.25,
         0.21,
-        0.13
+        0.13,
+        0.01
       ]
     },
     "RIPN": {
@@ -41999,7 +42111,8 @@
         69.8,
         52.3,
         69.3,
-        62.8
+        62.8,
+        52.9
       ],
       "precip_in": [
         0.0,
@@ -42249,7 +42362,8 @@
         0.27,
         0.86,
         0.02,
-        0.07
+        0.07,
+        0.0
       ]
     },
     "RLKE": {
@@ -42502,7 +42616,8 @@
         66.0,
         51.4,
         57.9,
-        49.1
+        49.1,
+        48.9
       ],
       "precip_in": [
         0.0,
@@ -42752,7 +42867,8 @@
         0.0,
         0.41,
         0.78,
-        0.02
+        0.02,
+        0.0
       ]
     },
     "RNLD": {
@@ -43005,7 +43121,8 @@
         64.8,
         46.0,
         62.8,
-        55.0
+        55.0,
+        46.9
       ],
       "precip_in": [
         0.0,
@@ -43255,7 +43372,8 @@
         0.03,
         0.11,
         0.56,
-        0.07
+        0.07,
+        0.0
       ]
     },
     "RTHR": {
@@ -43508,7 +43626,8 @@
         66.9,
         52.5,
         63.1,
-        53.6
+        53.6,
+        50.2
       ],
       "precip_in": [
         0.0,
@@ -43758,7 +43877,8 @@
         0.0,
         0.1,
         0.69,
-        0.01
+        0.01,
+        0.0
       ]
     },
     "SHGD": {
@@ -44011,7 +44131,8 @@
         61.5,
         49.5,
         56.8,
-        45.9
+        45.9,
+        46.0
       ],
       "precip_in": [
         0.0,
@@ -44261,7 +44382,8 @@
         0.0,
         0.01,
         1.17,
-        0.14
+        0.14,
+        0.01
       ]
     },
     "SIBA": {
@@ -44514,7 +44636,8 @@
         65.3,
         47.5,
         52.7,
-        54.7
+        54.7,
+        45.5
       ],
       "precip_in": [
         0.0,
@@ -44764,7 +44887,8 @@
         0.0,
         1.56,
         0.01,
-        0.02
+        0.02,
+        0.0
       ]
     },
     "SMKE": {
@@ -45017,7 +45141,8 @@
         70.2,
         52.2,
         69.4,
-        68.7
+        68.7,
+        50.5
       ],
       "precip_in": [
         0.0,
@@ -45267,6 +45392,7 @@
         0.16,
         0.0,
         0.01,
+        0.0,
         0.0
       ]
     },
@@ -45520,7 +45646,8 @@
         66.9,
         47.7,
         54.5,
-        57.9
+        57.9,
+        47.1
       ],
       "precip_in": [
         0.0,
@@ -45770,7 +45897,8 @@
         0.05,
         0.82,
         0.0,
-        0.03
+        0.03,
+        0.0
       ]
     },
     "SPNR": {
@@ -46023,7 +46151,8 @@
         64.6,
         53.2,
         57.0,
-        48.0
+        48.0,
+        50.2
       ],
       "precip_in": [
         0.0,
@@ -46273,7 +46402,8 @@
         0.0,
         0.0,
         0.68,
-        0.06
+        0.06,
+        0.0
       ]
     },
     "SRNG": {
@@ -46526,7 +46656,8 @@
         72.5,
         48.6,
         63.9,
-        63.0
+        63.0,
+        50.9
       ],
       "precip_in": [
         0.0,
@@ -46776,7 +46907,8 @@
         0.0,
         0.71,
         0.01,
-        0.15
+        0.15,
+        0.0
       ]
     },
     "STAR": {
@@ -47029,7 +47161,8 @@
         69.4,
         56.8,
         67.1,
-        57.7
+        57.7,
+        53.2
       ],
       "precip_in": [
         0.0,
@@ -47279,7 +47412,8 @@
         0.07,
         0.5,
         0.43,
-        0.17
+        0.17,
+        0.0
       ]
     },
     "TCDA": {
@@ -47532,7 +47666,8 @@
         70.3,
         54.1,
         72.1,
-        64.0
+        64.0,
+        52.3
       ],
       "precip_in": [
         0.0,
@@ -47782,7 +47917,8 @@
         0.21,
         0.3,
         0.02,
-        0.16
+        0.16,
+        0.0
       ]
     },
     "UGRV": {
@@ -48035,7 +48171,8 @@
         71.4,
         60.8,
         73.9,
-        68.2
+        68.2,
+        51.6
       ],
       "precip_in": [
         0.0,
@@ -48285,6 +48422,7 @@
         0.13,
         0.0,
         0.02,
+        0.0,
         0.0
       ]
     },
@@ -48538,7 +48676,8 @@
         65.8,
         57.9,
         60.4,
-        51.3
+        51.3,
+        47.5
       ],
       "precip_in": [
         0.0,
@@ -48788,7 +48927,8 @@
         0.0,
         0.0,
         0.63,
-        0.03
+        0.03,
+        0.0
       ]
     },
     "VLDR": {
@@ -49041,7 +49181,8 @@
         69.1,
         50.7,
         65.5,
-        64.6
+        64.6,
+        48.6
       ],
       "precip_in": [
         0.0,
@@ -49290,6 +49431,7 @@
         0.0,
         0.19,
         0.28,
+        0.0,
         0.0,
         0.0
       ]
@@ -49544,7 +49686,8 @@
         66.2,
         49.1,
         61.9,
-        53.1
+        53.1,
+        48.2
       ],
       "precip_in": [
         0.0,
@@ -49794,7 +49937,8 @@
         0.0,
         0.24,
         0.78,
-        0.02
+        0.02,
+        0.0
       ]
     },
     "WCRS": {
@@ -50047,7 +50191,8 @@
         68.4,
         53.4,
         66.7,
-        57.6
+        57.6,
+        52.9
       ],
       "precip_in": [
         0.0,
@@ -50297,7 +50442,8 @@
         0.0,
         0.48,
         0.26,
-        0.05
+        0.05,
+        0.0
       ]
     },
     "WDVL": {
@@ -50550,7 +50696,8 @@
         65.1,
         54.7,
         60.3,
-        50.5
+        50.5,
+        47.7
       ],
       "precip_in": [
         0.0,
@@ -50800,7 +50947,8 @@
         0.0,
         0.0,
         0.59,
-        0.02
+        0.02,
+        0.0
       ]
     },
     "WJPT": {
@@ -51053,7 +51201,8 @@
         66.7,
         48.2,
         54.9,
-        56.3
+        56.3,
+        46.6
       ],
       "precip_in": [
         0.0,
@@ -51303,7 +51452,8 @@
         0.0,
         1.35,
         0.01,
-        0.02
+        0.02,
+        0.0
       ]
     },
     "WKSN": {
@@ -51556,7 +51706,8 @@
         64.9,
         50.0,
         59.2,
-        49.6
+        49.6,
+        48.0
       ],
       "precip_in": [
         0.0,
@@ -51806,7 +51957,8 @@
         0.0,
         0.15,
         0.79,
-        0.07
+        0.07,
+        0.0
       ]
     },
     "WRNS": {
@@ -52059,7 +52211,8 @@
         70.3,
         53.4,
         67.3,
-        57.9
+        57.9,
+        54.0
       ],
       "precip_in": [
         0.0,
@@ -52309,7 +52462,8 @@
         0.0,
         0.49,
         0.3,
-        0.04
+        0.04,
+        0.0
       ]
     },
     "WTBG": {
@@ -52562,7 +52716,8 @@
         71.8,
         48.9,
         63.7,
-        60.1
+        60.1,
+        50.5
       ],
       "precip_in": [
         0.0,
@@ -52812,12 +52967,13 @@
         0.0,
         0.85,
         0.01,
-        0.33
+        0.33,
+        0.0
       ]
     }
   },
   "weather_window": {
     "start": "2025-09-15",
-    "end": "2026-05-20"
+    "end": "2026-05-21"
   }
 }
