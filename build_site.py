@@ -139,11 +139,14 @@ def add_biomass(stations: list[dict], stations_df: pd.DataFrame, target_date: da
         print("[biomass] wiscopy not installed — skipping.")
         return
 
-    wisc_names = tuple(sorted(set(s["name"].lower() for s in stations)))
-    print(f"[biomass] fetching wiscopy for {len(wisc_names)} stations…")
+    # Wiscopy accepts the forecast API's station_id (4-char code)
+    # directly. Key everything by that so the bundle, the biomass model,
+    # and the frontend all align on one identifier.
+    wisc_codes = tuple(sorted(set(s["id"].upper() for s in stations)))
+    print(f"[biomass] fetching wiscopy for {len(wisc_codes)} stations…")
     try:
         weather = fetch_weather_data(
-            wisc_names, plant_date.isoformat(), target_date.isoformat(),
+            wisc_codes, plant_date.isoformat(), target_date.isoformat(),
             (BIOMASS_TEMP_FIELD, BIOMASS_PRECIP_FIELD),
         )
     except Exception as err:  # noqa: BLE001
@@ -171,10 +174,10 @@ def add_biomass(stations: list[dict], stations_df: pd.DataFrame, target_date: da
 
     low_max = BIOMASS_THRESHOLDS["low_max"]
     high_min = BIOMASS_THRESHOLDS["high_min"]
-    lookup = {row["station_id"]: row for _, row in bio.iterrows()}
+    lookup = {str(row["station_id"]).upper(): row for _, row in bio.iterrows()}
 
     for s in stations:
-        rec = lookup.get(s["name"].lower())
+        rec = lookup.get(s["id"].upper())
         if rec is None:
             s["biomass"] = None
             s["biomass_class"] = "Unknown"
@@ -204,11 +207,11 @@ def build_weather_bundle(stations: list[dict], plant_date: date, target_date: da
         print("[weather] wiscopy not installed — skipping bundle.")
         return {}
 
-    wisc_names = tuple(sorted(set(s["name"].lower() for s in stations)))
-    print(f"[weather] pulling weather window for {len(wisc_names)} stations…")
+    wisc_codes = tuple(sorted(set(s["id"].upper() for s in stations)))
+    print(f"[weather] pulling weather window for {len(wisc_codes)} stations…")
     try:
         df = fetch_weather_data(
-            wisc_names, plant_date.isoformat(), target_date.isoformat(),
+            wisc_codes, plant_date.isoformat(), target_date.isoformat(),
             ("daily_air_temp_f_avg", "daily_rain_in_tot"),
         )
     except Exception as err:  # noqa: BLE001
@@ -247,7 +250,10 @@ def build_weather_bundle(stations: list[dict], plant_date: date, target_date: da
             tot = wide["daily_rain_in_tot"].groupby(wide.index.normalize()).sum()
             daily["precip_in"] = tot.reindex(all_dates).fillna(0.0)
 
-        bundle[str(sid)] = {
+        # Bundle keys are uppercase station_id (matches forecast API +
+        # what /proxy/weather returns), so the frontend can look them up
+        # by `station.id` directly.
+        bundle[str(sid).upper()] = {
             "start": plant_ts.strftime("%Y-%m-%d"),
             "tavg_f": [
                 round(float(v), 2) if pd.notna(v) else None

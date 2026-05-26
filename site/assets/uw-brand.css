@@ -300,7 +300,158 @@ main {
   letter-spacing: 0.3px;
 }
 
-/* -------------------- Weather section -------------------- */
+/* -------------------- Tabs -------------------- */
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--border);
+}
+.tab-btn {
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: var(--ink-muted);
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  margin-bottom: -2px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.tab-btn:hover { color: var(--ink); }
+.tab-btn.active {
+  color: var(--uw-red);
+  border-bottom-color: var(--uw-red);
+}
+.tab-btn:focus { outline: 2px solid var(--ink); outline-offset: -4px; }
+.tab-panel[hidden] { display: none; }
+
+/* -------------------- Slider -------------------- */
+
+.control-slider input[type="range"] {
+  width: 180px;
+  accent-color: var(--uw-red);
+  margin-top: 6px;
+}
+.control-slider small {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  background: var(--uw-red);
+  color: white;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* -------------------- White Mold sub-radio -------------------- */
+
+.control-wm .radio-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.control-wm .radio-row label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+  color: var(--ink);
+  font-size: 0.85rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.control-wm .radio-row input[type="radio"] {
+  accent-color: var(--uw-red);
+  margin: 0;
+}
+
+/* -------------------- Biomass / panel sub-controls -------------------- */
+
+.biomass-controls,
+.panel-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+}
+
+.biomass-controls input[type="number"] {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: inherit;
+  min-width: 140px;
+}
+
+.inline-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.inline-check input[type="checkbox"] { accent-color: var(--uw-red); }
+
+.run-btn-sec { background: var(--ink); }
+.run-btn-sec:hover { background: #1f2937; }
+
+/* -------------------- Multi-select -------------------- */
+
+.control-multi select[multiple] {
+  min-width: 320px;
+  min-height: 130px;
+  padding: 6px 8px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: inherit;
+}
+.control-multi select[multiple] option:checked {
+  background: var(--uw-red) linear-gradient(0deg, var(--uw-red), var(--uw-red));
+  color: white;
+}
+
+/* -------------------- Chart wrapper (Trends, Weather) -------------------- */
+
+.chart-wrapper {
+  position: relative;
+  height: 420px;
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+}
+.chart-wrapper-tall { height: 520px; }
+.chart-empty {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* -------------------- Weather section (Disease tab inline chart) -------------------- */
 
 .weather-wrapper {
   margin-top: 24px;
@@ -310,7 +461,6 @@ main {
   padding: 16px 20px;
   box-shadow: var(--shadow-sm);
 }
-
 .weather-header {
   display: flex;
   justify-content: space-between;
@@ -326,7 +476,6 @@ main {
   border-left: 4px solid var(--uw-red);
   padding-left: 10px;
 }
-
 .weather-chart-container {
   position: relative;
   height: 360px;
@@ -386,4 +535,9 @@ main {
   .brand-logo { height: 56px; }
   #map { height: 480px; }
   .control select { min-width: 200px; }
+  .control-multi select[multiple] { min-width: 240px; }
+  .tabs { overflow-x: auto; }
+  .tab-btn { white-space: nowrap; }
+  .controls { flex-direction: column; align-items: stretch; }
+  .control-meta { text-align: left; }
 }

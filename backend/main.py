@@ -84,91 +84,190 @@ def proxy_model_info(model_name: str = Query(..., min_length=1)):
     return info
 
 
+_WEATHER_DEFAULT_FIELDS = ("daily_air_temp_f_avg", "daily_rain_in_tot")
+# Fields wiscopy sums per day (rain accumulates); everything else averages.
+_WEATHER_SUM_FIELDS = {"daily_rain_in_tot", "daily_rainfall_in"}
+
+
 @app.get("/proxy/weather")
 def proxy_weather(
-    station: str = Query(..., min_length=1, description="Wiscopy station id (lowercase name)."),
+    station: str | None = Query(
+        None, description="Wiscopy station id (e.g. 'ALTN'). "
+        "Case-insensitive. Use `stations=` to fetch multiple at once."
+    ),
+    stations: str | None = Query(
+        None, description="Comma-separated list of wiscopy station ids "
+        "(e.g. 'ALTN,MAPL'). Use this OR `station`."
+    ),
+    fields: str | None = Query(
+        None, description="Comma-separated wiscopy field names. "
+        "Defaults to daily_air_temp_f_avg,daily_rain_in_tot for the disease-tab chart."
+    ),
     days: int = Query(60, ge=1, le=400),
     end_date: str | None = Query(None, description="ISO end date; defaults to today."),
+    start_date: str | None = Query(None, description="ISO start date; overrides `days` when set."),
 ):
-    """Daily Tavg (°F) + precip (in) for one Wisconet station.
+    """Daily values for one or more Wisconet stations × fields.
 
-    Returns the same shape the bundled `weather` field in latest.json
-    uses, so the frontend can drop it straight into the chart.
+    Backward-compatible:
+      - `?station=maple` (no `fields`) returns the original
+        `{station, start, tavg_f, precip_in}` shape (used by the
+        existing Disease tab weather chart).
+      - Any call passing `stations=` or `fields=` switches to the
+        long-form multi-station / multi-field shape (used by the new
+        Weather Data tab).
     """
     if not wiscopy_available():
         raise HTTPException(503, "wiscopy not installed — weather unavailable.")
 
     from datetime import timedelta
+
+    # ---- Date window ----
     try:
         end = date.fromisoformat(end_date) if end_date else date.today()
+        if start_date:
+            start = date.fromisoformat(start_date)
+        else:
+            start = end - timedelta(days=days)
     except ValueError:
-        raise HTTPException(400, "end_date must be YYYY-MM-DD.")
-    start = end - timedelta(days=days)
+        raise HTTPException(400, "Dates must be YYYY-MM-DD.")
+    if start > end:
+        raise HTTPException(400, "start_date must be on or before end_date.")
+
+    # ---- Station list ----
+    # Wiscopy uses uppercase 4-char codes (e.g. "ALTN"). Normalize the
+    # input so the response data dict is keyed in that canonical form,
+    # matching `station_id` everywhere else in the app.
+    station_list: list[str] = []
+    if stations:
+        station_list = [s.strip().upper() for s in stations.split(",") if s.strip()]
+    elif station:
+        station_list = [station.strip().upper()]
+    if not station_list:
+        raise HTTPException(400, "Provide `station=` or `stations=`.")
+
+    # ---- Field list ----
+    field_list: tuple[str, ...]
+    if fields:
+        field_list = tuple(f.strip() for f in fields.split(",") if f.strip())
+    else:
+        field_list = _WEATHER_DEFAULT_FIELDS
+    if not field_list:
+        raise HTTPException(400, "At least one field is required.")
+
+    # Original (legacy) shape: single station, default fields, no explicit
+    # `stations`/`fields`/`start_date` override.
+    legacy_shape = (
+        not stations and not fields and not start_date
+        and len(station_list) == 1
+        and field_list == _WEATHER_DEFAULT_FIELDS
+    )
 
     try:
         df = fetch_weather_data(
-            (station.lower(),),
+            tuple(station_list),
             start.isoformat(),
             end.isoformat(),
-            ("daily_air_temp_f_avg", "daily_rain_in_tot"),
+            field_list,
         )
     except Exception as err:  # noqa: BLE001
         raise HTTPException(502, f"wiscopy: {err}")
 
-    empty = {
-        "station": station, "start": start.isoformat(),
-        "tavg_f": [], "precip_in": [],
-    }
-    if df is None or df.empty:
-        return empty
-
     import pandas as pd  # local import — fastapi process always has pandas
-    if df.index.name:
-        df = df.reset_index()
-
-    field_col = (
-        "standard_name" if "standard_name" in df.columns
-        else "fieldname" if "fieldname" in df.columns
-        else None
-    )
-    if field_col is None or "value" not in df.columns:
-        return empty
-
-    time_col = (
-        "collection_time" if "collection_time" in df.columns
-        else next((c for c in df.columns if pd.api.types.is_datetime64_any_dtype(df[c])),
-                  df.columns[0])
-    )
-    df[time_col] = pd.to_datetime(df[time_col], errors="coerce")
-    if df[time_col].dt.tz is not None:
-        df[time_col] = df[time_col].dt.tz_localize(None)
-    df = df.dropna(subset=[time_col])
-
-    wide = df.pivot_table(index=time_col, columns=field_col, values="value", aggfunc="mean")
-    if wide.index.tz is not None:
-        wide.index = wide.index.tz_localize(None)
 
     all_dates = pd.date_range(start, end, freq="D")
-    daily = pd.DataFrame(index=all_dates)
+    dates_iso = [d.strftime("%Y-%m-%d") for d in all_dates]
 
-    if "daily_air_temp_f_avg" in wide.columns:
-        tavg = wide["daily_air_temp_f_avg"].groupby(wide.index.normalize()).mean()
-        daily["tavg_f"] = tavg.reindex(all_dates)
-    if "daily_rain_in_tot" in wide.columns:
-        prc = wide["daily_rain_in_tot"].groupby(wide.index.normalize()).sum()
-        daily["precip_in"] = prc.reindex(all_dates).fillna(0.0)
+    # Build the long-format response.
+    data: dict[str, dict[str, list]] = {sid: {f: [] for f in field_list} for sid in station_list}
+    units: dict[str, str] = {}
+
+    if df is not None and not df.empty:
+        if df.index.name:
+            df = df.reset_index()
+
+        field_col = (
+            "standard_name" if "standard_name" in df.columns
+            else "fieldname" if "fieldname" in df.columns
+            else None
+        )
+        time_col = (
+            "collection_time" if "collection_time" in df.columns
+            else next((c for c in df.columns if pd.api.types.is_datetime64_any_dtype(df[c])),
+                      df.columns[0])
+        )
+
+        if field_col and "value" in df.columns:
+            df[time_col] = pd.to_datetime(df[time_col], errors="coerce")
+            if df[time_col].dt.tz is not None:
+                df[time_col] = df[time_col].dt.tz_localize(None)
+            df = df.dropna(subset=[time_col])
+
+            # Capture units before we lose them in the pivot.
+            if "final_units" in df.columns:
+                u = (
+                    df.dropna(subset=[field_col])
+                      .groupby(field_col)["final_units"]
+                      .first()
+                      .to_dict()
+                )
+                units = {str(k): str(v) for k, v in u.items() if v is not None}
+
+            # wiscopy returns station_id as 4-char codes (e.g. "ALTN").
+            if "station_id" in df.columns:
+                df["__sid"] = df["station_id"].astype(str).str.upper()
+            else:
+                df["__sid"] = station_list[0]
+
+            for sid in station_list:
+                sub = df[df["__sid"] == sid]
+                if sub.empty:
+                    continue
+                wide = sub.pivot_table(
+                    index=time_col, columns=field_col, values="value", aggfunc="mean",
+                )
+                if wide.index.tz is not None:
+                    wide.index = wide.index.tz_localize(None)
+                for fld in field_list:
+                    if fld not in wide.columns:
+                        data[sid][fld] = [None] * len(all_dates)
+                        continue
+                    agg = "sum" if fld in _WEATHER_SUM_FIELDS else "mean"
+                    by_day = getattr(wide[fld].groupby(wide.index.normalize()), agg)()
+                    series = by_day.reindex(all_dates)
+                    data[sid][fld] = [
+                        round(float(v), 3) if pd.notna(v) else None for v in series.tolist()
+                    ]
+
+    # Fill any field/station we couldn't compute with all-nones so the
+    # frontend can render gaps without special-casing missing keys.
+    for sid in station_list:
+        for fld in field_list:
+            if not data[sid].get(fld):
+                data[sid][fld] = [None] * len(all_dates)
+
+    # Legacy single-station shape: keep existing callers working.
+    if legacy_shape:
+        sid = station_list[0]
+        tavg = data[sid].get("daily_air_temp_f_avg") or [None] * len(all_dates)
+        precip = [v if v is not None else 0.0 for v in (data[sid].get("daily_rain_in_tot") or [])]
+        if not precip:
+            precip = [0.0] * len(all_dates)
+        return {
+            "station": sid,
+            "start": start.isoformat(),
+            "tavg_f": tavg,
+            "precip_in": precip,
+        }
 
     return {
-        "station": station,
+        "stations": station_list,
+        "fields": list(field_list),
         "start": start.isoformat(),
-        "tavg_f": [
-            round(float(v), 2) if pd.notna(v) else None
-            for v in daily.get("tavg_f", pd.Series([None] * len(all_dates))).tolist()
-        ],
-        "precip_in": [
-            round(float(v), 3) if pd.notna(v) else 0.0
-            for v in daily.get("precip_in", pd.Series([0.0] * len(all_dates))).tolist()
-        ],
+        "end": end.isoformat(),
+        "dates": dates_iso,
+        "data": data,
+        "units": units,
     }
 
 
@@ -204,11 +303,15 @@ def proxy_biomass(
     if stations_df.empty:
         raise HTTPException(404, "No stations returned.")
     stations_df = stations_df.drop_duplicates(subset=["station_id"]).copy()
-    wisc_names = tuple(sorted(stations_df["station_name"].astype(str).str.lower().unique()))
+    # Wiscopy accepts station_id (the 4-char code) directly and returns
+    # the same code in its `station_id` column. Use that as the join key
+    # everywhere — avoids the long-name/short-code mismatch that used
+    # to make this endpoint return nulls for every station.
+    wisc_codes = tuple(sorted(stations_df["station_id"].astype(str).str.upper().unique()))
 
     try:
         weather = fetch_weather_data(
-            wisc_names, plant_date, forecasting_date,
+            wisc_codes, plant_date, forecasting_date,
             (BIOMASS_TEMP_FIELD, BIOMASS_PRECIP_FIELD),
         )
     except Exception as err:  # noqa: BLE001
@@ -226,11 +329,12 @@ def proxy_biomass(
 
     low_max = BIOMASS_THRESHOLDS["low_max"]
     high_min = BIOMASS_THRESHOLDS["high_min"]
-    lookup = {row["station_id"]: row for _, row in bio.iterrows()}
+    # bio is keyed by wiscopy's station_id (uppercase 4-char code).
+    lookup = {str(row["station_id"]).upper(): row for _, row in bio.iterrows()}
 
     out = []
     for _, row in stations_df.iterrows():
-        rec = lookup.get(str(row["station_name"]).lower())
+        rec = lookup.get(str(row["station_id"]).upper())
         v = float(rec["biomass_pred"]) if rec is not None else None
         out.append({
             "station_id": str(row["station_id"]),

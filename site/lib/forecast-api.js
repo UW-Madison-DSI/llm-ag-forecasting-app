@@ -1,127 +1,206 @@
 /* Live client for the UW–Madison Ag Forecasting API.
 
-   Called when the user changes the forecast date in the picker —
-   skips a rebuild by fetching the JSON directly from the same
-   endpoint the Python build script uses. CORS-dependent: if the API
-   blocks browser origins the fetch throws and app.js falls back to
-   the bundled snapshot. */
+   Wraps the backend /proxy/* endpoints (FastAPI in production, same
+   shape as the upstream API). Direct upstream calls are kept as a Node
+   fallback only — they almost never work in a browser due to CORS. */
 
 (function (root) {
   "use strict";
 
-  // Preferred: server-side proxy at /proxy/forecast.
-  //   • Docker deploy   → nginx → FastAPI backend (backend/main.py)
-  //   • Netlify deploy  → /proxy/forecast rewrite → netlify/functions/forecast.js
-  // Both handle CORS for us; the browser only talks same-origin.
-  //
-  // Fallback: direct upstream URL — useful for Node tests, almost
-  // never works in a real browser because of CORS.
-  const PROXY_URL  = "/proxy/forecast";
-  const DIRECT_URL =
+  // /proxy/* routes are wired by nginx (Docker) or Netlify redirects.
+  const PROXY_FORECAST   = "/proxy/forecast";
+  const PROXY_MODEL_INFO = "/proxy/model_info";
+  const PROXY_BIOMASS    = "/proxy/biomass";
+  const PROXY_WEATHER    = "/proxy/weather";
+  const PROXY_HEALTH     = "/proxy/health";
+
+  const DIRECT_FORECAST_URL =
     "https://connect.doit.wisc.edu/ag_forecasting_api/v2/ag_models_wrappers/wisconet_g";
 
-  // The dashboard is fixed at one-day risk; ignore any caller override
-  // so we never accidentally bloat a response with multi-day arrays.
-  const RISK_DAYS = 1;
-
-  // In-memory cache: dateIso → { payload, source, expires }.
-  // 1-hour TTL matches the proxy's Cache-Control max-age, so a stale
-  // value here never lives longer than what the network layer allows.
+  // In-memory cache: key → { payload, source, expires }.
+  // 1-hour TTL matches the proxy's Cache-Control max-age.
   const CACHE_TTL_MS = 60 * 60 * 1000;
   const cache = new Map();
 
-  function getCached(dateIso) {
-    const hit = cache.get(dateIso);
+  function cacheKey(prefix, parts) {
+    return prefix + ":" + parts.join("|");
+  }
+  function getCached(key) {
+    const hit = cache.get(key);
     if (hit && hit.expires > Date.now()) return hit;
-    if (hit) cache.delete(dateIso);
+    if (hit) cache.delete(key);
     return null;
   }
-
-  function putCached(dateIso, payload, source) {
-    cache.set(dateIso, {
-      payload, source,
-      expires: Date.now() + CACHE_TTL_MS,
-    });
-    // Trim the cache if it grows unbounded over a long session.
-    if (cache.size > 50) {
+  function putCached(key, payload, source) {
+    cache.set(key, { payload, source, expires: Date.now() + CACHE_TTL_MS });
+    if (cache.size > 80) {
       const firstKey = cache.keys().next().value;
       cache.delete(firstKey);
     }
   }
 
-  async function fetchForecast(dateIso /*, riskDays — ignored */) {
-    const rd = RISK_DAYS;
+  /* -------------------- Forecast -------------------- */
 
-    // 0) In-memory cache — instant if we already fetched this date.
-    const cached = getCached(dateIso);
+  async function fetchForecast(dateIso, riskDays) {
+    const rd = Number.isInteger(riskDays) && riskDays >= 1 && riskDays <= 7
+      ? riskDays : 1;
+    const key = cacheKey("forecast", [dateIso, rd]);
+    const cached = getCached(key);
     if (cached) {
       root.ForecastAPI.lastSource = cached.source + "-cache";
       return cached.payload;
     }
 
-    // 1) Try the proxy first. The proxy is whichever runtime is
-    //    hosting the site:
-    //      • Netlify     → netlify/functions/forecast.js
-    //      • Docker VM   → nginx location /api/forecast (nginx.conf)
-    //    Both expect the upstream's native param name `forecasting_date`,
-    //    so this URL passes through unchanged on either side. We let
-    //    the browser HTTP cache help too — the proxy returns
-    //    Cache-Control: max-age=3600.
     root.ForecastAPI.lastSource = null;
+    // 1. Try the same-origin proxy first.
     try {
-      const proxyUrl =
-        `${PROXY_URL}?forecasting_date=${encodeURIComponent(dateIso)}` +
+      const url =
+        `${PROXY_FORECAST}?forecasting_date=${encodeURIComponent(dateIso)}` +
         `&risk_days=${rd}`;
-      const resp = await fetch(proxyUrl, {
-        headers: { Accept: "application/json" },
-      });
+      const resp = await fetch(url, { headers: { Accept: "application/json" } });
       if (resp.ok) {
         const payload = await resp.json();
-        putCached(dateIso, payload, "proxy");
+        putCached(key, payload, "proxy");
         root.ForecastAPI.lastSource = "proxy";
         return payload;
       }
-      // Treat 404 specially — the proxy isn't deployed here, fall through.
-      if (resp.status !== 404) {
-        throw new Error(`Proxy returned ${resp.status}`);
-      }
+      if (resp.status !== 404) throw new Error(`Proxy ${resp.status}`);
     } catch (err) {
-      // Swallow network/404 and try the direct URL as a last resort.
       console.warn("Proxy unavailable, trying direct API:", err.message || err);
     }
 
-    // 2) Direct upstream — works in Node, sometimes in browsers if CORS allows.
+    // 2. Direct upstream — Node tests, occasionally CORS-permitted browsers.
     const directUrl =
-      `${DIRECT_URL}?forecasting_date=${encodeURIComponent(dateIso)}` +
+      `${DIRECT_FORECAST_URL}?forecasting_date=${encodeURIComponent(dateIso)}` +
       `&risk_days=${rd}`;
-    const resp = await fetch(directUrl, {
-      headers: { Accept: "application/json" },
-    });
+    const resp = await fetch(directUrl, { headers: { Accept: "application/json" } });
     if (!resp.ok) throw new Error(`Forecast API ${resp.status}`);
     const payload = await resp.json();
-    putCached(dateIso, payload, "direct");
+    putCached(key, payload, "direct");
     root.ForecastAPI.lastSource = "direct";
     return payload;
   }
 
+  /* -------------------- Model info -------------------- */
+
+  async function fetchModelInfo(modelName) {
+    if (!modelName) return null;
+    const key = cacheKey("model_info", [modelName]);
+    const cached = getCached(key);
+    if (cached) return cached.payload;
+    try {
+      const url = `${PROXY_MODEL_INFO}?model_name=${encodeURIComponent(modelName)}`;
+      const resp = await fetch(url, { headers: { Accept: "application/json" } });
+      if (!resp.ok) return null;
+      const payload = await resp.json();
+      putCached(key, payload, "proxy");
+      return payload;
+    } catch (err) {
+      console.warn("Model info fetch failed:", err);
+      return null;
+    }
+  }
+
+  /* -------------------- Biomass -------------------- */
+
+  async function fetchBiomass(forecastingDate, plantDate, fallPrecipMm) {
+    const fp = Number.isFinite(fallPrecipMm) ? fallPrecipMm : 200.0;
+    const key = cacheKey("biomass", [forecastingDate, plantDate, fp]);
+    const cached = getCached(key);
+    if (cached) return cached.payload;
+    const url =
+      `${PROXY_BIOMASS}?forecasting_date=${encodeURIComponent(forecastingDate)}` +
+      `&plant_date=${encodeURIComponent(plantDate)}` +
+      `&fall_precip_mm=${fp}`;
+    const resp = await fetch(url, { headers: { Accept: "application/json" } });
+    if (!resp.ok) {
+      const text = await resp.text().catch(() => "");
+      throw new Error(`Biomass ${resp.status}: ${text.slice(0, 180)}`);
+    }
+    const payload = await resp.json();
+    putCached(key, payload, "proxy");
+    return payload;
+  }
+
+  /* -------------------- Weather (multi-station, multi-field) -------------------- */
+
+  /**
+   * @param {string[]} stations  Lowercase wiscopy ids.
+   * @param {string[]} fields    Wisconet field names.
+   * @param {string} startIso    YYYY-MM-DD.
+   * @param {string} endIso      YYYY-MM-DD.
+   */
+  async function fetchWeather(stations, fields, startIso, endIso) {
+    if (!stations || !stations.length) throw new Error("No stations selected.");
+    if (!fields || !fields.length)     throw new Error("No fields selected.");
+    const stationsParam = stations.map((s) => s.toLowerCase()).join(",");
+    const fieldsParam = fields.join(",");
+    const key = cacheKey("weather", [stationsParam, fieldsParam, startIso, endIso]);
+    const cached = getCached(key);
+    if (cached) return cached.payload;
+
+    const url =
+      `${PROXY_WEATHER}?stations=${encodeURIComponent(stationsParam)}` +
+      `&fields=${encodeURIComponent(fieldsParam)}` +
+      `&start_date=${encodeURIComponent(startIso)}` +
+      `&end_date=${encodeURIComponent(endIso)}`;
+    const resp = await fetch(url, { headers: { Accept: "application/json" } });
+    if (!resp.ok) {
+      const text = await resp.text().catch(() => "");
+      throw new Error(`Weather ${resp.status}: ${text.slice(0, 180)}`);
+    }
+    const payload = await resp.json();
+    putCached(key, payload, "proxy");
+    return payload;
+  }
+
+  /* -------------------- Single-station weather (legacy shape) -------------------- */
+
+  async function fetchWeatherLegacy(stationKey, days) {
+    const d = Number.isFinite(days) ? days : 240;
+    const key = cacheKey("weather-legacy", [stationKey, d]);
+    const cached = getCached(key);
+    if (cached) return cached.payload;
+    const url = `${PROXY_WEATHER}?station=${encodeURIComponent(stationKey)}&days=${d}`;
+    try {
+      const resp = await fetch(url, { headers: { Accept: "application/json" } });
+      if (!resp.ok) return null;
+      const payload = await resp.json();
+      putCached(key, payload, "proxy");
+      return payload;
+    } catch (err) {
+      console.warn("Weather proxy failed:", err);
+      return null;
+    }
+  }
+
+  /* -------------------- Health -------------------- */
+
+  async function fetchHealth() {
+    try {
+      const resp = await fetch(PROXY_HEALTH, { headers: { Accept: "application/json" } });
+      if (!resp.ok) return null;
+      return await resp.json();
+    } catch (err) {
+      return null;
+    }
+  }
+
+  /* -------------------- Helpers -------------------- */
+
   function clearCache() { cache.clear(); }
 
   /**
-   * Flatten the FeatureCollection payload into one record per station.
-   * Mirrors features/data.py:flatten_features but takes only the most
-   * recent timeseries entry (risk_days=1) per station.
+   * Flatten the FeatureCollection into rows. When riskDays>1 each station
+   * has multiple timeseries entries — we keep them all (one row per
+   * (station, date)), unlike the original single-day flattener.
    */
   function flattenForecast(payload, normalizeClass) {
     const rows = [];
     for (const feature of payload.features || []) {
       const station = feature.station || {};
       const coords = station.coordinates || {};
-      // Use the last timeseries entry (most recent forecasting_date).
-      const series = feature.timeseries || [];
-      if (!series.length) continue;
-      const ts = series[series.length - 1];
-
-      const row = {
+      const base = {
         id: String(station.station_id),
         name: String(station.station_name),
         lat: coords.latitude,
@@ -130,38 +209,57 @@
         county: station.county,
         region: station.region,
       };
-      for (const item of ts.data || []) {
-        const key = item.fieldname;
-        const val = item.value;
-        // Class fields get normalized so "HIGH" / " high " all match.
-        if (key && key.endsWith("_class")) {
-          row[key] = normalizeClass(val);
-        } else {
-          row[key] = val;
+      for (const ts of feature.timeseries || []) {
+        const row = Object.assign({}, base, {
+          date: ts.date || ts.forecasting_date || null,
+          forecasting_date: ts.forecasting_date || ts.date || null,
+        });
+        for (const item of ts.data || []) {
+          const key = item.fieldname;
+          const val = item.value;
+          if (key && key.endsWith("_class")) {
+            row[key] = normalizeClass(val);
+          } else {
+            row[key] = val;
+          }
         }
+        rows.push(row);
       }
-      rows.push(row);
     }
     return rows;
   }
 
+  /** Latest timeseries entry per station — the Disease tab's view. */
+  function latestRowPerStation(rows) {
+    const byStation = new Map();
+    for (const r of rows) {
+      const prev = byStation.get(r.id);
+      if (!prev || (r.date || "") > (prev.date || "")) byStation.set(r.id, r);
+    }
+    return Array.from(byStation.values());
+  }
+
   function normalizeClass(value) {
     if (value == null) return "Unknown";
-    const t = String(value).trim();
+    // The upstream API often prefixes class names with a sort key —
+    // "1.Low", "2.Moderate", "3.High". Strip it so the value matches
+    // CLASS_COLORS / CLASS_ORDER keys.
+    let t = String(value).trim().replace(/^\s*\d+\s*[.:)\-]\s*/, "");
     if (!t) return "Unknown";
-    // Title-case to match features/data.py:normalize_class.
-    return t.replace(/\w\S*/g, (w) =>
-      w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()
-    );
+    return t.replace(/\w\S*/g, (w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
   }
 
   root.ForecastAPI = {
     fetchForecast,
+    fetchModelInfo,
+    fetchBiomass,
+    fetchWeather,
+    fetchWeatherLegacy,
+    fetchHealth,
     flattenForecast,
+    latestRowPerStation,
     normalizeClass,
     clearCache,
-    // "proxy" | "direct" | "proxy-cache" | "direct-cache" | null
-    // — read by app.js after a load.
     lastSource: null,
   };
 })(window);

@@ -29,26 +29,37 @@
   </header>
 
   <main>
+    <!-- Top controls bar — these apply to every tab. -->
     <section class="controls">
-      <label class="control">
-        <span>Model</span>
-        <select id="model-select"></select>
-      </label>
-
       <label class="control">
         <span>Forecast date</span>
         <input type="date" id="forecast-date-input">
       </label>
 
-      <label class="control">
-        <span>Planting date <small>(biomass)</small></span>
-        <input type="date" id="planting-date-input">
+      <label class="control control-slider">
+        <span>Risk days <small id="risk-days-value">1</small></span>
+        <input type="range" id="risk-days-input" min="1" max="7" value="1" step="1">
       </label>
+
+      <label class="control">
+        <span>Disease model</span>
+        <select id="model-select"></select>
+      </label>
+
+      <!-- White-Mold sub-radio (hidden unless the WM model is selected). -->
+      <div class="control control-wm" id="wm-irrigation-wrap" hidden>
+        <span>Irrigation</span>
+        <div class="radio-row" id="wm-irrigation">
+          <label><input type="radio" name="wm-irr" value="non"> Non-irrigated</label>
+          <label><input type="radio" name="wm-irr" value="30in"> Irr. 30in</label>
+          <label><input type="radio" name="wm-irr" value="15in"> Irr. 15in</label>
+        </div>
+      </div>
 
       <div class="control control-actions">
         <span>&nbsp;</span>
         <button id="run-btn" type="button" class="run-btn"
-                title="Re-fetch the forecast for the selected date via the proxy">
+                title="Re-fetch the forecast for the selected date">
           ▶ Run
         </button>
       </div>
@@ -61,35 +72,136 @@
       </div>
     </section>
 
-    <section id="metrics" class="metrics"></section>
+    <!-- Tab navigation. -->
+    <nav class="tabs" role="tablist" aria-label="Dashboard sections">
+      <button class="tab-btn active" role="tab" aria-selected="true"
+              data-tab="forecast">🌽 Disease Forecast</button>
+      <button class="tab-btn" role="tab" aria-selected="false"
+              data-tab="trends">📈 Risk Trends</button>
+      <button class="tab-btn" role="tab" aria-selected="false"
+              data-tab="weather">🌤 Weather Data</button>
+    </nav>
 
-    <section class="map-wrapper">
-      <div id="map" role="region" aria-label="Station map"></div>
+    <!-- =================== TAB: Disease Forecast =================== -->
+    <section class="tab-panel" data-tab-panel="forecast">
+
+      <!-- Biomass-only inputs — toggled by app.js when "Cereal Rye Biomass"
+           is the selected model. -->
+      <div class="biomass-controls" id="biomass-controls" hidden>
+        <label class="control">
+          <span>Planting date</span>
+          <input type="date" id="planting-date-input">
+        </label>
+        <label class="control">
+          <span>Fall precip fallback (mm)</span>
+          <input type="number" id="fall-precip-input" min="0" max="2000" step="10" value="200">
+        </label>
+        <label class="control control-check">
+          <span>&nbsp;</span>
+          <label class="inline-check">
+            <input type="checkbox" id="use-real-precip" checked>
+            Use actual precip (wiscopy)
+          </label>
+        </label>
+        <div class="control control-actions">
+          <span>&nbsp;</span>
+          <button id="biomass-run-btn" type="button" class="run-btn run-btn-sec"
+                  title="Run the cereal-rye biomass model for every station">
+            ▶ Compute biomass
+          </button>
+        </div>
+        <div id="biomass-status" class="muted"></div>
+      </div>
+
+      <section id="metrics" class="metrics"></section>
+
+      <section class="map-wrapper">
+        <div id="map" role="region" aria-label="Station map"></div>
+      </section>
+
+      <section id="model-info" class="model-info"></section>
+
+      <details class="table-wrapper">
+        <summary>Station data table</summary>
+        <div class="table-scroll">
+          <table id="station-table"></table>
+        </div>
+      </details>
     </section>
 
-    <section id="model-info" class="model-info"></section>
-
-    <details class="table-wrapper">
-      <summary>Station data table</summary>
-      <div class="table-scroll">
-        <table id="station-table"></table>
-      </div>
-    </details>
-
-    <section class="weather-wrapper">
-      <header class="weather-header">
-        <h2>🌤 Weather at station</h2>
-        <label class="control">
-          <span>Station</span>
-          <select id="weather-station"></select>
+    <!-- =================== TAB: Risk Trends =================== -->
+    <section class="tab-panel" data-tab-panel="trends" hidden>
+      <div class="panel-controls">
+        <label class="control control-multi">
+          <span>Stations (multi-select)</span>
+          <select id="trends-stations" multiple size="6"></select>
+          <small class="muted">Cmd/Ctrl-click to add or remove stations.</small>
         </label>
-      </header>
-      <div class="weather-chart-container">
-        <p class="weather-empty muted" style="display:none">
-          No weather series bundled for this station.
-        </p>
-        <canvas id="weather-chart"></canvas>
+        <div class="control-meta">
+          <div id="trends-meta" class="muted"></div>
+        </div>
       </div>
+
+      <div class="chart-wrapper">
+        <p id="trends-empty" class="muted chart-empty" style="display:none">
+          Pick a date with at least one selected station and click Run.
+        </p>
+        <canvas id="trends-line-chart"></canvas>
+      </div>
+
+      <div class="chart-wrapper" style="margin-top:18px;">
+        <canvas id="trends-bar-chart"></canvas>
+      </div>
+
+      <details class="table-wrapper">
+        <summary>Raw trend data</summary>
+        <div class="table-scroll">
+          <table id="trends-table"></table>
+        </div>
+      </details>
+    </section>
+
+    <!-- =================== TAB: Weather Data =================== -->
+    <section class="tab-panel" data-tab-panel="weather" hidden>
+      <div class="panel-controls">
+        <label class="control control-multi">
+          <span>Stations (multi-select)</span>
+          <select id="weather-stations" multiple size="6"></select>
+        </label>
+        <label class="control">
+          <span>Weather field</span>
+          <select id="weather-field"></select>
+        </label>
+        <label class="control">
+          <span>Start date</span>
+          <input type="date" id="weather-start">
+        </label>
+        <label class="control">
+          <span>End date</span>
+          <input type="date" id="weather-end">
+        </label>
+        <div class="control control-actions">
+          <span>&nbsp;</span>
+          <button id="weather-run-btn" type="button" class="run-btn run-btn-sec">
+            ▶ Fetch weather
+          </button>
+        </div>
+        <div id="weather-status" class="muted"></div>
+      </div>
+
+      <div class="chart-wrapper chart-wrapper-tall">
+        <p id="weather-empty" class="muted chart-empty" style="display:none">
+          Pick stations and a field, then click Fetch weather.
+        </p>
+        <canvas id="weather-multi-chart"></canvas>
+      </div>
+
+      <details class="table-wrapper">
+        <summary>Raw weather data</summary>
+        <div class="table-scroll">
+          <table id="weather-table"></table>
+        </div>
+      </details>
     </section>
   </main>
 
@@ -116,9 +228,9 @@
       <a href="https://wisconet.wisc.edu/" target="_blank" rel="noopener">Wisconet</a>
       weather-station network
       <span class="sep">·</span>
-      Built daily via <code>build_site.py</code>
+      Live disease forecasts via <code>/proxy/forecast</code>
       <span class="sep">·</span>
-      Disease forecasts re-fetched live on date change
+      Bundled snapshot built daily via <code>build_site.py</code>
     </div>
   </footer>
 
@@ -133,6 +245,7 @@
   <script src="lib/forecast-api.js"></script>
   <script src="lib/map.js"></script>
   <script src="lib/weather.js"></script>
+  <script src="lib/trends.js"></script>
   <script src="lib/render.js"></script>
   <script src="lib/app.js"></script>
 </body>

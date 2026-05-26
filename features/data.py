@@ -56,13 +56,15 @@ def normalize_class(value) -> str:
     """Normalize a raw risk-class value to a stable Title-Case label.
 
     The API returns strings like ``"Low"``, ``"Moderate"``, ``"High"``,
-    ``"Inactive"`` — but also occasional ``None``, empty strings, or
-    odd casing. Map all of those to a known label so callers can match
-    against ``CLASS_COLORS`` / ``CLASS_ORDER`` deterministically.
+    ``"Inactive"`` — but during the active season it often prefixes
+    them with a sort key (``"1.Low"``, ``"2.Moderate"``, ``"3.High"``).
+    Strip the prefix so the label matches ``CLASS_COLORS`` /
+    ``CLASS_ORDER`` keys deterministically.
     """
     if value is None or (isinstance(value, float) and pd.isna(value)):
         return "Unknown"
-    text = str(value).strip()
+    import re
+    text = re.sub(r"^\s*\d+\s*[.:)\-]\s*", "", str(value).strip())
     return text.title() if text else "Unknown"
 
 
