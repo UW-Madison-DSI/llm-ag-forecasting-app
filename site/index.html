@@ -11,6 +11,30 @@
         crossorigin="anonymous">
 
   <link rel="stylesheet" href="assets/uw-brand.css">
+
+  <!-- Runtime config written by backend/main.py at startup from env vars
+       (GA_MEASUREMENT_ID, …). Loaded synchronously so it's available before
+       the analytics bootstrap below. A 404 here is fine — the bootstrap
+       no-ops when window.APP_CONFIG is missing. -->
+  <script src="/config.js"></script>
+  <script>
+    (function () {
+      var cfg = window.APP_CONFIG || {};
+      var gaId = cfg.gaMeasurementId;
+      if (!gaId) return;
+      // Standard gtag.js bootstrap, with the id pulled from APP_CONFIG so
+      // the ID never appears in source.
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(gaId);
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag("js", new Date());
+      gtag("config", gaId);
+    })();
+  </script>
 </head>
 <body>
 

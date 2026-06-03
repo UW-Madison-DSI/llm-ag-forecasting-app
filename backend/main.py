@@ -15,7 +15,9 @@ math and the upstream API calls.
 
 from __future__ import annotations
 
+import json
 import logging
+import os
 from datetime import date
 from pathlib import Path
 
@@ -57,6 +59,48 @@ app.add_middleware(
 @app.get("/proxy/health")
 def health():
     return {"status": "ok", "wiscopy": wiscopy_available()}
+
+
+# ---------------------------------------------------------------------------
+# Runtime config bootstrap.
+#
+# A static page can't read process env vars on its own, and we don't want to
+# bake the Google Analytics measurement ID (or any future secret-ish config)
+# into the image or commit it to git. Instead we write a tiny `site/config.js`
+# at FastAPI startup that exposes `window.APP_CONFIG`. The page loads it before
+# any other script and conditionally injects the gtag tag if a value is set.
+#
+# Sourced from env vars (read at every restart, so changing them is just
+# `docker compose restart` — no rebuild):
+#   GA_MEASUREMENT_ID   — e.g. "G-XXXXXXXXXX". Empty → analytics is skipped.
+# ---------------------------------------------------------------------------
+
+_SITE_DIR = Path(__file__).resolve().parent.parent / "site"
+
+
+def _write_runtime_config() -> None:
+    cfg = {
+        "gaMeasurementId": os.environ.get("GA_MEASUREMENT_ID", "").strip(),
+    }
+    target = _SITE_DIR / "config.js"
+    try:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        # Plain JS assignment — runs before any module reads APP_CONFIG.
+        target.write_text(
+            "/* Auto-generated at server startup from env vars. Do not edit by hand. */\n"
+            "window.APP_CONFIG = " + json.dumps(cfg) + ";\n",
+            encoding="utf-8",
+        )
+        log.info("Wrote runtime config to %s (ga=%s)",
+                 target, "set" if cfg["gaMeasurementId"] else "unset")
+    except OSError as err:
+        # Best-effort — the page falls back gracefully when config.js is 404.
+        log.warning("Could not write %s: %s", target, err)
+
+
+@app.on_event("startup")
+def _on_startup() -> None:
+    _write_runtime_config()
 
 
 @app.get("/proxy/forecast")
