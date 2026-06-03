@@ -23,11 +23,6 @@ services:
     restart: unless-stopped
     expose:
       - "80"
-    # Runtime config read by backend/main.py at startup. Values come from
-    # the host's environment (or a .env file beside this compose file —
-    # docker-compose loads it automatically). Leave unset to disable.
-    environment:
-      GA_MEASUREMENT_ID: "${GA_MEASUREMENT_ID:-}"
     labels:
       - "traefik.enable=true"
 

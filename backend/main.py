@@ -67,11 +67,13 @@ def health():
 # A static page can't read process env vars on its own, and we don't want to
 # bake the Google Analytics measurement ID (or any future secret-ish config)
 # into the image or commit it to git. Instead we write a tiny `site/config.js`
-# at FastAPI startup that exposes `window.APP_CONFIG`. The page loads it before
-# any other script and conditionally injects the gtag tag if a value is set.
+# at FastAPI startup that exposes `window.APP_CONFIG`. The page loads it
+# before any other script and conditionally injects the gtag tag if a value
+# is set.
 #
-# Sourced from env vars (read at every restart, so changing them is just
-# `docker compose restart` — no rebuild):
+# Read from os.environ at every startup — set it however you like (a shell
+# `export`, a systemd unit, a CI secret, etc.). Leave unset to disable.
+#
 #   GA_MEASUREMENT_ID   — e.g. "G-XXXXXXXXXX". Empty → analytics is skipped.
 # ---------------------------------------------------------------------------
 
