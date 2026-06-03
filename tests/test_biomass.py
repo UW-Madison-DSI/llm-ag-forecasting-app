@@ -63,11 +63,18 @@ def test_sine_gdd_full_cold_day_below_base_is_zero():
     assert gdd == pytest.approx(0.0)
 
 
+def _baskerville_emin(tmax, tmin, base=0.0):
+    """Closed-form reference for the mixed-day case (tmin < base < tmax)."""
+    avg = (tmax + tmin) / 2.0
+    half_range = (tmax - tmin) / 2.0
+    theta = math.asin((base - avg) / half_range)
+    return (half_range * math.cos(theta) + (avg - base) * (math.pi / 2.0 - theta)) / math.pi
+
+
 def test_sine_gdd_mixed_day_uses_baskerville_emin():
-    # tmin < base < tmax — should be positive but smaller than the
-    # naive (tavg - base).
+    # tmin < base < tmax → use the closed-form Baskerville–Emin value.
     gdd = sine_gdd(tmax_c=10.0, tmin_c=-2.0, base=0.0)
-    assert 0.0 < gdd < 4.0  # naive (avg=4) is the upper bound; reality is less
+    assert gdd == pytest.approx(_baskerville_emin(10.0, -2.0), rel=1e-9)
 
 
 def test_sine_gdd_array_broadcasts():
@@ -78,7 +85,7 @@ def test_sine_gdd_array_broadcasts():
     )
     assert out[0] == pytest.approx(15.0)
     assert out[1] == pytest.approx(0.0)
-    assert 0.0 < out[2] < 4.0
+    assert out[2] == pytest.approx(_baskerville_emin(10.0, -2.0), rel=1e-9)
 
 
 # ---------------------------------------------------------------------------
