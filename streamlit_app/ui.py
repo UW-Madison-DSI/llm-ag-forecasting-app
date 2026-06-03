@@ -48,7 +48,7 @@ def render_footer() -> None:
   <strong>Acknowledgments:</strong>
   Disease risk models developed by
   <a href="https://plantpath.wisc.edu/" target="_blank" rel="noopener">
-    Dr. Damon Smith</a> and the Plant Pathology group at UW–Madison.
+    Dr. Damon Smith</a> and the Plant Pathology Department at UW–Madison.
   Dashboard scaffolding and Ag Forecasting API support by the
   <a href="https://datascience.wisc.edu/" target="_blank" rel="noopener">
     Data Science Institute, University of Wisconsin–Madison</a>.
