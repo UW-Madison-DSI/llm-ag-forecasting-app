@@ -118,18 +118,20 @@ MAP_DEFAULT_MARKER_SIZE = 18
 # default. Pick anything that reads as "weather station" to you.
 ICON_CHOICES = ["📡", "🌡️", "🌤", "☁️", "⛅", "🌦", "📍", "🌽"]
 
-# Common Wisconet weather fields shown in the Weather tab. These are
-# wiscopy field names — extend or trim to taste.
-WEATHER_FIELDS = [
-    "60min_air_temp_f_avg",
-    "60min_air_temp_f_min",
-    "60min_air_temp_f_max",
-    "60min_relative_humidity_pct_avg",
-    "60min_dew_point_temp_f_avg",
-    "daily_rainfall_in",
-    "60min_solar_rad_w_m2_avg",
-    "60min_wind_speed_mph_avg",
-]
+# Common Wisconet weather fields shown in the Weather tab.
+# Keys are wiscopy field names (passed through to the API); values are
+# the human-readable labels shown in the selectbox + chart title.
+# Extend or trim to taste — keep keys exactly as wiscopy expects them.
+WEATHER_FIELDS: dict[str, str] = {
+    "60min_air_temp_f_avg":            "Avg temp (°F, hourly)",
+    "60min_air_temp_f_min":            "Min temp (°F, hourly)",
+    "60min_air_temp_f_max":            "Max temp (°F, hourly)",
+    "60min_relative_humidity_pct_avg": "Humidity (%, hourly)",
+    "60min_dew_point_temp_f_avg":      "Dew point (°F, hourly)",
+    "daily_rainfall_in":               "Rainfall (in, daily)",
+    "60min_solar_rad_w_m2_avg":        "Solar radiation (W/m², hourly)",
+    "60min_wind_speed_mph_avg":        "Wind speed (mph, hourly)",
+}
 
 # Default lookback window (days) for the weather time-series.
 WEATHER_DEFAULT_DAYS = 30

@@ -52,7 +52,14 @@ def render_weather_tab() -> None:
             max_value=date.today(),
         )
 
-    field = st.selectbox("Weather field", options=WEATHER_FIELDS, index=0)
+    # `field` is the wiscopy field name (passed through to the API);
+    # `WEATHER_FIELDS[field]` is the human-readable label shown to the user.
+    field = st.selectbox(
+        "Weather field",
+        options=list(WEATHER_FIELDS),
+        format_func=WEATHER_FIELDS.__getitem__,
+        index=0,
+    )
 
     if not selected_labels:
         st.info("Pick at least one station above.")
@@ -75,7 +82,8 @@ def render_weather_tab() -> None:
         return
 
     units = df["final_units"].iloc[0] if "final_units" in df.columns else ""
-    title = f"{field} ({units})" if units else field
+    label = WEATHER_FIELDS.get(field, field)
+    title = f"{label} ({units})" if units else label
 
     plot_df = df.reset_index()
     time_col = plot_df.columns[0]

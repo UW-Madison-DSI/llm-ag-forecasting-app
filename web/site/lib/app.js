@@ -19,20 +19,21 @@
   };
   const WM_GROUP_LABEL = "White Mold (soybean)";
 
-  // Streamlit's WEATHER_FIELDS list. Mirror it so the Weather tab field
-  // picker has the same options.
-  const WEATHER_FIELDS = [
-    "60min_air_temp_f_avg",
-    "60min_air_temp_f_min",
-    "60min_air_temp_f_max",
-    "60min_relative_humidity_pct_avg",
-    "60min_dew_point_temp_f_avg",
-    "daily_air_temp_f_avg",
-    "daily_rain_in_tot",
-    "daily_rainfall_in",
-    "60min_solar_rad_w_m2_avg",
-    "60min_wind_speed_mph_avg",
-  ];
+  // Mirror of features/config.py:WEATHER_FIELDS. Keys are wiscopy field
+  // names (passed straight to /proxy/weather); values are human-readable
+  // labels shown in the selectbox + chart title. Keep keys verbatim.
+  const WEATHER_FIELDS = {
+    "60min_air_temp_f_avg":            "Avg temp (°F, hourly)",
+    "60min_air_temp_f_min":            "Min temp (°F, hourly)",
+    "60min_air_temp_f_max":            "Max temp (°F, hourly)",
+    "60min_relative_humidity_pct_avg": "Humidity (%, hourly)",
+    "60min_dew_point_temp_f_avg":      "Dew point (°F, hourly)",
+    "daily_air_temp_f_avg":            "Avg temp (°F, daily)",
+    "daily_rain_in_tot":               "Rainfall (in, daily total)",
+    "daily_rainfall_in":               "Rainfall (in, daily)",
+    "60min_solar_rad_w_m2_avg":        "Solar radiation (W/m², hourly)",
+    "60min_wind_speed_mph_avg":        "Wind speed (mph, hourly)",
+  };
 
   const state = {
     snapshot: null,
@@ -473,9 +474,12 @@
   function populateWeatherFieldSelect() {
     const sel = document.getElementById("weather-field");
     sel.innerHTML = "";
-    WEATHER_FIELDS.forEach((f) => {
+    // value = wiscopy field name (what we send to /proxy/weather);
+    // textContent = human-readable label (what the user sees).
+    Object.entries(WEATHER_FIELDS).forEach(([code, label]) => {
       const opt = document.createElement("option");
-      opt.value = f; opt.textContent = f;
+      opt.value = code;
+      opt.textContent = label;
       sel.appendChild(opt);
     });
   }
