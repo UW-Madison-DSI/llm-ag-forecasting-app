@@ -81,8 +81,9 @@ def render_risk_trends_tab(selected_date, disease_label: str) -> None:
     fig.update_layout(height=520, margin={"r": 0, "t": 50, "l": 0, "b": 0})
     fig.update_traces(connectgaps=False)
 
-    # Risk is a 0–1 probability — show the axis and hover as percentages.
-    fig.update_yaxes(tickformat=".0%", hoverformat=".1%", rangemode="tozero")
+    # Risk is a 0–1 probability — show as percentages, keeping decimals so the
+    # exact value isn't rounded away (axis: 1 decimal, hover: 2 decimals).
+    fig.update_yaxes(tickformat=".1%", hoverformat=".2%", rangemode="tozero")
 
     # Simple horizontal threshold lines marking where each risk class begins.
     # Configured per disease in DISEASE_OPTIONS["thresholds"] = {label: prob}.
