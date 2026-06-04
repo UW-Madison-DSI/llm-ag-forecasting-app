@@ -35,16 +35,24 @@ def configure_page() -> None:
             icon_image=str(LOGO_ICON) if LOGO_ICON.exists() else None,
         )
         # st.logo caps at size="large"; bump it further via scoped CSS.
+        # Scale the wide horizontal logo to the sidebar *width* (not a fixed
+        # height) so it never overflows its container and gets clipped at the
+        # edges. object-fit: contain keeps the aspect ratio intact.
         st.markdown(
             """
             <style>
-                [data-testid="stSidebarHeader"] { padding-top: 1rem; padding-bottom: 1rem; }
+                [data-testid="stSidebarHeader"] {
+                    padding-top: 4rem;
+                    padding-bottom: 1rem;
+                    overflow: visible;
+                }
                 [data-testid="stSidebarHeader"] img,
                 [data-testid="stLogo"] {
-                    height: 90px !important;
-                    max-height: 90px !important;
-                    width: auto !important;
+                    width: 100% !important;
                     max-width: 100% !important;
+                    height: auto !important;
+                    max-height: 90px !important;
+                    object-fit: contain !important;
                 }
             </style>
             """,

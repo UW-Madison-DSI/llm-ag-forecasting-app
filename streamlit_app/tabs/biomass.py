@@ -79,7 +79,11 @@ def render_biomass_forecast_tab(selected_date: date, model_name: str) -> None:
         plant_date = st.date_input(
             "Planting date", value=_default_plant_date(selected_date),
             key="biomass_single_plant",
-            help="Day cereal rye was (or will be) seeded. Used as DOY in the model.",
+            help="Day cereal rye was (or will be) seeded. Used as DOY in the model. "
+            "See the [Cereal Rye Biomass thresholds]"
+            "(https://cropsandsoils.extension.wisc.edu/articles/"
+            "biomass-thresholds-for-cereal-rye-cover-crop-goals/) "
+            "(UW–Madison Division of Extension).",
         )
     with col_pr:
         fall_precip_mm = st.number_input(
@@ -198,6 +202,14 @@ def render_biomass_forecast_tab(selected_date: date, model_name: str) -> None:
         </div>
         """,
         unsafe_allow_html=True,
+    )
+
+    st.caption(
+        "Biomass risk buckets follow the "
+        "[Cereal Rye Biomass thresholds]"
+        "(https://cropsandsoils.extension.wisc.edu/articles/"
+        "biomass-thresholds-for-cereal-rye-cover-crop-goals/) "
+        "(UW–Madison Division of Extension)."
     )
 
     st.write("")  # spacing

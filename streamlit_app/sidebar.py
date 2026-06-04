@@ -71,7 +71,6 @@ def sidebar_controls() -> tuple[date, int, str]:
             value=date.today(),
             max_value=date.today(),
         )
-        risk_days = st.slider("Risk days", min_value=1, max_value=7, value=1)
         display_label = st.selectbox("Disease model", visible_options)
 
         irrigation_key: str | None = None
@@ -87,5 +86,10 @@ def sidebar_controls() -> tuple[date, int, str]:
         if st.button("🔄 Refresh data"):
             fetch_forecast.clear()
             st.rerun()
+
+        # Risk-days slider lives at the bottom of the sidebar, below every
+        # other control.
+        st.divider()
+        risk_days = st.slider("Risk days", min_value=1, max_value=7, value=1)
 
     return selected_date, risk_days, resolve_disease_label(display_label, irrigation_key)

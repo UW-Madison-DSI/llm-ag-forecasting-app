@@ -515,6 +515,34 @@ main {
   font-style: italic;
   opacity: 0.85;
 }
+.site-footer .gh-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  vertical-align: text-bottom;
+}
+
+/* -------- Acknowledgements block -------- */
+.site-footer .footer-ack {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.site-footer .footer-ack-title {
+  color: var(--ink);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-size: 0.8rem;
+  margin-bottom: 6px;
+}
+.site-footer .footer-ack ul {
+  margin: 0;
+  padding-left: 18px;
+}
+.site-footer .footer-ack li {
+  margin-bottom: 3px;
+}
 .site-footer a {
   color: var(--uw-red);
   text-decoration: none;
