@@ -11,12 +11,15 @@ from streamlit_app.tabs.biomass import render_biomass_forecast_tab
 from streamlit_app.tabs.forecast import render_forecast_tab
 from streamlit_app.tabs.trends import render_risk_trends_tab
 from streamlit_app.tabs.weather import render_weather_tab
-from streamlit_app.ui import render_footer, render_print_context
+from streamlit_app.ui import render_feedback_banner, render_footer, render_print_context
 
 
 def main() -> None:
     """Compose the whole dashboard."""
     selected_date, risk_days, disease_label = sidebar_controls()
+
+    # Prominent feedback survey banner (screen only).
+    render_feedback_banner()
 
     # Print-only context banner (hidden on screen; shown when an agent prints
     # or saves the view as a PDF via the sidebar button).

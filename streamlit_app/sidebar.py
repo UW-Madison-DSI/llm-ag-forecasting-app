@@ -10,6 +10,8 @@ import streamlit.components.v1 as components
 from features.api import fetch_forecast
 from features.config import DISEASE_OPTIONS
 
+from streamlit_app.ui import SURVEY_URL
+
 
 def _print_button() -> None:
     """Render a "Print / Save as PDF" button at the bottom of the sidebar.
@@ -45,6 +47,7 @@ WHITE_MOLD_VARIANTS = {
     "Irrigated 15in": "White Mold — Irrigated 15in (soybean)",
 }
 WHITE_MOLD_LABEL = "White Mold (soybean)"
+
 
 
 def build_visible_options(disease_options: dict | None = None) -> list[str]:
@@ -93,6 +96,13 @@ def sidebar_controls() -> tuple[date, int, str]:
     visible_options = build_visible_options()
 
     with st.sidebar:
+        st.link_button(
+            "📝 Share your feedback",
+            SURVEY_URL,
+            type="primary",
+            use_container_width=True,
+            help="Help us improve — takes just a couple of minutes.",
+        )
         st.header("Controls")
         selected_date = st.date_input(
             "Forecasting date",
