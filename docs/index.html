@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Understanding Crop Disease Risk · WI Agricultural Forecasting</title>
+  <meta name="description"
+        content="A plain-language guide to the corn and soybean diseases — and the cereal rye cover-crop biomass model — behind Wisconsin's daily agricultural risk forecasts.">
+  <link rel="icon" href="assets/uw-logo-vertical-color-web-digital.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============ Header ============ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="https://www.wisc.edu/" target="_blank" rel="noopener">
+        <img class="logo" src="assets/uw-logo-horizontal-color-web-digital.png"
+             alt="University of Wisconsin–Madison">
+      </a>
+      <div class="header-text">
+        <h1>🌽 WI Agricultural Forecasting Advisory System</h1>
+        <p>Understanding the crop diseases behind Wisconsin's daily risk forecasts</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ Hero ============ -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h2>Know the risk before it costs you a harvest</h2>
+      <p>
+        This advisory system turns local weather from the Wisconsin weather-station
+        network into a daily, easy-to-read disease-risk forecast for corn and
+        soybean — so you can time scouting and fungicide decisions with confidence.
+      </p>
+      <!-- TODO: point this at the deployed Streamlit dashboard URL once it is live. -->
+      <a class="btn" href="https://github.com/UW-Madison-DSI/ag_forecasting_app_v3"
+         target="_blank" rel="noopener">Open the forecasting dashboard</a>
+      <a class="btn btn-secondary" href="#diseases">Learn about the diseases</a>
+    </div>
+  </section>
+
+  <main>
+
+    <!-- ============ How it works ============ -->
+    <section id="how">
+      <h2>How the forecast works</h2>
+      <p class="lead">
+        Every day the system pulls temperature, humidity, and other readings from
+        nearby weather stations and runs them through disease-risk models built by
+        UW–Madison plant pathologists. You get a simple risk level for each field
+        crop — no spreadsheets required.
+      </p>
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <h3>Local weather in</h3>
+          <p>Hourly readings come from the
+             <a href="https://wisconet.wisc.edu/" target="_blank" rel="noopener">Wisconet</a>
+             network of Wisconsin weather stations.</p>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <h3>Models run daily</h3>
+          <p>Research-based models estimate how favorable conditions are for each
+             disease to develop.</p>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <h3>Risk level out</h3>
+          <p>Each station gets a Low, Moderate, or High risk rating you can see on a
+             map at a glance.</p>
+        </div>
+        <div class="step">
+          <div class="num">4</div>
+          <h3>You decide</h3>
+          <p>Use the rating to prioritize scouting and time management decisions like
+             fungicide applications.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Reading the risk ============ -->
+    <section id="risk">
+      <h2>Reading the risk levels</h2>
+      <p class="lead">
+        Risk levels describe how favorable the weather has been for disease — not a
+        guarantee that disease is present. Always confirm with in-field scouting.
+      </p>
+      <div class="risk-legend">
+        <div class="risk-pill low">
+          Low risk
+          <small>Conditions are unfavorable for the disease. Keep scouting on your normal schedule.</small>
+        </div>
+        <div class="risk-pill mod">
+          Moderate risk
+          <small>Conditions are becoming favorable. Scout more closely and watch the trend.</small>
+        </div>
+        <div class="risk-pill high">
+          High risk
+          <small>Conditions strongly favor the disease. Prioritize scouting and consider management.</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Diseases ============ -->
+    <section id="diseases">
+      <h2>The diseases we forecast</h2>
+      <p class="lead">
+        Each model targets a specific field-crop disease. Tap any card for the full,
+        research-backed write-up from the Crop Protection Network.
+      </p>
+      <div class="cards">
+
+        <div class="card corn">
+          <span class="crop">Corn</span>
+          <h3>Tar Spot</h3>
+          <p>
+            A fungal disease that shows up as small, raised black spots on leaves.
+            It thrives in cool, humid, wet weather and can cut yields sharply when it
+            arrives early and spreads up the plant.
+          </p>
+          <a class="ref" href="https://cropprotectionnetwork.org/encyclopedia/tar-spot-of-corn"
+             target="_blank" rel="noopener">Read more</a>
+        </div>
+
+        <div class="card corn">
+          <span class="crop">Corn</span>
+          <h3>Gray Leaf Spot</h3>
+          <p>
+            One of the most common corn diseases. Rectangular gray-to-tan lesions
+            run between leaf veins. Warm temperatures and long periods of high
+            humidity or leaf wetness drive infection.
+          </p>
+          <a class="ref" href="https://cropprotectionnetwork.org/encyclopedia/gray-leaf-spot-of-corn"
+             target="_blank" rel="noopener">Read more</a>
+        </div>
+
+        <div class="card soybean">
+          <span class="crop">Soybean</span>
+          <h3>Frogeye Leaf Spot</h3>
+          <p>
+            Named for its round, gray-centered spots with reddish-brown borders.
+            Warm, humid weather favors it, and susceptible varieties can lose
+            significant leaf area and yield.
+          </p>
+          <a class="ref" href="https://cropprotectionnetwork.org/encyclopedia/frogeye-leaf-spot-of-soybean"
+             target="_blank" rel="noopener">Read more</a>
+        </div>
+
+        <div class="card soybean">
+          <span class="crop">Soybean</span>
+          <h3>White Mold</h3>
+          <p>
+            A cool-weather disease that strikes during flowering, producing fluffy
+            white growth on stems. Risk depends on the canopy, row spacing, and
+            irrigation — the dashboard lets you pick the scenario that matches your field.
+          </p>
+          <a class="ref" href="https://cropprotectionnetwork.org/encyclopedia/white-mold-of-soybean"
+             target="_blank" rel="noopener">Read more</a>
+        </div>
+
+        <div class="card cover">
+          <span class="crop">Cover crop</span>
+          <h3>Cereal Rye Biomass</h3>
+          <p>
+            Not a disease — this model estimates how much cereal rye cover-crop
+            biomass you've grown. Hitting the right biomass threshold drives benefits
+            like weed suppression and soil protection.
+          </p>
+          <a class="ref"
+             href="https://cropsandsoils.extension.wisc.edu/articles/biomass-thresholds-for-cereal-rye-cover-crop-goals/"
+             target="_blank" rel="noopener">Biomass thresholds</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ Call to action ============ -->
+    <section id="cta">
+      <div class="callout">
+        <h2 style="border:0; margin-top:0;">Ready to check your fields?</h2>
+        <p style="margin-bottom:0;">
+          Open the interactive dashboard to see today's risk map, compare stations,
+          and explore weather trends across Wisconsin.
+          <!-- TODO: update to the live dashboard URL when deployed. -->
+          <a href="https://github.com/UW-Madison-DSI/ag_forecasting_app_v3"
+             target="_blank" rel="noopener"><strong>Go to the dashboard →</strong></a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ Footer ============ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <strong>Source code:</strong>
+        <a href="https://github.com/UW-Madison-DSI/ag_forecasting_app_v3"
+           target="_blank" rel="noopener">github.com/UW-Madison-DSI/ag_forecasting_app_v3</a>
+      </div>
+
+      <div class="ack-title">Acknowledgements</div>
+      <ul>
+        <li>Disease risk models developed by
+          <a href="https://plantpath.wisc.edu/" target="_blank" rel="noopener">Dr. Damon Smith</a>
+          and the Plant Pathology Department, UW–Madison.</li>
+        <li>Dashboard scaffolding and Ag Forecasting API support by the
+          <a href="https://datascience.wisc.edu/" target="_blank" rel="noopener">
+            Data Science Institute, UW–Madison</a>.</li>
+        <li>Open-source guidance from the
+          <a href="https://ospo.wisc.edu/" target="_blank" rel="noopener">
+            Open Source Program Office (OSPO), UW–Madison</a>, with special thanks
+          to former Director of Open Source Allison Kittinger.</li>
+        <li>Funded by a grant from the
+          <a href="https://extension.wisc.edu/" target="_blank" rel="noopener">
+            UW–Madison Division of Extension</a>, in keeping with the
+          <a href="https://www.wisc.edu/wisconsin-idea/" target="_blank" rel="noopener">
+            Wisconsin Idea</a>.</li>
+        <li>Application authored by María Oros, Data Scientist at the Data Science
+          Institute, UW–Madison (<code>moros2@wisc.edu</code>).</li>
+      </ul>
+
+      <p style="margin-top:16px; font-style:italic; font-size:0.82rem;">
+        Forecast data sourced from the
+        <a href="https://wisconet.wisc.edu/" target="_blank" rel="noopener">Wisconet</a>
+        weather-station network. Risk ratings describe weather favorability and are
+        not a substitute for in-field scouting.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
