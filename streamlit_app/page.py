@@ -59,6 +59,48 @@ def configure_page() -> None:
             unsafe_allow_html=True,
         )
 
+    # Print / "Save as PDF" styling. Lets an extension agent print a clean
+    # one-page handout of the current forecast for farmers without internet:
+    # the interactive chrome (sidebar, toolbar, tab bar, expanders) is hidden,
+    # the active view fills the page, and a print-only context header carries
+    # the date / disease / risk window. Triggered by the sidebar button.
+    st.markdown(
+        """
+        <style>
+            .print-only { display: none; }
+            @media print {
+                /* Hide interactive chrome so only the forecast view prints. */
+                section[data-testid="stSidebar"],
+                header[data-testid="stHeader"],
+                [data-testid="stToolbar"],
+                [data-testid="stStatusWidget"],
+                [data-testid="stDecoration"],
+                .stTabs [data-baseweb="tab-list"],
+                [data-testid="stExpander"],
+                .no-print { display: none !important; }
+
+                /* Let the active view fill the page. */
+                [data-testid="stMain"] { padding: 0 !important; }
+                .block-container {
+                    max-width: 100% !important;
+                    padding: 0.4rem 1rem !important;
+                }
+
+                /* Reveal the print-only context header. */
+                .print-only { display: block !important; }
+
+                /* Keep the map and metric tiles from splitting across pages. */
+                .stPlotlyChart,
+                [data-testid="stMetric"] {
+                    break-inside: avoid;
+                    page-break-inside: avoid;
+                }
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
     st.title("🌽 WI Agricultural Forecasting Advisory System")
     st.caption(
         "Daily risk forecast from the UW–Madison Ag Forecasting API (Wisconet stations). "

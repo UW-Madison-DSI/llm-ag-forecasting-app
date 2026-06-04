@@ -5,9 +5,37 @@ from __future__ import annotations
 from datetime import date
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 from features.api import fetch_forecast
 from features.config import DISEASE_OPTIONS
+
+
+def _print_button() -> None:
+    """Render a "Print / Save as PDF" button at the bottom of the sidebar.
+
+    Streamlit's ``st.button`` can't run JavaScript, so this is a small
+    same-origin component whose button calls ``window.parent.print()`` —
+    printing the whole app document (not just the iframe). Combined with the
+    ``@media print`` rules in ``page.py``, this lets an extension agent save a
+    clean one-page handout of the current forecast for farmers without
+    internet.
+    """
+    components.html(
+        """
+        <button onclick="window.parent.print()"
+                style="width: 100%; padding: 0.5rem 0.75rem; cursor: pointer;
+                       font-size: 0.95rem; font-weight: 600; color: #111827;
+                       background: #ffffff; border: 1px solid rgba(17,24,39,0.25);
+                       border-radius: 0.5rem; font-family: 'Source Sans Pro',
+                       -apple-system, sans-serif;"
+                onmouseover="this.style.borderColor='#C5050C'; this.style.color='#C5050C';"
+                onmouseout="this.style.borderColor='rgba(17,24,39,0.25)'; this.style.color='#111827';">
+            🖨️ Print / Save as PDF
+        </button>
+        """,
+        height=48,
+    )
 
 # White-mold variants we collapse into one dropdown entry + sub-radio.
 # Order matters: first key is the default radio choice.
@@ -91,5 +119,10 @@ def sidebar_controls() -> tuple[date, int, str]:
         # other control.
         st.divider()
         risk_days = st.slider("Risk days", min_value=1, max_value=7, value=1)
+
+        # Export the current view as a printable / PDF handout.
+        st.divider()
+        st.caption("Export the current view for farmers without internet:")
+        _print_button()
 
     return selected_date, risk_days, resolve_disease_label(display_label, irrigation_key)

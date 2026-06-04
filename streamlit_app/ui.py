@@ -34,6 +34,35 @@ def color_tile(col, color: str, label: str, value, tooltip: str = "") -> None:
     )
 
 
+def render_print_context(selected_date, risk_days: int, disease_label: str) -> None:
+    """Print-only banner with the forecast context.
+
+    Hidden on screen (``.print-only`` is ``display: none`` until the
+    ``@media print`` rules in ``page.py`` reveal it). It carries the date,
+    disease, and risk window onto the printed handout, since the sidebar that
+    normally shows those selections is hidden when printing.
+    """
+    st.markdown(
+        f"""
+<div class="print-only" style="border-bottom: 2px solid #C5050C; margin-bottom: 12px;
+     padding-bottom: 8px;">
+  <div style="font-size: 1.2rem; font-weight: 700; color: #111827;">
+    🌽 WI Agricultural Forecasting Advisory System
+  </div>
+  <div style="font-size: 0.95rem; color: #374151;">
+    <strong>Forecast date:</strong> {selected_date}
+    &nbsp;·&nbsp; <strong>Model:</strong> {disease_label}
+    &nbsp;·&nbsp; <strong>Risk window:</strong> {risk_days} day(s)
+  </div>
+  <div style="font-size: 0.78rem; color: #6B7280; margin-top: 2px;">
+    Risk ratings reflect weather favorability and are not a substitute for in-field scouting.
+  </div>
+</div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def render_footer() -> None:
     """Page footer: project info + a dedicated Acknowledgements section."""
     st.markdown("---")
