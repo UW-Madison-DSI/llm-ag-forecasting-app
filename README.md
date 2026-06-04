@@ -88,28 +88,40 @@ streamlit run app.py
 The measurement id is read from `os.environ` at startup; leave the env
 var unset to disable analytics. See [`streamlit_app/analytics.py`](streamlit_app/analytics.py).
 
-### Optional: "💬 Ask about this forecast" (LLM-assisted explanations)
+### Optional: AI-assisted explanations (OpenAI)
 
-The Disease Forecast tab includes an expander that lets users ask
-plain-language questions about the data on screen — e.g. *"why is
-Arlington High this week?"* or *"what does GDD mean?"*. It feeds the
-selected forecast + disease reference URL to OpenAI and renders the
-reply.
+When `OPENAI_API_KEY` is set, three opt-in features light up across the
+app — each is invisible when the key is unset, so dev/demo deploys
+without a key look exactly like before:
+
+| Where | What it does |
+|---|---|
+| **💬 Ask about this forecast** — Disease Forecast tab | Plain-language Q&A about the single-day map ("why is Arlington High?", "which counties have the most stations at risk?") |
+| **💬 Ask about these trends** — Risk Trends tab | Same, scoped to the multi-day per-station trajectories ("which station is rising fastest?", "when did most stations cross into High?") |
+| **🤖 Explain this model** — button inside *About this model* | Plain-language summary of the selected disease model — what it predicts, what inputs it uses, the inactive rule, how to read its output |
+
+All three:
+
+- **Reply language toggle** — 🇺🇸 English / 🇪🇸 Español radio per expander,
+  so the same explanation is accessible to Spanish-speaking growers and
+  extension agents without leaving the app.
+- **No treatment recommendations.** A baked-in system prompt forbids
+  spray/product/timing advice; on those questions the model refers
+  users to a certified agronomist or
+  [UW–Madison Extension](https://extension.wisc.edu/).
+- **Cites the encyclopedia.** Each disease's authoritative reference
+  URL (from *Crop risk models* below) is injected into the context, so
+  replies link back to the same source the user can read independently.
 
 ```bash
 export OPENAI_API_KEY=sk-...
-# Optional override; defaults to gpt-4o-mini (small, ~$0.0001/query):
+# Optional override; defaults to gpt-4o-mini (~$0.0001/query):
 export OPENAI_MODEL=gpt-4o-mini
 streamlit run app.py
 ```
 
-Both env vars are read on every call — no source-level secrets. When
-`OPENAI_API_KEY` is unset, the expander renders a one-line setup hint
-instead of the chat UI, so the feature is invisible in dev/demo
-deploys without a key. The system prompt explicitly forbids treatment
-or product recommendations; for management decisions the model is
-instructed to refer users to a certified agronomist or UW Extension.
-See [`streamlit_app/llm.py`](streamlit_app/llm.py).
+Both env vars are read on every call — no source-level secrets. See
+[`streamlit_app/llm.py`](streamlit_app/llm.py).
 
 ### Cached forecast calls
 

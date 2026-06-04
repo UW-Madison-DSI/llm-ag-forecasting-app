@@ -13,7 +13,7 @@ from features.config import CLASS_COLORS, DISEASE_OPTIONS
 from features.data import flatten_features, prepare_disease_df
 from features.map_view import build_map
 
-from streamlit_app.llm import render_chat_expander
+from streamlit_app.llm import render_chat_expander, render_model_explain_button
 from streamlit_app.ui import NEUTRAL_TILE_COLOR, color_tile
 
 
@@ -122,6 +122,8 @@ def show_model_info(model_name: str, disease_label: str) -> None:
         if variables:
             st.markdown("**Input variables**")
             st.markdown("\n".join(f"- `{v}`" for v in variables))
+
+        render_model_explain_button(disease_label, model_name, info)
 
 
 # ---------------------------------------------------------------------------

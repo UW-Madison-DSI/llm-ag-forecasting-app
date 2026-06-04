@@ -11,6 +11,8 @@ from features.api import fetch_forecast
 from features.config import CLASS_COLORS, DISEASE_OPTIONS, RISK_TRENDS_DAYS
 from features.data import flatten_features
 
+from streamlit_app.llm import render_trends_chat_expander
+
 
 def render_risk_trends_tab(selected_date, disease_label: str) -> None:
     """Render the Risk Trends tab: ``RISK_TRENDS_DAYS``-day risk time-series."""
@@ -106,3 +108,7 @@ def render_risk_trends_tab(selected_date, disease_label: str) -> None:
         cols = ["station_id", "station_name", "plot_date", risk_field, class_field]
         cols = [c for c in cols if c in df.columns]
         st.dataframe(df[cols], use_container_width=True)
+
+    render_trends_chat_expander(
+        selected_date.isoformat(), disease_label, df, risk_field, class_field,
+    )
