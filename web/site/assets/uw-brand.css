@@ -490,30 +490,6 @@ main {
 
 /* -------------------- Footer -------------------- */
 
-/* -------------------- Feedback survey bar -------------------- */
-.feedback-bar {
-  background: var(--uw-red);
-  color: #fff;
-  padding: 10px 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  font-weight: 600;
-  font-size: 0.92rem;
-}
-.feedback-bar a {
-  background: #fff;
-  color: var(--uw-red);
-  text-decoration: none;
-  font-weight: 700;
-  padding: 6px 16px;
-  border-radius: 7px;
-  white-space: nowrap;
-}
-.feedback-bar a:hover { color: var(--uw-anchor); text-decoration: none; }
-
 .site-footer {
   margin-top: 24px;
   padding: 18px 28px;

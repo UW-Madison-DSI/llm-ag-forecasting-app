@@ -10,33 +10,8 @@ import streamlit as st
 SOURCE_CODE_URL = "https://github.com/UW-Madison-DSI/ag_forecasting_app_v3"
 NEUTRAL_TILE_COLOR = "#34495e"
 
-# User-feedback survey, surfaced prominently for user testing.
+# User-feedback survey, surfaced for user testing.
 SURVEY_URL = "https://forms.gle/qPX1KycHb42mgkYU6"
-
-
-def render_feedback_banner() -> None:
-    """Prominent, screen-only feedback banner at the top of the page.
-
-    Hidden when printing (``no-print``) so it never lands on the farmer
-    handout.
-    """
-    st.markdown(
-        f"""
-<div class="no-print" style="background: #C5050C; color: #fff; border-radius: 10px;
-     padding: 12px 18px; margin-bottom: 14px; display: flex; align-items: center;
-     justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-  <span style="font-weight: 600;">
-    📝 We're testing this tool — your feedback shapes what comes next.
-  </span>
-  <a href="{SURVEY_URL}" target="_blank" rel="noopener"
-     style="background: #fff; color: #C5050C; font-weight: 700; text-decoration: none;
-            padding: 7px 18px; border-radius: 7px; white-space: nowrap;">
-    Take the 2-minute survey →
-  </a>
-</div>
-        """,
-        unsafe_allow_html=True,
-    )
 
 
 def color_tile(col, color: str, label: str, value, tooltip: str = "") -> None:

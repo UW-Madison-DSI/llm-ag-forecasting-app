@@ -96,13 +96,6 @@ def sidebar_controls() -> tuple[date, int, str]:
     visible_options = build_visible_options()
 
     with st.sidebar:
-        st.link_button(
-            "📝 Share your feedback",
-            SURVEY_URL,
-            type="primary",
-            use_container_width=True,
-            help="Help us improve — takes just a couple of minutes.",
-        )
         st.header("Controls")
         selected_date = st.date_input(
             "Forecasting date",
@@ -132,7 +125,16 @@ def sidebar_controls() -> tuple[date, int, str]:
 
         # Export the current view as a printable / PDF handout.
         st.divider()
-        st.caption("Export the current view for farmers without internet:")
+        st.caption("Export the current view as PDF:")
         _print_button()
+
+        # Feedback survey — kept at the very bottom, unobtrusive.
+        st.divider()
+        st.link_button(
+            "📝 We want your feedback",
+            SURVEY_URL,
+            use_container_width=True,
+            help="Help us improve — takes just a couple of minutes.",
+        )
 
     return selected_date, risk_days, resolve_disease_label(display_label, irrigation_key)
