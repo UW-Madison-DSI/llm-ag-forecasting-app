@@ -9,6 +9,15 @@
 
   const DATA_URL = "data/latest.json";
 
+  /* Fire a Google Analytics (GA4) custom event for feature-usage tracking.
+     No-ops when gtag isn't loaded (GA_MEASUREMENT_ID unset). Log feature
+     names / UI choices only — never field-level location or personal data. */
+  function track(event, params) {
+    try {
+      if (typeof window.gtag === "function") window.gtag("event", event, params || {});
+    } catch (e) { /* analytics must never break the UI */ }
+  }
+
   // Three white-mold variants live in the snapshot models[] separately.
   // The UI collapses them into one "White Mold (soybean)" entry plus a
   // radio (Non-irrigated / Irr 30in / Irr 15in) that picks the variant.
@@ -393,6 +402,7 @@
 
     sel.addEventListener("change", () => {
       const label = sel.value;
+      track("disease_selected", { model: label });
       if (label === WM_GROUP_LABEL) {
         // Default to the Non-irrigated variant the first time WM is picked.
         const variantKey = currentWmRadio() || "non";
@@ -544,6 +554,7 @@
     });
 
     document.getElementById("run-btn").addEventListener("click", () => {
+      track("forecast_run", { risk_days: state.riskDays });
       refreshLive(`Fetching ${state.forecastDate} (risk_days=${state.riskDays})…`);
     });
 
@@ -567,8 +578,14 @@
       state.biomassUseReal = !!e.target.checked;
     });
 
-    document.getElementById("biomass-run-btn").addEventListener("click", () => runBiomass({}));
-    document.getElementById("weather-run-btn").addEventListener("click", () => runWeather());
+    document.getElementById("biomass-run-btn").addEventListener("click", () => {
+      track("biomass_run");
+      runBiomass({});
+    });
+    document.getElementById("weather-run-btn").addEventListener("click", () => {
+      track("weather_run");
+      runWeather();
+    });
   }
 
   function bindTabs() {
@@ -577,6 +594,7 @@
       btn.addEventListener("click", () => {
         const tab = btn.dataset.tab;
         if (!tab || tab === state.activeTab) return;
+        track("tab_view", { tab });
         buttons.forEach((b) => {
           const active = b.dataset.tab === tab;
           b.classList.toggle("active", active);

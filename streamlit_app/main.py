@@ -12,6 +12,7 @@ from streamlit_app.tabs.forecast import render_forecast_tab
 from streamlit_app.tabs.trends import render_risk_trends_tab
 from streamlit_app.tabs.weather import render_weather_tab
 from streamlit_app.ui import render_footer, render_print_context
+from streamlit_app.usage import flush_events
 
 
 def main() -> None:
@@ -43,3 +44,6 @@ def main() -> None:
         render_weather_tab()
 
     render_footer()
+
+    # Emit any feature-usage events queued by widget callbacks this run.
+    flush_events()

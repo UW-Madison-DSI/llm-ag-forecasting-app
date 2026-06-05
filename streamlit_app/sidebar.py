@@ -11,6 +11,7 @@ from features.api import fetch_forecast
 from features.config import DISEASE_OPTIONS
 
 from streamlit_app.ui import SURVEY_URL
+from streamlit_app.usage import queue_event
 
 
 def _print_button() -> None:
@@ -25,7 +26,7 @@ def _print_button() -> None:
     """
     components.html(
         """
-        <button onclick="window.parent.print()"
+        <button onclick="try{window.parent.gtag&&window.parent.gtag('event','print_pdf_click');}catch(e){}; window.parent.print()"
                 style="width: 100%; padding: 0.5rem 0.75rem; cursor: pointer;
                        font-size: 0.95rem; font-weight: 600; color: #111827;
                        background: #ffffff; border: 1px solid rgba(17,24,39,0.25);
@@ -101,8 +102,17 @@ def sidebar_controls() -> tuple[date, int, str]:
             "Forecasting date",
             value=date.today(),
             max_value=date.today(),
+            key="forecast_date",
+            on_change=lambda: queue_event("date_changed"),
         )
-        display_label = st.selectbox("Disease model", visible_options)
+        display_label = st.selectbox(
+            "Disease model",
+            visible_options,
+            key="disease_model",
+            on_change=lambda: queue_event(
+                "disease_selected", model=st.session_state.get("disease_model")
+            ),
+        )
 
         irrigation_key: str | None = None
         if display_label == WHITE_MOLD_LABEL:
@@ -112,16 +122,26 @@ def sidebar_controls() -> tuple[date, int, str]:
                 horizontal=False,
                 help="White-mold risk depends on row spacing and irrigation; "
                      "choose the management scenario that matches the field.",
+                key="wm_irrigation",
+                on_change=lambda: queue_event(
+                    "irrigation_selected", choice=st.session_state.get("wm_irrigation")
+                ),
             )
 
-        if st.button("🔄 Refresh data"):
+        if st.button("🔄 Refresh data", on_click=lambda: queue_event("refresh_clicked")):
             fetch_forecast.clear()
             st.rerun()
 
         # Risk-days slider lives at the bottom of the sidebar, below every
         # other control.
         st.divider()
-        risk_days = st.slider("Risk days", min_value=1, max_value=7, value=1)
+        risk_days = st.slider(
+            "Risk days", min_value=1, max_value=7, value=1,
+            key="risk_days",
+            on_change=lambda: queue_event(
+                "risk_days_changed", value=st.session_state.get("risk_days")
+            ),
+        )
 
         # Export the current view as a printable / PDF handout.
         st.divider()
