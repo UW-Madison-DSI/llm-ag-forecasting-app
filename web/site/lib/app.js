@@ -208,6 +208,218 @@
 
   function showBiomassControls(show) {
     document.getElementById("biomass-controls").hidden = !show;
+    document.getElementById("biomass-detail").hidden = !show;
+    if (show) {
+      populateBiomassDetailStation();
+      renderBiomassDetail();
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     Single-station biomass debug — mirrors the Streamlit tab's
+     per-station drill-down. Pulls /proxy/weather for one station,
+     runs the per-day biomass series in JS (Biomass.biomassDailyRowsFromSeries),
+     and renders headline + metric tiles + daily breakdown + raw weather.
+     ------------------------------------------------------------------ */
+
+  function populateBiomassDetailStation() {
+    const sel = document.getElementById("biomass-detail-station");
+    if (!sel) return;
+    const wanted = sel.value;
+    sel.innerHTML = "";
+    const stations = (state.snapshot.stations || []).slice()
+      .sort((a, b) => a.name.localeCompare(b.name));
+    stations.forEach((s) => {
+      const opt = document.createElement("option");
+      opt.value = s.id;
+      opt.textContent = `${s.name} (${s.id})`;
+      sel.appendChild(opt);
+    });
+    // Default to Arlington when nothing is selected yet — same as Streamlit.
+    if (wanted) {
+      sel.value = wanted;
+    } else {
+      const arl = stations.find((s) => /arlington/i.test(s.name));
+      if (arl) sel.value = arl.id;
+    }
+    if (!sel.dataset.bound) {
+      sel.addEventListener("change", () => {
+        track("biomass_station_view", { station: sel.value });
+        renderBiomassDetail();
+      });
+      sel.dataset.bound = "1";
+    }
+  }
+
+  async function renderBiomassDetail() {
+    if (!state.currentModel || state.currentModel.type !== "biomass") return;
+    const sel = document.getElementById("biomass-detail-station");
+    const stationId = sel ? sel.value : null;
+    if (!stationId) return;
+
+    const station = (state.snapshot.stations || []).find((s) => s.id === stationId);
+    if (!station) return;
+
+    const status = document.getElementById("biomass-detail-status");
+    const headline = document.getElementById("biomass-headline");
+    const metrics = document.getElementById("biomass-detail-metrics");
+    const daily = document.getElementById("biomass-daily-table");
+    const raw = document.getElementById("biomass-raw-table");
+    const caption = document.getElementById("biomass-detail-caption");
+
+    const plantIso = state.biomassPlantDate || state.plantDate;
+    const fcstIso = state.forecastDate;
+    if (!plantIso || !fcstIso || plantIso >= fcstIso) {
+      status.innerHTML = `<span class="error-text">Planting date must be before the forecast date.</span>`;
+      headline.innerHTML = "";
+      metrics.innerHTML = "";
+      daily.innerHTML = "";
+      raw.innerHTML = "";
+      caption.textContent = "";
+      return;
+    }
+
+    status.innerHTML = `<span class="pending-text">Pulling weather for ${escapeHtml(stationId)}…</span>`;
+
+    let series = null;
+    let source = "proxy";
+    try {
+      // /proxy/weather legacy single-station shape returns
+      // {station, start, tavg_f, precip_in} — exactly what
+      // biomassDailyRowsFromSeries() consumes.
+      const startD = new Date(plantIso + "T00:00:00Z");
+      const endD = new Date(fcstIso + "T00:00:00Z");
+      const days = Math.max(1, Math.round((endD - startD) / 86400000) + 1);
+      series = await ForecastAPI.fetchWeatherLegacy(stationId, days);
+    } catch (err) {
+      console.warn("biomass-detail proxy fetch failed:", err);
+    }
+
+    // Fall back to the bundled per-station weather series if the proxy
+    // call returned nothing (matches the all-station replay path).
+    if (!series || !series.tavg_f) {
+      series = (state.snapshot.weather || {})[stationId.toUpperCase()] || null;
+      source = "bundled";
+    }
+
+    if (!series || !series.tavg_f) {
+      status.innerHTML = `<span class="error-text">No weather data available for ${escapeHtml(stationId)}.</span>`;
+      headline.innerHTML = "";
+      metrics.innerHTML = "";
+      daily.innerHTML = "";
+      raw.innerHTML = "";
+      caption.textContent = "";
+      return;
+    }
+
+    const fallback = state.biomassUseReal ? null : (state.biomassPrecip || 200);
+    const rows = Biomass.biomassDailyRowsFromSeries(series, plantIso, fcstIso, fallback);
+
+    if (!rows.length) {
+      status.innerHTML = `<span class="error-text">Planting date falls outside the weather window for this station.</span>`;
+      headline.innerHTML = "";
+      metrics.innerHTML = "";
+      daily.innerHTML = "";
+      raw.innerHTML = "";
+      caption.textContent = "";
+      return;
+    }
+
+    const last = rows[rows.length - 1];
+    const thr = state.snapshot.biomass_thresholds || { low_max: 500, high_min: 1500 };
+    const klass = Biomass.classifyBiomass(last.biomass_pred, thr.low_max, thr.high_min);
+    const colors = state.snapshot.class_colors || {};
+    const color = colors[klass] || "#34495e";
+    const plantDoy = Biomass.dayOfYear(new Date(plantIso + "T00:00:00Z"));
+    const daysSince = Math.round(
+      (new Date(fcstIso + "T00:00:00Z") - new Date(plantIso + "T00:00:00Z")) / 86400000
+    );
+
+    headline.innerHTML = `
+      <div class="biomass-headline-card" style="border-left-color:${color}">
+        <div class="biomass-headline-label">
+          Predicted biomass — ${escapeHtml(station.name)} (${escapeHtml(station.id)})
+        </div>
+        <div class="biomass-headline-value">
+          ${Math.round(last.biomass_pred).toLocaleString()}
+          <span class="biomass-headline-unit">lb/ac</span>
+        </div>
+        <div class="biomass-headline-class" style="color:${color}">
+          ${escapeHtml(klass)} risk bucket
+        </div>
+      </div>`;
+
+    const NEUTRAL = "#34495e";
+    metrics.innerHTML =
+      tile(NEUTRAL, "Plant DOY", plantDoy) +
+      tile(NEUTRAL, "Days since planting", daysSince) +
+      tile(NEUTRAL, "Cumulative GDD (°C)", Math.round(last.gdd_total).toLocaleString()) +
+      tile(NEUTRAL,
+        state.biomassUseReal ? "Fall precip (mm)" : "Fall precip — fallback (mm)",
+        Number(last.precip_total_mm).toFixed(1)
+      );
+
+    daily.innerHTML = renderDailyTable(rows);
+    raw.innerHTML = renderRawWeatherTable(series, 50);
+    caption.textContent =
+      `Last observed: ${last.date}  ·  source: ${source}  ·  loaded ${nowStamp()}`;
+    status.innerHTML =
+      `<span class="success-text">Computed ${rows.length} day(s) for ${escapeHtml(stationId)}.</span>`;
+  }
+
+  function tile(color, label, value) {
+    return `
+      <div class="metric-tile">
+        <div class="metric-label" style="color:${color}">${escapeHtml(label)}</div>
+        <div class="metric-value">${escapeHtml(value)}</div>
+      </div>`;
+  }
+
+  function renderDailyTable(rows) {
+    const head = `
+      <thead><tr>
+        <th>Date</th><th>Tavg (°F)</th><th>Tavg (°C)</th>
+        <th>GDD/day</th><th>Cum. GDD</th>
+        <th>Precip (in)</th><th>Cum. precip (mm)</th>
+        <th>Biomass (lb/ac)</th>
+      </tr></thead>`;
+    const body = rows.map((r) => `
+      <tr>
+        <td>${escapeHtml(r.date)}</td>
+        <td>${r.tavg_f == null ? "—" : r.tavg_f}</td>
+        <td>${r.tavg_c == null ? "—" : r.tavg_c}</td>
+        <td>${r.gdd_day}</td>
+        <td>${r.gdd_total}</td>
+        <td>${r.precip_in == null ? "—" : r.precip_in}</td>
+        <td>${r.precip_total_mm}</td>
+        <td>${Math.round(r.biomass_pred).toLocaleString()}</td>
+      </tr>`).join("");
+    return head + `<tbody>${body}</tbody>`;
+  }
+
+  function renderRawWeatherTable(series, limit) {
+    if (!series || !series.tavg_f) return "";
+    const n = Math.min(series.tavg_f.length, limit);
+    const startD = new Date(series.start + "T00:00:00Z");
+    const head = `
+      <thead><tr>
+        <th>Date</th><th>tavg_f</th><th>precip_in</th>
+      </tr></thead>`;
+    const rows = [];
+    for (let i = 0; i < n; i++) {
+      const d = new Date(startD.getTime() + i * 86400000).toISOString().slice(0, 10);
+      const t = series.tavg_f[i];
+      const p = series.precip_in ? series.precip_in[i] : null;
+      rows.push(`<tr><td>${d}</td><td>${t == null ? "—" : t}</td><td>${p == null ? "—" : p}</td></tr>`);
+    }
+    return head + `<tbody>${rows.join("")}</tbody>`;
+  }
+
+  function nowStamp() {
+    const d = new Date();
+    const pad = (n) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ` +
+           `${pad(d.getHours())}:${pad(d.getMinutes())}`;
   }
 
   async function runBiomass({ silent } = {}) {
@@ -246,6 +458,7 @@
         `stations (planting ${escapeHtml(plant)} → forecast ${escapeHtml(fcst)}).</span>`;
 
       rerender();
+      renderBiomassDetail();
     } catch (err) {
       console.warn("Live biomass failed, falling back to client replay:", err);
       replayBiomassClient();
@@ -564,18 +777,25 @@
     plant.min = "2023-01-01";
     plant.max = state.forecastDate;
     plant.addEventListener("change", (e) => {
-      if (e.target.value) state.biomassPlantDate = e.target.value;
+      if (e.target.value) {
+        state.biomassPlantDate = e.target.value;
+        if (state.currentModel && state.currentModel.type === "biomass") renderBiomassDetail();
+      }
     });
 
     const precip = document.getElementById("fall-precip-input");
     precip.value = state.biomassPrecip;
     precip.addEventListener("change", (e) => {
       const v = Number(e.target.value);
-      if (Number.isFinite(v) && v >= 0) state.biomassPrecip = v;
+      if (Number.isFinite(v) && v >= 0) {
+        state.biomassPrecip = v;
+        if (state.currentModel && state.currentModel.type === "biomass") renderBiomassDetail();
+      }
     });
 
     document.getElementById("use-real-precip").addEventListener("change", (e) => {
       state.biomassUseReal = !!e.target.checked;
+      if (state.currentModel && state.currentModel.type === "biomass") renderBiomassDetail();
     });
 
     document.getElementById("biomass-run-btn").addEventListener("click", () => {

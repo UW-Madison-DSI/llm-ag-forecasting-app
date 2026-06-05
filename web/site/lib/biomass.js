@@ -94,6 +94,77 @@
     return { biomass, gddTotal: cumulGdd, precipTotalMm: cumulPrecipMm };
   }
 
+  /**
+   * Per-day biomass breakdown — same accumulation as
+   * ``biomass_timeseries`` in features/crereal_rye_biomass.py.
+   *
+   * Returns an array of {date, tavg_f, tavg_c, gdd_day, gdd_total,
+   * precip_in, precip_mm, precip_total_mm, biomass_pred} covering every
+   * day from planting → forecast (inclusive). When ``series.precip_in``
+   * is missing or all-zero AND ``fallbackPrecipMm`` is set, that flat
+   * value is used for the model's precip term (matching the Streamlit
+   * single-station tab).
+   *
+   * @param {{start:string, tavg_f:number[], precip_in:number[]}} series
+   * @param {string} plantDateIso "YYYY-MM-DD"
+   * @param {string} forecastDateIso "YYYY-MM-DD"
+   * @param {number|null} fallbackPrecipMm
+   * @returns {Array} per-day rows; empty array on bad inputs.
+   */
+  function biomassDailyRowsFromSeries(series, plantDateIso, forecastDateIso, fallbackPrecipMm) {
+    if (!series || !series.tavg_f || !series.start) return [];
+    const startD = new Date(series.start + "T00:00:00Z");
+    const plantD = new Date(plantDateIso + "T00:00:00Z");
+    const fcstD  = new Date(forecastDateIso + "T00:00:00Z");
+    const dayMs = 86400000;
+
+    const plantIdx = Math.max(0, Math.round((plantD - startD) / dayMs));
+    const fcstIdx  = Math.min(series.tavg_f.length - 1, Math.round((fcstD - startD) / dayMs));
+    if (plantIdx > fcstIdx) return [];
+
+    const hasRealPrecip = !!(series.precip_in
+      && series.precip_in.some((v) => v != null && v > 0));
+    const plantDoy = dayOfYear(plantD);
+
+    const rows = [];
+    let cumulGdd = 0;
+    let cumulPrecipMm = 0;
+    for (let i = plantIdx; i <= fcstIdx; i++) {
+      const dayTs = new Date(startD.getTime() + i * dayMs);
+      const dateIso = dayTs.toISOString().slice(0, 10);
+      const tavgF = series.tavg_f[i];
+      const tavgC = tavgF == null ? null : fahrenheitToCelsius(tavgF);
+      const gddDay = tavgC == null ? 0 : Math.max(0, tavgC);
+      cumulGdd += gddDay;
+
+      const precipIn = series.precip_in ? series.precip_in[i] : null;
+      const precipMm = precipIn == null ? 0 : inchesToMm(precipIn);
+      if (hasRealPrecip) {
+        cumulPrecipMm += precipMm;
+      }
+
+      const precipForModel = hasRealPrecip
+        ? cumulPrecipMm
+        : (fallbackPrecipMm != null ? fallbackPrecipMm : 0);
+      const biomass = predictRyeBiomass(plantDoy, precipForModel, cumulGdd);
+
+      rows.push({
+        date: dateIso,
+        tavg_f: tavgF == null ? null : Number(tavgF.toFixed(2)),
+        tavg_c: tavgC == null ? null : Number(tavgC.toFixed(2)),
+        gdd_day: Number(gddDay.toFixed(2)),
+        gdd_total: Number(cumulGdd.toFixed(2)),
+        precip_in: precipIn == null ? null : Number(precipIn.toFixed(3)),
+        precip_mm: Number(precipMm.toFixed(2)),
+        precip_total_mm: Number(
+          (hasRealPrecip ? cumulPrecipMm : (fallbackPrecipMm || 0)).toFixed(2)
+        ),
+        biomass_pred: Number(biomass.toFixed(2)),
+      });
+    }
+    return rows;
+  }
+
   root.Biomass = {
     predictRyeBiomass,
     fahrenheitToCelsius,
@@ -101,6 +172,7 @@
     dailyGddCelsius,
     classifyBiomass,
     biomassFromWeatherSeries,
+    biomassDailyRowsFromSeries,
     dayOfYear,
     COEF,
   };

@@ -151,6 +151,41 @@
           <table id="station-table"></table>
         </div>
       </details>
+
+      <!-- Biomass-only single-station debug section. Mirrors the
+           Streamlit Cereal Rye Biomass tab's per-station drill-down.
+           Toggled by app.js when "Cereal Rye Biomass" is the active model. -->
+      <section class="biomass-detail" id="biomass-detail" hidden>
+        <h2 class="biomass-detail-h">Single-station detail</h2>
+        <div class="panel-controls">
+          <label class="control">
+            <span>Station</span>
+            <select id="biomass-detail-station"></select>
+          </label>
+          <div class="control-meta">
+            <div id="biomass-detail-status" class="muted"></div>
+          </div>
+        </div>
+
+        <div id="biomass-headline" class="biomass-headline"></div>
+        <section id="biomass-detail-metrics" class="metrics"></section>
+
+        <details class="table-wrapper">
+          <summary>Daily breakdown</summary>
+          <div class="table-scroll">
+            <table id="biomass-daily-table"></table>
+          </div>
+        </details>
+
+        <details class="table-wrapper">
+          <summary>Raw weather (long-format, head 50)</summary>
+          <div class="table-scroll">
+            <table id="biomass-raw-table"></table>
+          </div>
+        </details>
+
+        <p id="biomass-detail-caption" class="muted small"></p>
+      </section>
     </section>
 
     <!-- =================== TAB: Risk Trends =================== -->
