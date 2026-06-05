@@ -28,6 +28,22 @@
   };
   const WM_GROUP_LABEL = "White Mold (soybean)";
 
+  // Mirror of features/config.py:CLASS_COLORS. Used as a fallback when a
+  // bundled snapshot omits class_colors — e.g. one built by an older
+  // build_site.py, or a degraded build where the model_info/weather
+  // upstreams were unreachable. Without this default the renderers index
+  // an undefined palette and throw, blanking the whole page (the exact
+  // "works locally, blank in deployment" failure: the prod snapshot was
+  // missing class_colors while the local one had it).
+  const DEFAULT_CLASS_COLORS = {
+    "Low":      "#009E73",
+    "Moderate": "#E69F00",
+    "High":     "#D55E00",
+    "Inactive": "#999999",
+    "No Risk":  "#009E73",
+    "Unknown":  "#CCCCCC",
+  };
+
   // Mirror of features/config.py:WEATHER_FIELDS. Keys are wiscopy field
   // names (passed straight to /proxy/weather); values are human-readable
   // labels shown in the selectbox + chart title. Keep keys verbatim.
@@ -80,6 +96,16 @@
          </div>`;
       return;
     }
+
+    // Defensive defaults — a snapshot built by an older build_site.py (or a
+    // degraded build where wiscopy / the model_info API was unreachable) can
+    // omit these keys. The map/metrics/table renderers index class_colors
+    // directly, so a missing palette would throw and blank the whole page.
+    // Default every optional key so a partial snapshot degrades gracefully.
+    state.snapshot.class_colors = state.snapshot.class_colors || DEFAULT_CLASS_COLORS;
+    state.snapshot.model_info = state.snapshot.model_info || {};
+    state.snapshot.weather = state.snapshot.weather || {};
+    state.snapshot.available_dates = state.snapshot.available_dates || [];
 
     state.forecastDate = todayIso();
     state.plantDate = state.snapshot.plant_date || defaultPlantDate(state.forecastDate);
