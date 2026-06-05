@@ -18,11 +18,16 @@ from features.config import (
     BIOMASS_THRESHOLDS,
     CLASS_COLORS,
 )
-from features.crereal_rye_biomass import biomass_timeseries, classify_biomass
+from features.crereal_rye_biomass import (
+    biomass_per_station,
+    biomass_timeseries,
+    classify_biomass,
+)
 from features.data import flatten_features
 from features.map_view import build_map
 from features.weather import fetch_weather_data, wiscopy_available
 
+from streamlit_app.tabs.forecast import show_metrics
 from streamlit_app.ui import NEUTRAL_TILE_COLOR, color_tile
 
 
@@ -121,7 +126,16 @@ def render_biomass_forecast_tab(selected_date: date, model_name: str) -> None:
                     st.success(f"Probe OK — {len(probe):,} rows. Columns: {list(probe.columns)}")
                     st.dataframe(probe.head(20), use_container_width=True)
 
-    # 4. Fetch weather for the chosen station.
+    # 4. All-station biomass map. One bulk wiscopy fetch (cached 1 h) drives
+    #    a per-station prediction, classified into Low/Moderate/High using
+    #    the same thresholds as the single-station headline below. Stations
+    #    where wiscopy returned no data show up as "Inactive" (gray) so the
+    #    map roster always matches the disease-forecast tabs.
+    _render_all_stations_map(stations_df, plant_date, selected_date, use_real_precip, fall_precip_mm)
+
+    st.markdown("### Single-station detail")
+
+    # 5. Fetch weather for the chosen station.
     chosen = label_to_row[station_label]
     wisc_id = str(chosen["station_id"]).upper()
     fields = (BIOMASS_TEMP_FIELD, BIOMASS_PRECIP_FIELD) if use_real_precip else (BIOMASS_TEMP_FIELD,)
@@ -142,7 +156,7 @@ def render_biomass_forecast_tab(selected_date: date, model_name: str) -> None:
         st.warning("No weather observations returned for this station/date range.")
         return
 
-    # 5. Run the full pipeline and surface every intermediate value.
+    # 6. Run the full pipeline and surface every intermediate value.
     try:
         ts = biomass_timeseries(
             weather, plant_date,
@@ -182,7 +196,7 @@ def render_biomass_forecast_tab(selected_date: date, model_name: str) -> None:
     )
     bucket_color = CLASS_COLORS.get(risk_class, NEUTRAL_TILE_COLOR)
 
-    # 6. Headline result + inputs panel.
+    # 7. Headline result + inputs panel.
     st.markdown(
         f"""
         <div style="padding: 18px 22px; border-radius: 12px;
@@ -224,13 +238,6 @@ def render_biomass_forecast_tab(selected_date: date, model_name: str) -> None:
         f"{precip_total:,.1f}",
     )
 
-    # 7. Single-station map so it visually anchors the prediction.
-    map_row = stations_df[stations_df["station_id"] == chosen["station_id"]].copy()
-    map_row["risk_class"] = risk_class
-    map_row["risk_value"] = biomass_value
-    map_row["risk_display"] = f"{biomass_value:,.0f} lb/ac"
-    st.plotly_chart(build_map(map_row, "Cereal Rye Biomass"), use_container_width=True)
-
     # 8. Daily detail (handy for spotting bad GDD / precip days).
     with st.expander("Daily breakdown", expanded=False):
         st.dataframe(ts, use_container_width=True)
@@ -241,3 +248,76 @@ def render_biomass_forecast_tab(selected_date: date, model_name: str) -> None:
 
     st.caption(f"Last observed: {pd.Timestamp(last_obs).date()}  ·  "
                f"loaded {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+
+
+def _render_all_stations_map(
+    stations_df: pd.DataFrame,
+    plant_date: date,
+    forecast_date: date,
+    use_real_precip: bool,
+    fall_precip_mm: float,
+) -> None:
+    """Run the biomass model for every station and render the state-wide map.
+
+    Stations with no usable wiscopy data fall through to "Inactive" so the
+    roster on the map always matches the disease tabs.
+    """
+    if plant_date >= forecast_date:
+        return
+
+    all_ids = tuple(sorted({str(s).upper() for s in stations_df["station_id"]}))
+    fields = (BIOMASS_TEMP_FIELD, BIOMASS_PRECIP_FIELD) if use_real_precip else (BIOMASS_TEMP_FIELD,)
+
+    with st.spinner(f"Computing biomass for {len(all_ids)} stations…"):
+        try:
+            bulk_weather = fetch_weather_data(
+                all_ids, plant_date.isoformat(), forecast_date.isoformat(), fields,
+            )
+        except Exception as err:  # noqa: BLE001
+            st.warning(
+                f"Could not fetch bulk weather for the state map — "
+                f"**{type(err).__name__}**: {str(err).strip() or repr(err)}"
+            )
+            bulk_weather = None
+
+        per_station = pd.DataFrame()
+        if bulk_weather is not None and not bulk_weather.empty:
+            try:
+                per_station = biomass_per_station(
+                    bulk_weather, plant_date,
+                    temp_field=BIOMASS_TEMP_FIELD,
+                    precip_field=BIOMASS_PRECIP_FIELD if use_real_precip else None,
+                    fall_precip_mm=None if use_real_precip else fall_precip_mm,
+                )
+            except Exception as err:  # noqa: BLE001
+                st.warning(
+                    f"Could not compute per-station biomass — "
+                    f"**{type(err).__name__}**: {str(err).strip() or repr(err)}"
+                )
+
+    map_df = stations_df.copy()
+    map_df["station_id_upper"] = map_df["station_id"].astype(str).str.upper()
+
+    if not per_station.empty:
+        per_station = per_station.copy()
+        per_station["station_id_upper"] = per_station["station_id"].astype(str).str.upper()
+        per_station = per_station.drop(columns=["station_id"])
+        map_df = map_df.merge(per_station, on="station_id_upper", how="left")
+    else:
+        map_df["biomass_pred"] = float("nan")
+
+    low_max = BIOMASS_THRESHOLDS["low_max"]
+    high_min = BIOMASS_THRESHOLDS["high_min"]
+    map_df["risk_class"] = [
+        classify_biomass(v, low_max, high_min) if pd.notna(v) else "Inactive"
+        for v in map_df["biomass_pred"]
+    ]
+    map_df["risk_value"] = map_df["biomass_pred"]
+    map_df["risk_display"] = [
+        f"{v:,.0f} lb/ac" if pd.notna(v) else "—"
+        for v in map_df["biomass_pred"]
+    ]
+    map_df = map_df.drop(columns=["station_id_upper"])
+
+    show_metrics(map_df)
+    st.plotly_chart(build_map(map_df, "Cereal Rye Biomass"), use_container_width=True)
