@@ -32,3 +32,8 @@ netlify.toml
 
 .env
 .env.local
+.venv/
+venv/
+__pycache__/
+*.pyc
+rsconnect-python/ag_forecasting_app_v3.json

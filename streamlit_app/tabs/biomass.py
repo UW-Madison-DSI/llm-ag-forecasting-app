@@ -2,11 +2,18 @@
 
 from __future__ import annotations
 
+import json
 from datetime import date, datetime
+from pathlib import Path
 
 import pandas as pd
 import requests
 import streamlit as st
+
+# Precomputed daily snapshot produced by web/build_site.py (runs once per
+# day via the Docker rebuild cron). The Streamlit app reads from this
+# snapshot first so the all-stations biomass map renders instantly.
+_SNAPSHOT_PATH = Path(__file__).resolve().parents[2] / "web" / "site" / "data" / "latest.json"
 
 from features.api import fetch_forecast
 from features.config import (
@@ -250,59 +257,114 @@ def render_biomass_forecast_tab(selected_date: date, model_name: str) -> None:
                f"loaded {datetime.now().strftime('%Y-%m-%d %H:%M')}")
 
 
-def _render_all_stations_map(
-    stations_df: pd.DataFrame,
-    plant_date: date,
-    forecast_date: date,
+def _read_daily_snapshot() -> dict | None:
+    """Load web/site/data/latest.json, or None if it doesn't exist / is bad."""
+    if not _SNAPSHOT_PATH.is_file():
+        return None
+    try:
+        return json.loads(_SNAPSHOT_PATH.read_text())
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+def _per_station_from_snapshot(
+    snapshot: dict, forecast_date_iso: str, plant_date_iso: str
+) -> pd.DataFrame | None:
+    """Return the precomputed per-station biomass frame if the snapshot matches.
+
+    Match conditions: same forecasting_date AND same plant_date as the
+    snapshot was built with. Returns None when the snapshot was built for
+    a different (date, planting) combo — caller falls back to live compute.
+    """
+    if snapshot.get("forecasting_date") != forecast_date_iso:
+        return None
+    if snapshot.get("plant_date") != plant_date_iso:
+        return None
+    rows = []
+    for s in snapshot.get("stations", []):
+        bio = s.get("biomass")
+        if bio is None:
+            continue
+        rows.append({
+            "station_id": str(s["id"]),
+            "biomass_pred": float(bio),
+            "gdd_total": float(s.get("biomass_gdd_total") or 0.0),
+            "precip_total_mm": float(s.get("biomass_precip_total_mm") or 0.0),
+        })
+    return pd.DataFrame(rows) if rows else None
+
+
+@st.cache_data(
+    ttl=86_400,
+    persist="disk",
+    show_spinner="Loading biomass for all stations…",
+)
+def _all_station_biomass_map_df(
+    forecast_date_iso: str,
+    plant_date_iso: str,
     use_real_precip: bool,
     fall_precip_mm: float,
-) -> None:
-    """Run the biomass model for every station and render the state-wide map.
+) -> pd.DataFrame:
+    """Build the state-wide biomass map_df. Cached on disk for 24 h.
 
-    Stations with no usable wiscopy data fall through to "Inactive" so the
-    roster on the map always matches the disease tabs.
+    Resolution order:
+        1. **Precomputed daily snapshot** at ``web/site/data/latest.json``.
+           Built once a day by ``web/build_site.py`` (runs at Docker build
+           time). Used when the snapshot's ``forecasting_date`` and
+           ``plant_date`` match the request AND ``use_real_precip`` is True
+           (the snapshot is always built with real precip).
+        2. **Live wiscopy compute** otherwise — same path as before.
+
+    Returns a DataFrame ready for ``build_map``: station metadata plus
+    ``risk_class`` / ``risk_value`` / ``risk_display``.
+
+    Raises:
+        Any exception from the forecast API or wiscopy — we deliberately
+        do NOT catch them here so a transient failure isn't cached. The
+        renderer catches and falls back to an all-Inactive map.
     """
-    if plant_date >= forecast_date:
-        return
+    payload = fetch_forecast(forecast_date_iso, 1)
+    stations_df = flatten_features(payload).drop_duplicates(subset=["station_id"]).copy()
 
+    # 1. Try the precomputed snapshot first.
+    if use_real_precip:
+        snapshot = _read_daily_snapshot()
+        if snapshot is not None:
+            per_station = _per_station_from_snapshot(snapshot, forecast_date_iso, plant_date_iso)
+            if per_station is not None and not per_station.empty:
+                return _merge_biomass_into_map_df(stations_df, per_station)
+
+    # 2. Fall back to live wiscopy compute.
     all_ids = tuple(sorted({str(s).upper() for s in stations_df["station_id"]}))
     fields = (BIOMASS_TEMP_FIELD, BIOMASS_PRECIP_FIELD) if use_real_precip else (BIOMASS_TEMP_FIELD,)
 
-    with st.spinner(f"Computing biomass for {len(all_ids)} stations…"):
-        try:
-            bulk_weather = fetch_weather_data(
-                all_ids, plant_date.isoformat(), forecast_date.isoformat(), fields,
-            )
-        except Exception as err:  # noqa: BLE001
-            st.warning(
-                f"Could not fetch bulk weather for the state map — "
-                f"**{type(err).__name__}**: {str(err).strip() or repr(err)}"
-            )
-            bulk_weather = None
+    bulk_weather = fetch_weather_data(all_ids, plant_date_iso, forecast_date_iso, fields)
 
-        per_station = pd.DataFrame()
-        if bulk_weather is not None and not bulk_weather.empty:
-            try:
-                per_station = biomass_per_station(
-                    bulk_weather, plant_date,
-                    temp_field=BIOMASS_TEMP_FIELD,
-                    precip_field=BIOMASS_PRECIP_FIELD if use_real_precip else None,
-                    fall_precip_mm=None if use_real_precip else fall_precip_mm,
-                )
-            except Exception as err:  # noqa: BLE001
-                st.warning(
-                    f"Could not compute per-station biomass — "
-                    f"**{type(err).__name__}**: {str(err).strip() or repr(err)}"
-                )
+    plant_date = pd.Timestamp(plant_date_iso).date()
+    per_station = pd.DataFrame()
+    if bulk_weather is not None and not bulk_weather.empty:
+        per_station = biomass_per_station(
+            bulk_weather, plant_date,
+            temp_field=BIOMASS_TEMP_FIELD,
+            precip_field=BIOMASS_PRECIP_FIELD if use_real_precip else None,
+            fall_precip_mm=None if use_real_precip else fall_precip_mm,
+        )
 
+    return _merge_biomass_into_map_df(stations_df, per_station)
+
+
+def _merge_biomass_into_map_df(
+    stations_df: pd.DataFrame, per_station: pd.DataFrame
+) -> pd.DataFrame:
+    """Attach biomass predictions + risk_class onto the station roster."""
     map_df = stations_df.copy()
     map_df["station_id_upper"] = map_df["station_id"].astype(str).str.upper()
 
-    if not per_station.empty:
-        per_station = per_station.copy()
-        per_station["station_id_upper"] = per_station["station_id"].astype(str).str.upper()
-        per_station = per_station.drop(columns=["station_id"])
-        map_df = map_df.merge(per_station, on="station_id_upper", how="left")
+    if per_station is not None and not per_station.empty:
+        ps = per_station.copy()
+        ps["station_id_upper"] = ps["station_id"].astype(str).str.upper()
+        ps = ps.drop(columns=["station_id"])
+        map_df = map_df.merge(ps, on="station_id_upper", how="left")
     else:
         map_df["biomass_pred"] = float("nan")
 
@@ -317,7 +379,38 @@ def _render_all_stations_map(
         f"{v:,.0f} lb/ac" if pd.notna(v) else "—"
         for v in map_df["biomass_pred"]
     ]
-    map_df = map_df.drop(columns=["station_id_upper"])
+    return map_df.drop(columns=["station_id_upper"])
+
+
+def _render_all_stations_map(
+    stations_df: pd.DataFrame,
+    plant_date: date,
+    forecast_date: date,
+    use_real_precip: bool,
+    fall_precip_mm: float,
+) -> None:
+    """Render the state-wide biomass map. Result is disk-cached for 24 h.
+
+    On a wiscopy / forecast-API error we don't cache; we fall back to an
+    all-Inactive map so the layout stays intact and the user sees a
+    warning explaining the situation.
+    """
+    if plant_date >= forecast_date:
+        return
+
+    try:
+        map_df = _all_station_biomass_map_df(
+            forecast_date.isoformat(),
+            plant_date.isoformat(),
+            bool(use_real_precip),
+            float(fall_precip_mm),
+        )
+    except Exception as err:  # noqa: BLE001
+        st.warning(
+            f"Could not compute state-wide biomass — "
+            f"**{type(err).__name__}**: {str(err).strip() or repr(err)}"
+        )
+        map_df = _merge_biomass_into_map_df(stations_df, pd.DataFrame())
 
     show_metrics(map_df)
     st.plotly_chart(build_map(map_df, "Cereal Rye Biomass"), use_container_width=True)
