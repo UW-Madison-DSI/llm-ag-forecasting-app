@@ -67,10 +67,12 @@ def render_print_context(selected_date, risk_days: int, disease_label: str) -> N
 
 
 def render_footer() -> None:
-    """Page footer: project info + a dedicated Acknowledgements section."""
-    st.markdown("---")
-    st.markdown(
-        f"""
+    """Page footer: project info + acknowledgements, tucked into a discrete
+    collapsible expander (like the disease "About this model" panel)."""
+    st.divider()
+    with st.expander("ℹ️ About, references & acknowledgements"):
+        st.markdown(
+            f"""
 <div style="font-size: 0.85rem; color: #6B7280; line-height: 1.6;">
 
   <!-- ---------- Project / data info ---------- -->
@@ -149,6 +151,6 @@ def render_footer() -> None:
     </ul>
   </div>
 </div>
-        """,
-        unsafe_allow_html=True,
-    )
+            """,
+            unsafe_allow_html=True,
+        )
